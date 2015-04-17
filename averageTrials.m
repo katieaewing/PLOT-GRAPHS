@@ -21,7 +21,8 @@ AllCombined=[];
 % VarNames={'GRF_FE', 'FLEX_EXT', 'FLEX_EXT_RAD', 'HAMS_MED', 'HAMS_LAT', 'REC_FEM', 'VAS_MED','VAS_INT', 'VAS_LAT', 'GAS_MED', 'GAS_LAT', 'SOL', 'GRF_TORQ'};
 %set up structure with THREE triabls for all tables
 
-for task=1:length(myTable)
+for task=[5 6]
+%     1:length(myTable)
     trial=myTable(task, 2:4);
     
             if trial==0
@@ -53,20 +54,32 @@ for task=1:length(myTable)
                 IDArray=readtable('IDfinal_BW.xls');
                 GRFArray=readtable('GRFfinal_BW.xls');
                 MFArray=readtable('MFfinal_BW.xls');
+                FlexArray=readtable('three_flexion_angles.xls');
+                
+                %also for maximums
+                MaxIKArray=readtable('maxIK_mag_time.xls');
+                MaxIDArray=readtable('maxID_BW_mag_time.xls');
+                MaxGRFArray=readtable('maxGRF_BW_mag_time.xls');
+                MaxMFArray=readtable('maxMF_BW_Mag_time.xls');
+   
 
                 AllCombined=setfield(AllCombined,{i},'FE', FEArray);
                 AllCombined=setfield(AllCombined,{i},'IK', IKArray);
                 AllCombined=setfield(AllCombined,{i},'ID_BW', IDArray);
                 AllCombined=setfield(AllCombined,{i},'GRF_BW', GRFArray);
                 AllCombined=setfield(AllCombined,{i},'MF_BW', MFArray);
-
+                AllCombined=setfield(AllCombined,{i},'FLEX', FlexArray);
+                AllCombined=setfield(AllCombined,{i},'MaxIK', MaxIKArray);
+                AllCombined=setfield(AllCombined,{i},'MaxID', MaxIDArray);
+                AllCombined=setfield(AllCombined,{i},'MaxGRF', MaxGRFArray);
+                AllCombined=setfield(AllCombined,{i},'MaxMF', MaxMFArray);
 
                     end
 
                 end
 
             cd ..\..\AVERAGES
-            fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW'};
+            fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'MaxIK', 'MaxID','MaxGRF','MaxMF'};
 
             for a=1:length(fieldNames)
         %         cd(DirTask);

@@ -1,4 +1,4 @@
-function [KneeJoint, indIniIK, indMaxIK, indGRF, IniTime, EndTime, vGRF, whichLeg, GRFleg] = getLandingPhase(subjectID, outGRF, inputIK, task)
+function [KneeJoint, indIniIK, indMaxIK, indGRF, IniTime, EndTime, vGRF, whichLeg] = getLandingPhase(subjectID, outGRF, inputIK, task)
 
 leg = {'right'; 'right'; 'right' ; 'right'; 'right'; 'left' ; 'right'  ; 'right' ; 'left' ; 'right' ; 'right'  ; 'right' ; 'right' ; 'right' ; 'right'};
 
@@ -11,12 +11,10 @@ switch whichLeg
             indGRF=find(outGRF.data(:,9)>0); %finds the indices corresponding to vGRFs greater than 0
             KneeJoint{1}=18; %left knee joint
             vGRF=outGRF.data(:, 9);
-            GRFleg=9;
         else
             indGRF=find(outGRF.data(:,3)>0);  %finds the indices corresponding to vGRFs greater than 0
             KneeJoint{1}=11; %right knee joint
             vGRF=outGRF.data(:, 3);
-            GRFleg=3;
         end
         
         
@@ -26,12 +24,10 @@ switch whichLeg
             indGRF=find(outGRF.data(:,3)>0);  %finds the indices corresponding to vGRFs greater than 0
             KneeJoint{1}=11; %right knee joint
             vGRF=outGRF.data(:, 3);
-            GRFleg=3;
         else
             indGRF=find(outGRF.data(:,9)>0); %finds the indices corresponding to vGRFs greater than 0
             KneeJoint{1}=18; %left knee joint
             vGRF=outGRF.data(:, 9);
-            GRFleg=9;
         end
 end
 
@@ -54,6 +50,7 @@ end
     maxKFtime=inputIK.time(indMaxIK); %maxKFtime is time of max knee flexion angle
     EndTime=maxKFtime;
    
+    
    
 end
 

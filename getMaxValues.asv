@@ -1,5 +1,5 @@
-function [maxGRF_BW, stancePercentGRF, IKfinal_max2, stancePercentIK2, IDfinal_BW_max2, stancePercentID2, MFfinal_BW_max2, stancePercentMF2] ...
-    = getMaxValues(stance, GRFfinal_BW, IKfinal, IDfinal_BW, MFfinal_BW, outGRF, outIK, outMF, outID, GRFleg, KneeJoint)
+function [maxGRF_BW, stancePercentGRF, IKfinal_max2, stancePercentIK2, IDfinal_BW_max2, stancePercentID2, MFfinal_BW_max2, stancePercentMF2, ICFlex] ...
+    = getMaxValues(stance, GRFfinal_BW, IKfinal, IDfinal_BW, MFfinal_BW, outGRF, outIK, outMF, outID, GRFleg)
 
 % Magnitude of max GRF
 GRFfinal_matrix=table2array(GRFfinal_BW);
@@ -92,9 +92,8 @@ FlexIC=FLEX_EXT(1);
 %The maximum flexion angle 
 FlexMax=FLEX_EXT(200);
 
-FlexionAngles=[FlexIC, FlexGRF, FlexMax];
-FlexionAngles=array2table(FlexionAngles,'VariableNames',{'FlexIC' 'FlexGRF' 'FlexMax'});
-writetable(FlexionAngles, 'three_flexion_angles.xls');
+FlexionAngles=[FlexIC, FlexGRF, FlexMax]
+FlexionAngles=array2table(FlexionAngles,'VariableNames',['FlexIC'
 
 % writetable(ICFlex, 'ICFlex.xls');
 

@@ -7,7 +7,8 @@ function averageSubjects(whichSubjects, brace)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 
-for task=1:length(task_label) %average subjects one task at a time
+for task=[5 6]
+%     1:length(task_label) %average subjects one task at a time
 
        AllSubjects=[]; %create empty array
        i=1;
@@ -20,12 +21,12 @@ for task=1:length(task_label) %average subjects one task at a time
                 case 1
                     DirAvg=[Dir,'\NO BRACE\AVERAGES']; %This folder is already created
                     condStr='_';
-                   
+                    DirSubAvg='C:\MyOpenSim4\SUBJECT_AVERAGES';                
 
                 case 2
                     DirAvg=[Dir,'\BRACE\AVERAGES']; %This folder is already created
                     condStr='_Brace_';
-                  
+                    DirSubAvg='C:\MyOpenSim4\SUBJECT_AVERAGES_BRACE'; 
 
             end
 
@@ -34,11 +35,19 @@ for task=1:length(task_label) %average subjects one task at a time
         %create file names of averaged trials (correspond to tables created
         %from averageTrials).
         
-        SubAvgFEFile=([task_label{task} '_FE.xls']);
-        SubAvgIKFile=([task_label{task} '_IK.xls']);
-        SubAvgID_BWFile=([task_label{task} '_ID_BW.xls']);
-        SubAvgGRF_BWFile=([task_label{task} '_GRF_BW.xls']);
-        SubAvgMF_BWFile=([task_label{task} '_MF_BW.xls']);     
+        SubAvgFEFile=([task_label{task} condStr 'FE.xls']);
+        SubAvgIKFile=([task_label{task} condStr 'IK.xls']);
+        SubAvgID_BWFile=([task_label{task} condStr 'ID_BW.xls']);
+        SubAvgGRF_BWFile=([task_label{task} condStr 'GRF_BW.xls']);
+        SubAvgMF_BWFile=([task_label{task} condStr 'MF_BW.xls']);
+        SubAvgFlexFile=([task_label{task} condStr 'FLEX.xls']);
+        
+        % and for maximum value tables
+        SubAvgMaxGRFFile=([task_label{task} condStr 'MaxGRF.xls']);
+        SubAvgMaxIDFile=([task_label{task} condStr 'MaxID.xls']);
+        SubAvgMaxIKFile=([task_label{task} condStr 'MaxIK.xls']);
+        SubAvgMaxMFFile=([task_label{task} condStr 'MaxMF.xls']);
+        
          
         %need to check if this task exists for this subject
         if exist(SubAvgFEFile)==2 %file does exist. FE can be generalized to all files.
@@ -48,6 +57,13 @@ for task=1:length(task_label) %average subjects one task at a time
                 SubAvgID_BW=readtable(SubAvgID_BWFile);
                 SubAvgGRF_BW=readtable(SubAvgGRF_BWFile);
                 SubAvgMF_BW=readtable(SubAvgMF_BWFile);
+                SubAvgFlex=readtable(SubAvgFlexFile);
+                
+                SubAvgMaxGRF=readtable(SubAvgMaxGRFFile);
+                SubAvgMaxID=readtable(SubAvgMaxIDFile);
+                SubAvgMaxIK=readtable(SubAvgMaxIKFile);
+                SubAvgMaxMF=readtable(SubAvgMaxMFFile);
+                
                 
                 %create structure with subject data. 
                 AllSubjects=setfield(AllSubjects,{i}, 'FE', SubAvgFE);
@@ -55,6 +71,13 @@ for task=1:length(task_label) %average subjects one task at a time
                 AllSubjects=setfield(AllSubjects,{i}, 'ID_BW', SubAvgID_BW);
                 AllSubjects=setfield(AllSubjects,{i}, 'GRF_BW', SubAvgGRF_BW);
                 AllSubjects=setfield(AllSubjects,{i}, 'MF_BW', SubAvgMF_BW);
+                AllSubjects=setfield(AllSubjects,{i}, 'FLEX', SubAvgFlex);
+                
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxGRF', SubAvgMaxGRF);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxID', SubAvgMaxID);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxIK', SubAvgMaxIK);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxMF', SubAvgMaxMF);
+                
                 
                 i= i+1;
         else
@@ -63,6 +86,13 @@ for task=1:length(task_label) %average subjects one task at a time
                 AllSubjects=setfield(AllSubjects,{i}, 'ID_BW', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'GRF_BW', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'MF_BW', []);
+                AllSubjects=setfield(AllSubjects,{i}, 'FLEX', []);
+                
+                llSubjects=setfield(AllSubjects,{i}, 'MaxGRF', []);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxID', []);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxIK', []);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxMF', []);
+                
                 i = i+1;
             %if files do NOT exist for this task and this subject,
             %AllSubjects will remain blank.
@@ -70,8 +100,8 @@ for task=1:length(task_label) %average subjects one task at a time
         end
         
         %clear files for next subject
-        clearvars SubAvgFEFile SubAvgIKFile SubAvgID_BWFile SubAvgGRF_BWFile SubAvgMF_BWFile
-        
+        clearvars SubAvgFEFile SubAvgIKFile SubAvgID_BWFile SubAvgGRF_BWFile SubAvgMF_BWFile SubAvgFlexFile 
+        clearvars SubAvgMaxGRFFile SubAvgMaxIDFile SubAvgMaxIKFile SubAvgMaxMFFile
        
        end %end of subject while loop
        
@@ -81,10 +111,10 @@ for task=1:length(task_label) %average subjects one task at a time
        %blank.
        
           
-cd ..\..\..\SUBJECT_AVERAGES;
+cd(DirSubAvg);
 cd(char(task_label(task)));
 
-fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW'};
+fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF'};
 
 % if isempty(AllSubjects)==1 %if NONE of the subjects performed a task, AllSubjects will be blank
 %                            %and loop will move to next task. e.g. Sub 1 and
@@ -135,12 +165,17 @@ fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW'};
                 
              Temp=table2array(Temp);
              SubjectAverage(:,b) = mean(Temp, 2);
+             SubjectStdDev(:,b)=std(Temp,0,2);
 
         end
 
         SubjectAverageTable=array2table(SubjectAverage, 'VariableNames',vars);
         writetable(SubjectAverageTable,['SubAvg_' task_label{task} condStr fieldNames{a} '.xls']);
         clearvars SubjectAverage  SubjectAverageTable; %clears variables for next task
+        
+        SubjectStdDevTable=array2table(SubjectStdDev, 'VariableNames',vars);
+        writetable(SubjectStdDevTable,['SubStd_' task_label{task} condStr fieldNames{a} '.xls']);
+        clearvars SubjectStdDev  SubjectStdDevTable; %clears variables for next task
 
     end
     

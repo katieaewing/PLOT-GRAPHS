@@ -2,7 +2,6 @@
 function [DirTask,IKpath, GRFpath,IDpath,MFpath]=setPaths(freq,subjectID,brace,task, trial)
 % function [DirTask,IKpath,EMGpath, GRFpath,IDpath,MFpath]=setPaths(freq,subjectID,brace,task, trial)
 
-
 % Inputs:   freq = frequency of kinetic filter 
 %                 i.e. freq=[15 20 30 40 50 60 80 100]
 % 
@@ -19,6 +18,7 @@ function [DirTask,IKpath, GRFpath,IDpath,MFpath]=setPaths(freq,subjectID,brace,t
 %                 i.e. trial=[2 3 4] for SJ_2, SJ_3, SJ_3
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
+
 %Set directories
 Dir=['C:\MyOpenSim4','\Subject_',int2str(subjectID)];
 DirBrace=[Dir,'\BRACE'];

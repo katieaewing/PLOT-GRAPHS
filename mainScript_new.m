@@ -91,9 +91,14 @@ end
 averageSubjects(whichSubjects, brace)
 
 %% Plots
+plotThreeFlex(tasks)
 
 
 
-
+% for subjectID=[1 2 3 4 5 7 8 9 10]
+% brace = 1;
+% [myTable] = setCond(brace, subjectID);
+% averageTrials(subjectID, brace, myTable);
+% end
 
 

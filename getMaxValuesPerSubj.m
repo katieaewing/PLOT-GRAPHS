@@ -1,5 +1,5 @@
 function getMaxValuesPerSubj(subjectID, brace, outGRF, outIK, outMF, outID)
-
+%this may not be necessary!!!!!!!!!!!!
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 stance=linspace(0,100,200);

@@ -6,6 +6,7 @@
 function averageSubjects(whichSubjects, brace)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
+leg = {'right'; 'right'; 'right' ; 'right'; 'right'; 'left' ; 'right'  ; 'right' ; 'left' ; 'right' ; 'right'  ; 'right' ; 'right' ; 'right' ; 'right'};
 
 for task=[5 6]
 %     1:length(task_label) %average subjects one task at a time
@@ -13,7 +14,7 @@ for task=[5 6]
        AllSubjects=[]; %create empty array
        i=1;
        while i <=length(whichSubjects) 
-           
+           whichLeg = char(leg(whichSubjects(i)));
            Dir=['C:\MyOpenSim4','\Subject_',int2str(whichSubjects(i))]; %change to subject directory
 
             switch brace %switch case depending on brace condition
@@ -52,6 +53,7 @@ for task=[5 6]
         %need to check if this task exists for this subject
         if exist(SubAvgFEFile)==2 %file does exist. FE can be generalized to all files.
                 %read in tables created from averageTrials
+                 
                 SubAvgFE=readtable(SubAvgFEFile);
                 SubAvgIK=readtable(SubAvgIKFile);
                 SubAvgID_BW=readtable(SubAvgID_BWFile);
@@ -63,7 +65,71 @@ for task=[5 6]
                 SubAvgMaxID=readtable(SubAvgMaxIDFile);
                 SubAvgMaxIK=readtable(SubAvgMaxIKFile);
                 SubAvgMaxMF=readtable(SubAvgMaxMFFile);
-                
+                    
+                switch whichLeg
+                        
+                        case 'right'
+                        
+                        case 'left'
+                            SubAvgGRF_BWtemp=SubAvgGRF_BW;
+                            SubAvgGRF_BWtemp(:,2:7)=SubAvgGRF_BW(:,8:13);
+                            SubAvgGRF_BWtemp(:,8:13)=SubAvgGRF_BW(:,2:7);
+                            SubAvgGRF_BW=SubAvgGRF_BWtemp;
+                            
+                            SubAvgID_BWtemp=SubAvgID_BW;
+                            SubAvgID_BWtemp(:,8:14)=SubAvgID_BW(:,15:21);
+                            SubAvgID_BWtemp(:,15:21)=SubAvgID_BW(:,8:14);
+                            SubAvgID_BW=SubAvgID_BWtemp;
+                            
+                            SubAvgIKtemp=SubAvgIK;
+                            SubAvgIKtemp(:,8:14)=SubAvgIK(:,15:21);
+                            SubAvgIKtemp(:,15:21)=SubAvgIK(:,8:14);
+                            SubAvgIK=SubAvgIKtemp;
+                            
+                            SubAvgMF_BWtemp=SubAvgMF_BW;
+                            SubAvgMF_BWtemp(:,2:44)=SubAvgMF_BW(:,45:87);
+                            SubAvgMF_BWtemp(:,45:87)=SubAvgMF_BW(:,2:44);
+                            SubAvgMF_BWtemp(:,88)=SubAvgMF_BW(:,89);
+                            SubAvgMF_BWtemp(:,89)=SubAvgMF_BW(:,88);
+                            SubAvgMF_BWtemp(:,90)=SubAvgMF_BW(:,91);
+                            SubAvgMF_BWtemp(:,91)=SubAvgMF_BW(:,90);
+                            SubAvgMF_BWtemp(:,92)=SubAvgMF_BW(:,93);
+                            SubAvgMF_BWtemp(:,93)=SubAvgMF_BW(:,92);
+                            SubAvgMF_BWtemp(:,100:106)=SubAvgMF_BW(:,107:113);
+                            SubAvgMF_BWtemp(:,107:113)=SubAvgMF_BW(:,100:106);
+                            SubAvgMF_BW=SubAvgMF_BWtemp;
+                            
+                            %same for max values
+                            SubAvgMaxGRFtemp=SubAvgMaxGRF;
+                            SubAvgMaxGRFtemp(:,2:7)=SubAvgMaxGRF(:,8:13);
+                            SubAvgMaxGRFtemp(:,8:13)=SubAvgMaxGRF(:,2:7);
+                            SubAvgMaxGRF=SubAvgMaxGRFtemp;
+                            
+                            SubAvgMaxIDtemp=SubAvgMaxID;
+                            SubAvgMaxIDtemp(:,8:14)=SubAvgMaxID(:,15:21);
+                            SubAvgMaxIDtemp(:,15:21)=SubAvgMaxID(:,8:14);
+                            SubAvgMaxID=SubAvgMaxIDtemp;
+                            
+                            SubAvgMaxIKtemp=SubAvgMaxIK;
+                            SubAvgMaxIKtemp(:,8:14)=SubAvgMaxIK(:,15:21);
+                            SubAvgMaxIKtemp(:,15:21)=SubAvgMaxIK(:,8:14);
+                            SubAvgMaxIK=SubAvgMaxIKtemp;
+                            
+                            SubAvgMaxMFtemp=SubAvgMaxMF;
+                            SubAvgMaxMFtemp(:,2:44)=SubAvgMaxMF(:,45:87);
+                            SubAvgMaxMFtemp(:,45:87)=SubAvgMaxMF(:,2:44);
+                            SubAvgMaxMFtemp(:,88)=SubAvgMaxMF(:,89);
+                            SubAvgMaxMFtemp(:,89)=SubAvgMaxMF(:,88);
+                            SubAvgMaxMFtemp(:,90)=SubAvgMaxMF(:,91);
+                            SubAvgMaxMFtemp(:,91)=SubAvgMaxMF(:,90);
+                            SubAvgMaxMFtemp(:,92)=SubAvgMaxMF(:,93);
+                            SubAvgMaxMFtemp(:,93)=SubAvgMaxMF(:,92);
+                            SubAvgMaxMFtemp(:,100:106)=SubAvgMaxMF(:,107:113);
+                            SubAvgMaxMFtemp(:,107:113)=SubAvgMaxMF(:,100:106);
+                            SubAvgMaxMF=SubAvgMaxMFtemp;
+                            
+                end
+                                       
                 
                 %create structure with subject data. 
                 AllSubjects=setfield(AllSubjects,{i}, 'FE', SubAvgFE);
@@ -88,7 +154,7 @@ for task=[5 6]
                 AllSubjects=setfield(AllSubjects,{i}, 'MF_BW', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'FLEX', []);
                 
-                llSubjects=setfield(AllSubjects,{i}, 'MaxGRF', []);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxGRF', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxID', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxIK', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxMF', []);

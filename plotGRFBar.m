@@ -22,34 +22,16 @@ for task=tasks
     
     StdGRFBraceMaxTemp=table2array(readtable(['SubStd_' task_label{task} '_Brace_MaxGRF.xls'])); 
     StdGRFBraceMax(i)=StdGRFBraceMaxTemp(1,3);   
-    
-    
-    
-    
-    
-%     subplot(2,1,i);
-%     errorbar(AvgFlex,StdFlex, '-bo');
-%     hold on;
-%     errorbar(AvgFlexBrace,StdFlexBrace, ':rx');
-%     title('Differences in Knee Flexion Angles with and without Brace');
-%     timePoints={'Initial Contact', 'Peak GRF', 'Maximum Knee Flexion'};
-%     set(gca, 'XTick', 1:3, 'XTickLabel',timePoints);
-%     ylabel('Knee Flexion Angles (degrees)');
-% %     hold off;
-%     set(legend({'No Brace', 'Brace'}), 'Location','Northwest');
-    
-        
+            
     i=i+1;
-    
     
 end
 
-    barwitherr([StdGRFMax StdGRFBraceMax], [AvgGRFMax AvgGRFBraceMax], 'LineWidth',2,...
-    'BarWidth',0.5)
-    set(gca, 'XTickLabel', {'NO BRACE', 'BRACE'})
+    barwitherr([StdGRFMax' StdGRFBraceMax'],[AvgGRFMax' AvgGRFBraceMax'], 'LineWidth',2,...
+    'BarWidth',0.7)
+    set(gca, 'XTickLabel', {'30CM', '60CM'})
+    legend('NO BRACE', 'BRACE')
     ylabel('Peak GRF (B.W.)')
-
    
-    
    
 end

@@ -20,9 +20,13 @@ for task=tasks
     AvgGRFBraceMaxTemp=table2array(readtable(['SubAvg_' task_label{task} '_Brace_MaxGRF.xls']));
     AvgGRFBraceMax(i)=AvgGRFBraceMaxTemp(1,3);
     
-    StdGRFBraceMaxTemp=table2array(readtable(['SubStd_' task_label{task} '_Brace_MaxGRF.xls'])); 
+    StdGRFBraceMax=table2array(readtable(['SubStd_' task_label{task} '_Brace_MaxGRF.xls'])); 
     StdGRFBraceMax(i)=StdGRFBraceMaxTemp(1,3);   
     
+%     barwitherr([StdGRFMax(1,3) StdGRFBraceMax(1,3)], [AvgGRFMax(1,3) AvgGRFBraceMax(1,3)], 'LineWidth',2,...
+%     'BarWidth',0.5)
+%     set(gca, 'XTickLabel', {'NO BRACE', 'BRACE'})
+%     ylabel('Peak GRF (B.W.)')
     
     
     
@@ -44,11 +48,7 @@ for task=tasks
     
 end
 
-    barwitherr([StdGRFMax StdGRFBraceMax], [AvgGRFMax AvgGRFBraceMax], 'LineWidth',2,...
-    'BarWidth',0.5)
-    set(gca, 'XTickLabel', {'NO BRACE', 'BRACE'})
-    ylabel('Peak GRF (B.W.)')
-
+    
    
     
    

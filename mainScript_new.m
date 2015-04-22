@@ -28,15 +28,15 @@ freq=20;
 
 %% For testing all subjects, include FOR LOOP:
 
-for subjectID=[1 2 3 4 5 6 7 8 9 10 11 12 13 14]
+for subjectID=[1 2 3 4 5 7 8 9 10]
 
-brace = 1; % Set brace or no brace condition
+brace = 2; % Set brace or no brace condition
 freq=20;
 
 % Save the trial numbers used for each task    
 [myTable] = setCond(brace, subjectID);
 
-for task=[5 6] % or for all tasks, 1:length(myTable)
+for task=[5 6] % 1:length(myTable)
 
 for trial=myTable(task, 2:4)
         
@@ -74,9 +74,6 @@ else
 % Create inputs for FE knee model
 [FE_inputs]=inputsFEmodel(task, KneeJoint, whichLeg, GRF_all, GRF_Tor, IKfinal, MFfinal);
 
-save AllVariables.mat;
-plotThisTrial; %plot all graphs for this trial to check if everything looks okay
-close all;
 
        end 
     end
@@ -95,8 +92,6 @@ averageSubjects(whichSubjects, brace)
 
 %% Plots
 plotThreeFlex(tasks)
-
-plotGRFBar(tasks)
 
 
 

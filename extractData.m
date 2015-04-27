@@ -23,5 +23,8 @@ function [tableIK, tableID, tableMF, outGRF, outIK, outMF, outID] = extractData(
         [outID]= extractMotFile('FILE',inputIDpath,'plot',-1);
         tableID=array2table(outID.data, 'VariableNames', outID.labels);
     
-        
+%         DirKinem=[inputDirTask '\KinematicsResults'];
+%         cd(DirKinem);
+%         [outAngVel]=extractMotFile('FILE',inputAngVelpath,'plot',-1);
+%         tableAngVel=array2table(outAngVel.data, 'VariableNames', outAngVel.labels);
 end

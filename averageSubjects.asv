@@ -3,7 +3,7 @@
 % Input: subjects you want to average i.e. [1:10]
 %        brace condition i.e. 1 for no brace, 2 for brace
 
-function averageSubjects(whichSubjects, brace)
+function [AllSubjects]=averageSubjects(whichSubjects, brace)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 leg = {'right'; 'right'; 'right' ; 'right'; 'right'; 'left' ; 'right'  ; 'right' ; 'left' ; 'right' ; 'right'  ; 'right' ; 'right' ; 'right' ; 'right'};
@@ -86,20 +86,20 @@ for task=[5 6]
                             SubAvgIKtemp(:,15:21)=SubAvgIK(:,8:14);
                             SubAvgIK=SubAvgIKtemp;
                             
-                            SubAvgMaxMFtemp=SubAvgMaxMF;
-                            SubAvgMaxMFtemp(:,2:44)=SubAvgMaxMF(:,45:87);
-                            SubAvgMaxMFtemp(:,45:87)=SubAvgMaxMF(:,2:44);
-                            SubAvgMaxMFtemp(:,88)=SubAvgMaxMF(:,89);
-                            SubAvgMaxMFtemp(:,89)=SubAvgMaxMF(:,88);
-                            SubAvgMaxMFtemp(:,90)=SubAvgMaxMF(:,91);
-                            SubAvgMaxMFtemp(:,91)=SubAvgMaxMF(:,90);
-                            SubAvgMaxMFtemp(:,92)=SubAvgMaxMF(:,93);
-                            SubAvgMaxMFtemp(:,93)=SubAvgMaxMF(:,92);
-                            SubAvgMaxMFtemp(:,100:106)=SubAvgMaxMF(:,107:113);
-                            SubAvgMaxMFtemp(:,107:113)=SubAvgMaxMF(:,100:106);
-                            SubAvgMaxMF=SubAvgMaxMFtemp;
+                            SubAvgMF_BWtemp=SubAvgMF_BW;
+                            SubAvgMF_BWtemp(:,2:44)=SubAvgMF_BW(:,45:87);
+                            SubAvgMF_BWtemp(:,45:87)=SubAvgMF_BW(:,2:44);
+                            SubAvgMF_BWtemp(:,88)=SubAvgMF_BW(:,89);
+                            SubAvgMF_BWtemp(:,89)=SubAvgMF_BW(:,88);
+                            SubAvgMF_BWtemp(:,90)=SubAvgMF_BW(:,91);
+                            SubAvgMF_BWtemp(:,91)=SubAvgMF_BW(:,90);
+                            SubAvgMF_BWtemp(:,92)=SubAvgMF_BW(:,93);
+                            SubAvgMF_BWtemp(:,93)=SubAvgMF_BW(:,92);
+                            SubAvgMF_BWtemp(:,100:106)=SubAvgMF_BW(:,107:113);
+                            SubAvgMF_BWtemp(:,107:113)=SubAvgMF_BW(:,100:106);
+                            SubAvgMF_BW=SubAvgMF_BWtemp;
                             
-                            
+                            %same for max values
                             SubAvgMaxGRFtemp=SubAvgMaxGRF;
                             SubAvgMaxGRFtemp(:,2:7)=SubAvgMaxGRF(:,8:13);
                             SubAvgMaxGRFtemp(:,8:13)=SubAvgMaxGRF(:,2:7);

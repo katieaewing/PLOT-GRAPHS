@@ -3,14 +3,14 @@ function [maxGRF_BW, stancePercentGRF, IKfinal_max2, stancePercentIK2, IDfinal_B
 
 % Magnitude of max GRF
 GRFfinal_matrix=table2array(GRFfinal_BW);
-maxGRF_BW=max(GRFfinal_matrix); 
+maxGRF_BW=max(abs(GRFfinal_matrix)); 
 varGRF=[outGRF.labels(1:7) 'l_ground_force_vx' 'l_ground_force_vy'	'l_ground_force_vz'	'l_ground_force_px'	'l_ground_force_py'	'l_ground_force_pz'];
 maxGRF_BW2=array2table(maxGRF_BW,'VariableNames',varGRF);
 
 % Timing of max GRF (in terms of percent landing phase)
 for bb=1:size(GRFfinal_matrix, 2)
 indStanceGRF= 1;
-    while abs(maxGRF_BW(bb)-GRFfinal_matrix(indStanceGRF,bb)) > 0.0015
+    while abs(maxGRF_BW(bb)-abs(GRFfinal_matrix(indStanceGRF,bb))) > 0.0015
         indStanceGRF=indStanceGRF+1;
     end
     indAllGRF(bb)=indStanceGRF;

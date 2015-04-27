@@ -50,6 +50,20 @@ mkdir('..','TABLES');
 cd('../TABLES');
 writetable(IKfinal,'IKfinal.xls');
 
+%(Angular velocity data)
+% resamp_AV= tableAngVel(IK1:IK2,:);
+% resamp_AV2= table2array(resamp_AV)';
+% 
+% for i=2:size(resamp_AV2, 1)  
+%         
+%     hold=resamp3([resamp_AV2(1,:); resamp_AV2(i,:)], resamp_ts);
+%     AV(:,1)=hold(1,:);
+%     AV(:,i)=hold(2,:);
+% end
+% AVfinal=array2table(AV, 'VariableNames', outIK.labels);
+
+
+
 %(ID data)
 resamp_ID= tableID(IK1:IK2,:);
 resamp_ID2= table2array(resamp_ID)';

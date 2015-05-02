@@ -21,9 +21,9 @@ for task=tasks
     StdFlexBrace=table2array(readtable(['SubStd_' task_label{task} '_Brace_FLEX.xls'])); 
     
     subplot(2,1,i);
-    errorbar(AvgFlex,StdFlex, '-bo');
+    errorbar(AvgFlex,StdFlex./sqrt(14), '-bo');
     hold on;
-    errorbar(AvgFlexBrace,StdFlexBrace, ':rx');
+    errorbar(AvgFlexBrace,StdFlexBrace./sqrt(14), ':rx');
     title('Differences in Knee Flexion Angles with and without Brace');
     timePoints={'Initial Contact', 'Peak GRF', 'Maximum Knee Flexion'};
     set(gca, 'XTick', 1:3, 'XTickLabel',timePoints);

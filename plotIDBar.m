@@ -1,4 +1,4 @@
-function plotGRFBar2(tasks)
+function plotIDBar(tasks)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 
@@ -8,21 +8,21 @@ for task=tasks
     DirSubAvg='C:\MyOpenSim4\SUBJECT_AVERAGES';
     cd([DirSubAvg '\' task_label{task}]);
     
-    %Anterior-Posterior GRF
-    AvgGRFMaxTemp=table2array(readtable(['SubAvg_' task_label{task} '_MaxGRF.xls']));
-    AvgGRFMax(i)=AvgGRFMaxTemp(1,4);
+    %Anterior-Posterior ID
+    AvgIDMaxTemp=table2array(readtable(['SubAvg_' task_label{task} '_MaxID.xls']));
+    AvgIDMax(i)=AvgIDMaxTemp(1,12);
     
-    StdGRFMaxTemp=table2array(readtable(['SubStd_' task_label{task} '_MaxGRF.xls'])); 
-    StdGRFMax(i)=StdGRFMaxTemp(1,4)/sqrt(14);    
+    StdIDMaxTemp=table2array(readtable(['SubStd_' task_label{task} '_MaxID.xls'])); 
+    StdIDMax(i)=StdIDMaxTemp(1,12)/sqrt(14);    
     
     DirSubAvgBrace='C:\MyOpenSim4\SUBJECT_AVERAGES_BRACE'; 
     cd([DirSubAvgBrace '\' task_label{task}]);
     
-    AvgGRFBraceMaxTemp=table2array(readtable(['SubAvg_' task_label{task} '_Brace_MaxGRF.xls']));
-    AvgGRFBraceMax(i)=AvgGRFBraceMaxTemp(1,4);
+    AvgIDBraceMaxTemp=table2array(readtable(['SubAvg_' task_label{task} '_Brace_MaxID.xls']));
+    AvgIDBraceMax(i)=AvgIDBraceMaxTemp(1,12);
     
-    StdGRFBraceMaxTemp=table2array(readtable(['SubStd_' task_label{task} '_Brace_MaxGRF.xls'])); 
-    StdGRFBraceMax(i)=StdGRFBraceMaxTemp(1,4)/sqrt(14);   
+    StdIDBraceMaxTemp=table2array(readtable(['SubStd_' task_label{task} '_Brace_MaxID.xls'])); 
+    StdIDBraceMax(i)=StdIDBraceMaxTemp(1,12)/sqrt(14);   
       
     
     
@@ -31,7 +31,7 @@ for task=tasks
 %     hold on;
 %     errorbar(AvgFlexBrace,StdFlexBrace, ':rx');
 %     title('Differences in Knee Flexion Angles with and without Brace');
-%     timePoints={'Initial Contact', 'Peak GRF', 'Maximum Knee Flexion'};
+%     timePoints={'Initial Contact', 'Peak ID', 'Maximum Knee Flexion'};
 %     set(gca, 'XTick', 1:3, 'XTickLabel',timePoints);
 %     ylabel('Knee Flexion Angles (degrees)');
 % %     hold off;
@@ -43,11 +43,11 @@ for task=tasks
     
 end
 
-    barwitherr([StdGRFMax' StdGRFBraceMax'],[AvgGRFMax' AvgGRFBraceMax'], 'LineWidth',2,...
+    barwitherr([StdIDMax' StdIDBraceMax'],[AvgIDMax' AvgIDBraceMax'], 'LineWidth',2,...
     'BarWidth',0.7)
     set(gca, 'XTickLabel', {'30CM', '60CM'})
     legend('NO BRACE', 'BRACE')
-    ylabel('Peak GRF (B.W.)')
+    ylabel('Peak Ankle Plantarflexor Moment (N-m/kg)')
    
    
 end

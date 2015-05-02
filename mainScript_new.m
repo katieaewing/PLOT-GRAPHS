@@ -28,7 +28,7 @@ freq=20;
 
 %% For testing all subjects, include FOR LOOP:
 
-for subjectID=[1 2 3 4 5 6 7 8 9 10 11 12 13 14]
+for subjectID=[ 12 13 14]
 
 brace = 2; % Set brace or no brace condition
 freq=20;
@@ -64,6 +64,9 @@ else
 % Normalize data to Body Weight
 [GRFfinal_BW, IDfinal_BW, MFfinal_BW] = normaliseToBW(subjectID, GRF_all, IDfinal, MFfinal, outGRF, outMF, outID);
 
+%Calculate angular velocity and joint power (in radians)
+[AngVel Power] = getJointPower(IKfinal, IDfinal);
+
 % Get time and magnitude of peaks
 [maxGRF_BW, stancePercentGRF, IKfinal_max2, stancePercentIK2, IDfinal_BW_max2, stancePercentID2, MFfinal_BW_max2, stancePercentMF2] ...
     = getMaxValues(stance, GRFfinal_BW, IKfinal, IDfinal_BW, MFfinal_BW, outGRF, outIK, outMF, outID, GRFleg, KneeJoint);
@@ -75,7 +78,7 @@ else
 [FE_inputs]=inputsFEmodel(task, KneeJoint, whichLeg, GRF_all, GRF_Tor, IKfinal, MFfinal);
 
 save AllVariables.mat;
-plotThisTrial2; %plot all graphs for this trial to check if everything looks okay
+% plotThisTrial2; %plot all graphs for this trial to check if everything looks okay
 close all;
 
        end 
@@ -96,7 +99,7 @@ averageSubjects(whichSubjects, brace)
 %% Plots
 plotThreeFlex(tasks)
 
-plotGRFBar(tasks)
+plotGRFBar2(tasks)
 
 
 

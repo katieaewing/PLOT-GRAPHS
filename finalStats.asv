@@ -1,0 +1,77 @@
+% Created by: Katie Ewing
+% May 2015 
+% 
+% This function calls the function, prepareStatsTable2, to extract multiple conditions and tasks and put them...
+... into one table that can be imported into a statistical software package.
+%
+% Input: whichSubjects = which subjects to average e.g. [1:14]
+%        tasks = which tasks e.g. for comparing DL30 and DL60 with and without a brace
+% Ouput: statsTableMag = structure with the magnitudes of all fields (e.g. knee flexion angles at three...
+        ...time points, GRF data, IK data, etc.) with each subject in a different row, and repeated in the same columns...
+        ...for all the extracted conditions.
+%        statsTableMag = structure with the time of the magnitudes of all the fields ...
+        ...(does not include three knee flexion angles field)
+
+function [statsTableMag, statsTableTime] = finalStats(whichSubjects, tasks)
+
+for brace=[1:2]
+    
+    for task=tasks
+    
+        [statsTempMag statsTempTime fieldNames AllSubjects] = prepareStatsTable2(whichSubjects, brace, task)
+        
+        if task==5 && brace == 1  %for the first condition (DL30), create empty table.
+                statsTableMag=[];
+                statsTableMag=setfield(statsTableMag,{1}, 'FLEX', []);
+                statsTableMag=setfield(statsTableMag,{1}, 'Work', []);
+                statsTableMag=setfield(statsTableMag,{1}, 'AngImp', []);
+                statsTableMag=setfield(statsTableMag,{1}, 'MaxGRF', []);
+                statsTableMag=setfield(statsTableMag,{1}, 'MaxID', []);
+                statsTableMag=setfield(statsTableMag,{1}, 'MaxIK', []);
+                statsTableMag=setfield(statsTableMag,{1}, 'MaxMF', []);
+                 statsTableMag=setfield(statsTableMag,{1}, 'P', []);
+                
+                statsTableTime=[];
+                statsTableTime=setfield(statsTableTime,{1}, 'MaxGRF', []);
+                statsTableTime=setfield(statsTableTime,{1}, 'MaxID', []);
+                statsTableTime=setfield(statsTableTime,{1}, 'MaxIK', []);
+                statsTableTime=setfield(statsTableTime,{1}, 'MaxMF', []);
+           
+        end
+        
+        
+        for a=1:length(fieldNames)
+               
+            statsTableMag.(char(fieldNames(a)))=[[statsTableMag.(char(fieldNames(a)))];[statsTempMag.(char(fieldNames(a)))]];             
+            
+            if a>1
+                statsTableTime.(char(fieldNames(a)))=[[statsTableTime.(char(fieldNames(a)))];[statsTempTime.(char(fieldNames(a)))]];
+            end
+            
+        end
+    
+    end
+
+ 
+end
+
+%put the column headings back in the structure and transform to tables
+for a=1:length(fieldNames)
+    vars=AllSubjects(2).(char(fieldNames(a))).Properties.VariableNames; 
+    statsTableMag.(char(fieldNames(a)))=array2table(statsTableMag.(char(fieldNames(a))), 'VariableNames',vars);         
+end
+
+fieldNames = {'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxPower','MaxAngVel'};
+
+for a=1:length(fieldNames)
+    vars=AllSubjects(2).(char(fieldNames(a))).Properties.VariableNames; 
+    statsTableTime.(char(fieldNames(a)))=array2table(statsTableTime.(char(fieldNames(a))), 'VariableNames',vars); 
+end
+
+
+cd('C:\MyOpenSim4');
+save('statsTable.mat');
+
+end
+
+

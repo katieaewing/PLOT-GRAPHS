@@ -1,4 +1,4 @@
-function [maxGRF_BW, stancePercentGRF, IKfinal_max2, stancePercentIK2, IDfinal_BW_max2, stancePercentID2, MFfinal_BW_max2, stancePercentMF2,Power_max, stancePercentPower2, AngVel_max, stancePercentAngVel2] ...
+function [maxGRF_BW, stancePercentGRF, IKfinal_max2, stancePercentIK2, IDfinal_BW_max2, stancePercentID2, MFfinal_BW_max2, stancePercentMF2] ...
     = getMaxValues(stance, GRFfinal_BW, IKfinal, IDfinal_BW, MFfinal_BW, outGRF, outIK, outMF, outID, GRFleg, KneeJoint, AngVel, Power)
 
 % Magnitude of max GRF
@@ -98,10 +98,10 @@ for aa=1:size(Power_matrix, 2)
     
 end
 stancePercentPower=stance(indAllPower);
-stancePercentPower2=array2table(stancePercentPower, 'VariableNames', varsPower);
+stancePercentPower=array2table(stancePercentPower, 'VariableNames', varsPower);
 
-Power_mag_time=[Power_max2; stancePercentPower2];
-writetable(Power_mag_time, 'maxPower_mag_time.xls');
+Power_mag_time=[Power_max2; stancePercentPower];
+writetable(Power_mag_time, 'Power_mag_time.xls');
 
 
 % Magnitude of peak ANGULAR VELOCITY
@@ -120,10 +120,10 @@ for aa=1:size(AngVel_matrix, 2)
     
 end
 stancePercentAngVel=stance(indAllAngVel);
-stancePercentAngVel2=array2table(stancePercentAngVel, 'VariableNames', varsAngVel);
+stancePercentAngVel=array2table(stancePercentAngVel, 'VariableNames', varsAngVel);
 
-AngVel_mag_time=[AngVel_max2; stancePercentAngVel2];
-writetable(AngVel_mag_time, 'maxAngVel_mag_time.xls');
+AngVel_mag_time=[AngVel_max2; stancePercentAngVel];
+writetable(AngVel_mag_time, 'AngVel_mag_time.xls');
 
 
 

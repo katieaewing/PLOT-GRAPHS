@@ -1,77 +1,72 @@
-% This function averages all data (average of trials) across a range of Subjects.
-% Data must be in the folders created from the function averageTrials.
-% Input: subjects you want to average i.e. [1:10]
-%        brace condition i.e. 1 for no brace, 2 for brace
+% Created by: Katie Ewing
+% May 2015 
+% 
+% This function extracts all data (average of trials) from all the subjects
+% from ONE task and ONE brace condition. It is called multiple times by the
+% function, finalStats.m, to extract multiple conditions and tasks.
+%
+% Input: whichSubjects = which subjects to average e.g. [1:14]
+%        brace = brace condition e.g. 1 (no brace) or 2 (brace)
+%        task = which task
+% Ouput: statsTempMag = temporary structure with the magnitudes of all fields (e.g. knee flexion angles at three...
+        ...time points, GRF data, IK data, etc.) with each subject in a different row. Missing subjects will appear as 0s.
+%        statsTempMag = temporary structure with the time of the magnitudes
+%        of all the fields (does not include three knee flexion angles
+%        field)
 
-function averageSubjects(whichSubjects, brace)
+
+function [statsTempMag statsTempTime fieldNames AllSubjects Temp] = prepareStatsTable2(whichSubjects, brace, task)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 leg = {'right'; 'right'; 'right' ; 'right'; 'right'; 'left' ; 'right'  ; 'right' ; 'left' ; 'right' ; 'right'  ; 'right' ; 'right' ; 'right' ; 'right'};
 
-for task=[5 6]
-%     1:length(task_label) %average subjects one task at a time
+AllSubjects=[]; %create empty array
+       
+   i=1;
+   while i <=length(whichSubjects) 
+       whichLeg = char(leg(whichSubjects(i)));
+       Dir=['C:\MyOpenSim4','\Subject_',int2str(whichSubjects(i))]; %change to subject directory
 
-       AllSubjects=[]; %create empty array
-       i=1;
-       while i <=length(whichSubjects) 
-           whichLeg = char(leg(whichSubjects(i)));
-           Dir=['C:\MyOpenSim4','\Subject_',int2str(whichSubjects(i))]; %change to subject directory
+        switch brace %switch case depending on brace condition
 
-            switch brace %switch case depending on brace condition
+            case 1
+                DirAvg=[Dir,'\NO BRACE\AVERAGES']; %This folder is already created
+                condStr='_';
+%                     DirSubAvg='C:\MyOpenSim4\SUBJECT_AVERAGES';                
 
-                case 1
-                    DirAvg=[Dir,'\NO BRACE\AVERAGES']; %This folder is already created
-                    condStr='_';
-                    DirSubAvg='C:\MyOpenSim4\SUBJECT_AVERAGES';                
+            case 2
+                DirAvg=[Dir,'\BRACE\AVERAGES']; %This folder is already created
+                condStr='_Brace_';
+%                     DirSubAvg='C:\MyOpenSim4\SUBJECT_AVERAGES_BRACE'; 
 
-                case 2
-                    DirAvg=[Dir,'\BRACE\AVERAGES']; %This folder is already created
-                    condStr='_Brace_';
-                    DirSubAvg='C:\MyOpenSim4\SUBJECT_AVERAGES_BRACE'; 
+        end
 
-            end
-
-        cd(DirAvg);  
+    cd(DirAvg);  
 
         %create file names of averaged trials (correspond to tables created
         %from averageTrials).
         
-        SubAvgFEFile=([task_label{task} condStr 'FE.xls']);
-        SubAvgIKFile=([task_label{task} condStr 'IK.xls']);
-        SubAvgID_BWFile=([task_label{task} condStr 'ID_BW.xls']);
-        SubAvgGRF_BWFile=([task_label{task} condStr 'GRF_BW.xls']);
-        SubAvgMF_BWFile=([task_label{task} condStr 'MF_BW.xls']);
         SubAvgFlexFile=([task_label{task} condStr 'FLEX.xls']);
-        SubAvgPowerFile=([task_label{task} condStr 'Power.xls']);
         SubAvgWorkFile=([task_label{task} condStr 'Work.xls']);
-        SubAvgAngVelFile=([task_label{task} condStr 'AngVel.xls']);
         SubAvgAngImpFile=([task_label{task} condStr 'AngImp.xls']);
         
-        % and for maximum value tables
+        % maximum value tables
         SubAvgMaxGRFFile=([task_label{task} condStr 'MaxGRF.xls']);
         SubAvgMaxIDFile=([task_label{task} condStr 'MaxID.xls']);
         SubAvgMaxIKFile=([task_label{task} condStr 'MaxIK.xls']);
         SubAvgMaxMFFile=([task_label{task} condStr 'MaxMF.xls']);
         SubAvgMaxPowerFile=([task_label{task} condStr 'MaxPower.xls']);
         SubAvgMaxAngVelFile=([task_label{task} condStr 'MaxAngVel.xls']);
+        
          
         %need to check if this task exists for this subject
-        if exist(SubAvgFEFile)==2 %file does exist. FE can be generalized to all files.
+        if exist(SubAvgMaxGRFFile)==2 %file does exist. FE can be generalized to all files.
                 %read in tables created from averageTrials
-                 
-                SubAvgFE=readtable(SubAvgFEFile);
-                SubAvgIK=readtable(SubAvgIKFile);
-                SubAvgID_BW=readtable(SubAvgID_BWFile);
-                SubAvgGRF_BW=readtable(SubAvgGRF_BWFile);
-                SubAvgMF_BW=readtable(SubAvgMF_BWFile);
                 SubAvgFlex=readtable(SubAvgFlexFile);
-                SubAvgPower=readtable(SubAvgPowerFile);
                 SubAvgWork=readtable(SubAvgWorkFile);
-                SubAvgAngVel=readtable(SubAvgAngVelFile);
                 SubAvgAngImp=readtable(SubAvgAngImpFile);
                 
-                
-                
+                %for maximums
                 SubAvgMaxGRF=readtable(SubAvgMaxGRFFile);
                 SubAvgMaxID=readtable(SubAvgMaxIDFile);
                 SubAvgMaxIK=readtable(SubAvgMaxIKFile);
@@ -84,49 +79,11 @@ for task=[5 6]
                         case 'right'
                         
                         case 'left'
-                            SubAvgGRF_BWtemp=SubAvgGRF_BW;
-                            SubAvgGRF_BWtemp(:,2:7)=SubAvgGRF_BW(:,8:13);
-                            SubAvgGRF_BWtemp(:,8:13)=SubAvgGRF_BW(:,2:7);
-                            SubAvgGRF_BW=SubAvgGRF_BWtemp;
-                            
-                            SubAvgID_BWtemp=SubAvgID_BW;
-                            SubAvgID_BWtemp(:,8:14)=SubAvgID_BW(:,15:21);
-                            SubAvgID_BWtemp(:,15:21)=SubAvgID_BW(:,8:14);
-                            SubAvgID_BW=SubAvgID_BWtemp;
-                            
-                            SubAvgIKtemp=SubAvgIK;
-                            SubAvgIKtemp(:,8:14)=SubAvgIK(:,15:21);
-                            SubAvgIKtemp(:,15:21)=SubAvgIK(:,8:14);
-                            SubAvgIK=SubAvgIKtemp;
-                            
-                            SubAvgMF_BWtemp=SubAvgMF_BW;
-                            SubAvgMF_BWtemp(:,2:44)=SubAvgMF_BW(:,45:87);
-                            SubAvgMF_BWtemp(:,45:87)=SubAvgMF_BW(:,2:44);
-                            SubAvgMF_BWtemp(:,88)=SubAvgMF_BW(:,89);
-                            SubAvgMF_BWtemp(:,89)=SubAvgMF_BW(:,88);
-                            SubAvgMF_BWtemp(:,90)=SubAvgMF_BW(:,91);
-                            SubAvgMF_BWtemp(:,91)=SubAvgMF_BW(:,90);
-                            SubAvgMF_BWtemp(:,92)=SubAvgMF_BW(:,93);
-                            SubAvgMF_BWtemp(:,93)=SubAvgMF_BW(:,92);
-                            SubAvgMF_BWtemp(:,100:106)=SubAvgMF_BW(:,107:113);
-                            SubAvgMF_BWtemp(:,107:113)=SubAvgMF_BW(:,100:106);
-                            SubAvgMF_BW=SubAvgMF_BWtemp;
-                            
-                                                                                    
-                            SubAvgPowertemp=SubAvgPower;
-                            SubAvgPowertemp(:,8:14)=SubAvgPower(:,15:21);
-                            SubAvgPowertemp(:,15:21)=SubAvgPower(:,8:14);
-                            SubAvgPower=SubAvgPowertemp;
-                            
+                        
                             SubAvgWorktemp=SubAvgWork;
                             SubAvgWorktemp(:,8:14)=SubAvgWork(:,15:21);
                             SubAvgWorktemp(:,15:21)=SubAvgWork(:,8:14);
                             SubAvgWork=SubAvgWorktemp;
-                            
-                            SubAvgAngVeltemp=SubAvgAngVel;
-                            SubAvgAngVeltemp(:,8:14)=SubAvgAngVel(:,15:21);
-                            SubAvgAngVeltemp(:,15:21)=SubAvgAngVel(:,8:14);
-                            SubAvgAngVel=SubAvgAngVeltemp;
                             
                             SubAvgAngImptemp=SubAvgAngImp;
                             SubAvgAngImptemp(:,8:14)=SubAvgAngImp(:,15:21);
@@ -171,44 +128,25 @@ for task=[5 6]
                             SubAvgMaxAngVeltemp(:,8:14)=SubAvgMaxAngVel(:,15:21);
                             SubAvgMaxAngVeltemp(:,15:21)=SubAvgMaxAngVel(:,8:14);
                             SubAvgMaxAngVel=SubAvgMaxAngVeltemp;
-                            
                 end
                                        
-                
-                %create structure with subject data. 
-                AllSubjects=setfield(AllSubjects,{i}, 'FE', SubAvgFE);
-                AllSubjects=setfield(AllSubjects,{i}, 'IK', SubAvgIK);
-                AllSubjects=setfield(AllSubjects,{i}, 'ID_BW', SubAvgID_BW);
-                AllSubjects=setfield(AllSubjects,{i}, 'GRF_BW', SubAvgGRF_BW);
-                AllSubjects=setfield(AllSubjects,{i}, 'MF_BW', SubAvgMF_BW);
                 AllSubjects=setfield(AllSubjects,{i}, 'FLEX', SubAvgFlex);
-                AllSubjects=setfield(AllSubjects,{i}, 'Power', SubAvgPower);
                 AllSubjects=setfield(AllSubjects,{i}, 'Work', SubAvgWork);
-                AllSubjects=setfield(AllSubjects,{i}, 'AngVel', SubAvgAngVel);
                 AllSubjects=setfield(AllSubjects,{i}, 'AngImp', SubAvgAngImp);
                 
+                %create structure with subject data. 
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxGRF', SubAvgMaxGRF);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxID', SubAvgMaxID);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxIK', SubAvgMaxIK);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxMF', SubAvgMaxMF);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxPower', SubAvgMaxPower);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxAngVel', SubAvgMaxAngVel);
-
-                
                 
                 i= i+1;
         else
-                AllSubjects=setfield(AllSubjects,{i}, 'FE', []);
-                AllSubjects=setfield(AllSubjects,{i}, 'IK', []);
-                AllSubjects=setfield(AllSubjects,{i}, 'ID_BW', []);
-                AllSubjects=setfield(AllSubjects,{i}, 'GRF_BW', []);
-                AllSubjects=setfield(AllSubjects,{i}, 'MF_BW', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'FLEX', []);
-                AllSubjects=setfield(AllSubjects,{i}, 'Power', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'Work', []);
-                AllSubjects=setfield(AllSubjects,{i}, 'AngVel', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'AngImp', []);
-                
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxGRF', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxID', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxIK', []);
@@ -223,28 +161,46 @@ for task=[5 6]
         end
         
         %clear files for next subject
-        clearvars SubAvgFEFile SubAvgIKFile SubAvgID_BWFile SubAvgGRF_BWFile SubAvgMF_BWFile SubAvgFlexFile SubAvgPowerFile SubAvgWorkFile SubAvgAngVelFile SubAvgAngImpFile 
-        clearvars SubAvgMaxGRFFile SubAvgMaxIDFile SubAvgMaxIKFile SubAvgMaxMFFile SubAvgMaxPowerFile SubAvgMaxAngVelFile
+
+        clearvars SubAvgMaxGRFFile SubAvgMaxIDFile SubAvgMaxIKFile SubAvgMaxMFFile SubAvgWork SubAvgAngImp SubAvgMaxPower SubAvgMaxAngVel
        
-       end %end of subject while loop
+   end %end of subject while loop
        
        %Should now have a structure, AllSubjects, that contains all of the
        %tables for all of the subjects. Each subject will be in a different
        %row and each table will be in a different column. If a subject did not perform a specific task, the row will be
        %blank.
        
-          
-cd(DirSubAvg);
-cd(char(task_label(task)));
 
-fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'Power', 'Work','AngVel', 'AngImp', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF','MaxPower','MaxAngVel'};
+fieldNames = {'FLEX', 'Work', 'AngImp', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxPower', 'MaxAngVel'};
 
 % if isempty(AllSubjects)==1 %if NONE of the subjects performed a task, AllSubjects will be blank
 %                            %and loop will move to next task. e.g. Sub 1 and
 %                            %2 did not perform SLND60
 %     task=task+1;
 % else
+% 
     
+    %create empty structures for the outputs
+    statsTempTime=[];
+    statsTempTime=setfield(statsTempTime,{1}, 'MaxGRF', []);
+    statsTempTime=setfield(statsTempTime,{1}, 'MaxID', []);
+    statsTempTime=setfield(statsTempTime,{1}, 'MaxIK', []);
+    statsTempTime=setfield(statsTempTime,{1}, 'MaxMF', []);
+    statsTempTime=setfield(statsTempTime,{1}, 'MaxPower', []);
+    statsTempTime=setfield(statsTempTime,{1}, 'MaxAngVel', []);
+
+    statsTempMag=[];
+    statsTempMag=setfield(statsTempMag,{1}, 'FLEX', []); %has additional field
+    statsTempMag=setfield(statsTempMag,{1}, 'Work', []); %has additional field
+    statsTempMag=setfield(statsTempMag,{1}, 'AngImp', []); %has additional field
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxGRF', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxID', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxIK', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxMF', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxPower', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxAngVel', []);
+                
     for a=1:length(fieldNames) 
         c=1;
         while size(AllSubjects(c).(char(fieldNames(a))), 2)==0  %Checking if AllSubjects(1) exists.
@@ -257,7 +213,8 @@ fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'Power', 'Work','A
               end
             
         end
-            if c > length(whichSubjects)
+        
+        if c > length(whichSubjects)
                 task=task+1;
                 break;
                 
@@ -270,12 +227,20 @@ fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'Power', 'Work','A
                 d=1;
                     while j<=length(whichSubjects) %not sure if less than or less than or equal to
                         if size(AllSubjects(j).(char(fieldNames(a))), 2)==0  %checking if subject performed task.
-                            %If subject did not perform task, will move on
-                            %to next subject.
+                            %If subject did not perform task, will move on to next subject.
+                            
+                            %Not actually 0, but just a way to create a row in stats table for empty task
+                            if a==1 || a == 2 || a==3
+                                Temp(:,d)={0}; % creates one row with 0 for the FLEX field.
+                            else
+                                
+                                Temp(:,d)= {0;0};  %for all other fields, creates two rows with 0. 
+                            end
+                            
                            if j==1
                                d=j;
                            end
-                           
+                            d=d+1;
                             j=j+1;
                         else
 
@@ -283,29 +248,23 @@ fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'Power', 'Work','A
                          d=d+1;
                          j=j+1;
                         end
-
+                    
+                    
                     end
                 
-             Temp=table2array(Temp);
-             SubjectAverage(:,b) = mean(Temp, 2);
-             SubjectStdDev(:,b)=std(Temp,0,2);
+             Temp=table2array(Temp); %should have all subjects
+             
+             if a>3
+                 statsTempTime.(char(fieldNames(a)))(:,b)=Temp(2,:)'; %time in second row, need to transform into column
+             end
+             
+             statsTempMag.(char(fieldNames(a)))(:,b)=Temp(1,:)'; %magnitude in first row, need to transform into column
+             
+             end
 
         end
-
-        SubjectAverageTable=array2table(SubjectAverage, 'VariableNames',vars);
-        writetable(SubjectAverageTable,['SubAvg_' task_label{task} condStr fieldNames{a} '.xls']);
-        clearvars SubjectAverage  SubjectAverageTable; %clears variables for next task
-        
-        SubjectStdDevTable=array2table(SubjectStdDev, 'VariableNames',vars);
-        writetable(SubjectStdDevTable,['SubStd_' task_label{task} condStr fieldNames{a} '.xls']);
-        clearvars SubjectStdDev  SubjectStdDevTable; %clears variables for next task
-
-    end
     
-end
-
-end
-    
+    end %field names
 
 end
 

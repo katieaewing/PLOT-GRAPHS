@@ -223,8 +223,8 @@ for task=[5 6]
         end
         
         %clear files for next subject
-        clearvars SubAvgFEFile SubAvgIKFile SubAvgID_BWFile SubAvgGRF_BWFile SubAvgMF_BWFile SubAvgFlexFile SubAvgPowerFile SubAvgWorkFile SubAvgAngVelFile SubAvgAngImpFile 
-        clearvars SubAvgMaxGRFFile SubAvgMaxIDFile SubAvgMaxIKFile SubAvgMaxMFFile SubAvgMaxPowerFile SubAvgMaxAngVelFile
+        clearvars SubAvgFEFile SubAvgIKFile SubAvgID_BWFile SubAvgGRF_BWFile SubAvgMF_BWFile SubAvgFlexFile SubAvgPowerFile SubAvgFlexFile SubAvgFlexFile SubAvgFlexFile 
+        clearvars SubAvgMaxGRFFile SubAvgMaxIDFile SubAvgMaxIKFile SubAvgMaxMFFile
        
        end %end of subject while loop
        
@@ -237,7 +237,7 @@ for task=[5 6]
 cd(DirSubAvg);
 cd(char(task_label(task)));
 
-fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'Power', 'Work','AngVel', 'AngImp', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF','MaxPower','MaxAngVel'};
+fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF'};
 
 % if isempty(AllSubjects)==1 %if NONE of the subjects performed a task, AllSubjects will be blank
 %                            %and loop will move to next task. e.g. Sub 1 and

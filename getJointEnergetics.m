@@ -1,11 +1,11 @@
-function [AngVel Power] = getJointPower(IKfinal, IDfinal_BW, IDfinal)
+function [AngVel AngImp Power  Work] = getJointEnergetics(IKfinal, IDfinal_BW, IDfinal)
 
 % load AllVariables.mat;
 
 VarNames=IKfinal.Properties.VariableNames;
 IKfinal=table2array(IKfinal);  %don't take absolute value yet!
-IKfinal(:,11)=abs(IKfinal(:,11)); %opposite sign for right knee
-IKfinal(:,18)=abs(IKfinal(:,18)); %opposite sign for left knee
+% IKfinal(:,11)=abs(IKfinal(:,11)); %opposite sign for right knee? no
+% IKfinal(:,18)=abs(IKfinal(:,18)); %opposite sign for left knee? no
 
 [Q,dQ,ddQ]=smooth_Q(IKfinal', 10); % not sure about this filter frequency but seems to best match with kinematics results from OpenSim
 
@@ -51,7 +51,23 @@ j=j+1;
 end
 
 Work=array2table(Work, 'VariableNames', VarNames);
+writetable(Work, 'Work.xls');
 Power=array2table(Power, 'VariableNames', VarNames);
+writetable(Power, 'Power.xls');
 
+writetable(AngVel, 'AngVel.xls');
+writetable(AngImp, 'AngImp.xls');
+
+end
+
+
+% 
+% plot(IDfinal_BW.ankle_angle_r_moment)
+% figure(2); plot(IDfinal_BW.knee_angle_r_moment)
+% figure(3); plot(IDfinal_BW.hip_flexion_r_moment)
+% 
+% plot(Power.ankle_angle_r)
+% figure(2); plot(Power.knee_angle_r)
+% figure(3); plot(Power.hip_flexion_r)
 
 

@@ -55,13 +55,19 @@ for task=[5 6]
                 GRFArray=readtable('GRFfinal_BW.xls');
                 MFArray=readtable('MFfinal_BW.xls');
                 FlexArray=readtable('three_flexion_angles.xls');
+                PowerArray=readtable('Power.xls');
+                WorkArray=readtable('Work.xls');
+                AngVelArray=readtable('AngVel.xls');
+                AngImpArray=readtable('AngImp.xls');
+                
                 
                 %also for maximums
                 MaxIKArray=readtable('maxIK_mag_time.xls');
                 MaxIDArray=readtable('maxID_BW_mag_time.xls');
                 MaxGRFArray=readtable('maxGRF_BW_mag_time.xls');
-                MaxMFArray=readtable('maxMF_BW_Mag_time.xls');
-   
+                MaxMFArray=readtable('maxMF_BW_mag_time.xls');
+                MaxPowerArray=readtable('maxPower_mag_time.xls');
+                MaxAngVelArray=readtable('maxAngVel_mag_time.xls');
 
                 AllCombined=setfield(AllCombined,{i},'FE', FEArray);
                 AllCombined=setfield(AllCombined,{i},'IK', IKArray);
@@ -69,17 +75,24 @@ for task=[5 6]
                 AllCombined=setfield(AllCombined,{i},'GRF_BW', GRFArray);
                 AllCombined=setfield(AllCombined,{i},'MF_BW', MFArray);
                 AllCombined=setfield(AllCombined,{i},'FLEX', FlexArray);
+                AllCombined=setfield(AllCombined,{i},'Power', PowerArray);
+                AllCombined=setfield(AllCombined,{i},'Work', WorkArray);
+                AllCombined=setfield(AllCombined,{i},'AngVel', AngVelArray);
+                AllCombined=setfield(AllCombined,{i},'AngImp', AngImpArray);
                 AllCombined=setfield(AllCombined,{i},'MaxIK', MaxIKArray);
                 AllCombined=setfield(AllCombined,{i},'MaxID', MaxIDArray);
                 AllCombined=setfield(AllCombined,{i},'MaxGRF', MaxGRFArray);
                 AllCombined=setfield(AllCombined,{i},'MaxMF', MaxMFArray);
+                AllCombined=setfield(AllCombined,{i},'MaxPower', MaxPowerArray);
+                AllCombined=setfield(AllCombined,{i},'MaxAngVel', MaxAngVelArray);
+
 
                     end
 
                 end
 
             cd ..\..\AVERAGES
-            fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'MaxIK', 'MaxID','MaxGRF','MaxMF'};
+            fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'Power', 'Work','AngVel','AngImp', 'MaxIK', 'MaxID','MaxGRF','MaxMF', 'MaxPower', 'MaxAngVel'};
 
             for a=1:length(fieldNames)
         %         cd(DirTask);

@@ -21,7 +21,14 @@ else
 
  load AllVariables.mat;
  
- [AngVel Power] = getJointPower(IKfinal,IDfinal);
+ [AngVel AngImp Power  Work] = getJointEnergetics(IKfinal, IDfinal_BW, IDfinal);
+ 
+  [Power_max, StancePercentPower2, AngVel_max, StancePercentAngVel2] ...
+    = getMaxValues2(stance, AngVel, Power);
+
+save AllVariables.mat;
+
+
 end
 
 end

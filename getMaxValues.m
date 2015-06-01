@@ -130,7 +130,7 @@ writetable(AngVel_mag_time, 'maxAngVel_mag_time.xls');
 
 
 
-%Finding the flexion angle at peak GRF
+%Finding the KNEE flexion angle at peak GRF
 
 indPeakGRF=indAllGRF(GRFleg);
 FLEX_EXT=abs(IKfinal.(KneeJoint{1}));
@@ -145,8 +145,6 @@ FlexMax=FLEX_EXT(200);
 FlexionAngles=[FlexIC, FlexGRF, FlexMax];
 FlexionAngles=array2table(FlexionAngles,'VariableNames',{'FlexIC' 'FlexGRF' 'FlexMax'});
 writetable(FlexionAngles, 'three_flexion_angles.xls');
-
-% writetable(ICFlex, 'ICFlex.xls');
 
 end
 

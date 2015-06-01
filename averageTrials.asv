@@ -31,8 +31,8 @@ for task=[5 6]
 
                 for i=1:length(trial)
 
-                    if trial(i) == 0
-                        task=task+1;
+                    if trial(i) == 0  %for tasks with one or two good trials (not three)
+                       break; %changed to break to make it work!!! Bah
                     else
                         
 
@@ -49,58 +49,74 @@ for task=[5 6]
 
                 cd(DirTask);
 
-                FEArray=readtable('FE_Model_Inputs.xls');
-                IKArray=readtable('IKfinal.xls');
-                IDArray=readtable('IDfinal_BW.xls');
-                GRFArray=readtable('GRFfinal_BW.xls');
-                MFArray=readtable('MFfinal_BW.xls');
-                FlexArray=readtable('three_flexion_angles.xls');
-                PowerArray=readtable('Power.xls');
-                WorkArray=readtable('Work.xls');
-                AngVelArray=readtable('AngVel.xls');
-                AngImpArray=readtable('AngImpArray.xls');
-                
+%                 FEArray=readtable('FE_Model_Inputs.xls');
+%                 IKArray=readtable('IKfinal.xls');
+%                 IDArray=readtable('IDfinal_BW.xls');
+%                 GRFArray=readtable('GRFfinal_BW.xls');
+%                 MFArray=readtable('MFfinal_BW.xls');
+%                 FlexArray=readtable('three_flexion_angles.xls');
+%                 PowerArray=readtable('Power.xls');
+%                 WorkArray=readtable('Work.xls');
+%                 AngVelArray=readtable('AngVel.xls');
+%                 AngImpArray=readtable('AngImp.xls');
+%                 
+%                 
+%                 FlexAtPeakGRFArray=readtable('FlexAtPeakGRF.xls');
+%                 FlexAtICArray=readtable('FlexAtIC.xls');
+                PercentWorkArray=readtable('PercentJointWork.xls');
                 
                 %also for maximums
-                MaxIKArray=readtable('maxIK_mag_time.xls');
-                MaxIDArray=readtable('maxID_BW_mag_time.xls');
-                MaxGRFArray=readtable('maxGRF_BW_mag_time.xls');
-                MaxMFArray=readtable('maxMF_BW_mag_time.xls');
-                MaxPowerArray=readtable('maxPower_mag_time.xls');
-                MaxAngVelArray=readtable('maxAngVel_mag_time.xls');
+%                 MaxIKArray=readtable('maxIK_mag_time.xls');
+%                 MaxIDArray=readtable('maxID_BW_mag_time.xls');
+%                 MaxGRFArray=readtable('maxGRF_BW_mag_time.xls');
+%                 MaxMFArray=readtable('maxMF_BW_mag_time.xls');
+%                 MaxPowerArray=readtable('maxPower_mag_time.xls');
+%                 MaxAngVelArray=readtable('maxAngVel_mag_time.xls');
+% 
+%                 AllCombined=setfield(AllCombined,{i},'FlexAtPeakGRF', FlexAtPeakGRFArray);
+%                 AllCombined=setfield(AllCombined,{i},'FlexAtIC', FlexAtICArray);
+%                 AllCombined=setfield(AllCombined,{i},'FE', FEArray);
+%                 AllCombined=setfield(AllCombined,{i},'IK', IKArray);
+%                 AllCombined=setfield(AllCombined,{i},'ID_BW', IDArray);
+%                 AllCombined=setfield(AllCombined,{i},'GRF_BW', GRFArray);
+%                 AllCombined=setfield(AllCombined,{i},'MF_BW', MFArray);
+%                 AllCombined=setfield(AllCombined,{i},'FLEX', FlexArray);
+%                 AllCombined=setfield(AllCombined,{i},'Power', PowerArray);
+%                 AllCombined=setfield(AllCombined,{i},'Work', WorkArray);
+%                 AllCombined=setfield(AllCombined,{i},'AngVel', AngVelArray);
+%                 AllCombined=setfield(AllCombined,{i},'AngImp', AngImpArray);
+%                 AllCombined=setfield(AllCombined,{i},'MaxIK', MaxIKArray);
+%                 AllCombined=setfield(AllCombined,{i},'MaxID', MaxIDArray);
+%                 AllCombined=setfield(AllCombined,{i},'MaxGRF', MaxGRFArray);
+%                 AllCombined=setfield(AllCombined,{i},'MaxMF', MaxMFArray);
+%                 AllCombined=setfield(AllCombined,{i},'MaxPower', MaxPowerArray);
+%                 AllCombined=setfield(AllCombined,{i},'MaxAngVel', MaxAngVelArray);
+                AllCombined=setfield(AllCombined,{i},'PercentJointWork', PercentWorkArray);
 
-                AllCombined=setfield(AllCombined,{i},'FE', FEArray);
-                AllCombined=setfield(AllCombined,{i},'IK', IKArray);
-                AllCombined=setfield(AllCombined,{i},'ID_BW', IDArray);
-                AllCombined=setfield(AllCombined,{i},'GRF_BW', GRFArray);
-                AllCombined=setfield(AllCombined,{i},'MF_BW', MFArray);
-                AllCombined=setfield(AllCombined,{i},'FLEX', FlexArray);
-                AllCombined=setfield(AllCombined,{i},'Power', PowerArray);
-                AllCombined=setfield(AllCombined,{i},'Work', WorkArray);
-                AllCombined=setfield(AllCombined,{i},'AngVel', AngVelArray);
-                AllCombined=setfield(AllCombined,{i},'AngImp', AngImpArray);
-                AllCombined=setfield(AllCombined,{i},'MaxIK', MaxIKArray);
-                AllCombined=setfield(AllCombined,{i},'MaxID', MaxIDArray);
-                AllCombined=setfield(AllCombined,{i},'MaxGRF', MaxGRFArray);
-                AllCombined=setfield(AllCombined,{i},'MaxMF', MaxMFArray);
-                AllCombined=setfield(AllCombined,{i},'MaxPower', MaxPowerArray);
-                AllCombined=setfield(AllCombined,{i},'MaxAngVel', MaxAngVelArray);
 
+                    end  %if trial(i) == 0  statement
 
-                    end
+                end  %trial loop
+            end % if trial==0 statement
 
-                end
 
             cd ..\..\AVERAGES
-            fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'Power', 'Work','AngVel','AngImp', 'MaxIK', 'MaxID','MaxGRF','MaxMF', 'MaxPower', 'MaxAngVel'};
+            fieldNames = {'FlexAtPeakGRF', 'FlexAtIC', 'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'FLEX', 'Power', 'Work','AngVel','AngImp', 'MaxIK', 'MaxID','MaxGRF','MaxMF', 'MaxPower', 'MaxAngVel', 'PercentJointWork'};
+%             fieldNames = {'FlexAtPeakGRF', 'FlexAtIC'};
 
+   
             for a=1:length(fieldNames)
         %         cd(DirTask);
                 vars=AllCombined(1).(char(fieldNames(a))).Properties.VariableNames;
                 for i = 1:size(AllCombined(1).(char(fieldNames(a))), 2)  %13, 24, 24, 13, 116
                     Temp=table();
                     for j = 1:length(trial)
-                         Temp(:,j)= AllCombined(j).(char(fieldNames(a)))(:,i);
+                        if trial(j)~=0 %if only have one or two good trials, will have 0 in myTable
+                            Temp(:,j)= AllCombined(j).(char(fieldNames(a)))(:,i);                                               
+                        else
+                            break
+                           
+                        end
 
                     end  
                      Temp=table2array(Temp);
@@ -121,12 +137,11 @@ for task=[5 6]
 
 
 
-            end
+end
     
 
 end
 
-end
 
 
 % 

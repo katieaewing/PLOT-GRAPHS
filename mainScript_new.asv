@@ -23,7 +23,7 @@ clear all
 
 %For testing ONE subject:
 brace=1;
-subjectID=1;
+subjectID=15;
 freq=20;
 
 %% For testing all subjects, include FOR LOOP:
@@ -65,11 +65,17 @@ else
 [GRFfinal_BW, IDfinal_BW, MFfinal_BW] = normaliseToBW(subjectID, GRF_all, IDfinal, MFfinal, outGRF, outMF, outID);
 
 %Calculate angular velocity and joint power (in radians)
- [AngVel AngImp Power  Work] = getJointEnergetics(IKfinal, IDfinal_BW, IDfinal)
+ [AngVel, AngImp, Power,  Work] = getJointEnergetics(IKfinal, IDfinal_BW, IDfinal);
 
+ %Calculate contribution of each joint to total work
+ [PercentJointWork] = getWorkContribution(Work,subjectID)
+ 
 % Get time and magnitude of peaks
  [maxGRF_BW, stancePercentGRF, IKfinal_max2, stancePercentIK2, IDfinal_BW_max2, stancePercentID2, MFfinal_BW_max2, stancePercentMF2,Power_max, StancePercentPower2, AngVel_max, StancePercentAngVel2] ...
-    = getMaxValues(stance, GRFfinal_BW, IKfinal, IDfinal_BW, MFfinal_BW, outGRF, outIK, outMF, outID, GRFleg, KneeJoint, AngVel, Power)
+    = getMaxValues(stance, GRFfinal_BW, IKfinal, IDfinal_BW, MFfinal_BW, outGRF, outIK, outMF, outID, GRFleg, KneeJoint, AngVel, Power);
+
+% Get flexion angles at peak GRF and at initial contact
+[FlexAtPeakGRF, FlexAtIC] = getFlexionAngles(GRFfinal_BW, IKfinal, outIK, GRFleg);
 
 % Get maximum values of key variables
 [MaxKeyVars] = keyMaxVariables(task, KneeJoint, whichLeg, maxGRF_BW, IKfinal_max2, MFfinal_BW_max2);
@@ -78,7 +84,9 @@ else
 [FE_inputs]=inputsFEmodel(task, KneeJoint, whichLeg, GRF_all, GRF_Tor, IKfinal, MFfinal);
 
 save AllVariables.mat;
-% plotThisTrial2; %plot all graphs for this trial to check if everything looks okay
+
+plotThisTrial2; %plot all graphs for this trial to check if everything looks okay
+
 close all;
 
        end 
@@ -103,10 +111,11 @@ plotGRFBar2(tasks)
 
 
 
-% for subjectID=[1 2 3 4 5 7 8 9 10]
-% brace = 1;
-% [myTable] = setCond(brace, subjectID);
-% averageTrials(subjectID, brace, myTable);
-% end
+%% For just averaging the trials without running everything above
+for subjectID=[1:15]
+brace = 2;
+[myTable] = setCond(brace, subjectID);
+averageTrials(subjectID, brace, myTable);
+end
 
 

@@ -11,6 +11,7 @@
         ...for all the extracted conditions.
 %        statsTableMag = structure with the time of the magnitudes of all the fields ...
         ...(does not include three knee flexion angles field)
+% Example: [statsTableMag, statsTableTime] = finalStats([1:15], [5 6])            
 
 function [statsTableMag, statsTableTime] = finalStats(whichSubjects, tasks)
 
@@ -18,13 +19,17 @@ for brace=[1:2]
     
     for task=tasks
     
-        [statsTempMag statsTempTime fieldNames AllSubjects] = prepareStatsTable2(whichSubjects, brace, task)
+        [statsTempMag, statsTempTime, fieldNames, AllSubjects] = prepareStatsTable2(whichSubjects, brace, task);
         
         if task==5 && brace == 1  %for the first condition (DL30), create empty table.
                 statsTableMag=[];
+                
+                statsTableMag=setfield(statsTableMag,{1}, 'FlexAtIC', []);
+                statsTableMag=setfield(statsTableMag,{1}, 'FlexAtPeakGRF', []);
                 statsTableMag=setfield(statsTableMag,{1}, 'FLEX', []);
                 statsTableMag=setfield(statsTableMag,{1}, 'Work', []);
                 statsTableMag=setfield(statsTableMag,{1}, 'AngImp', []);
+                statsTableMag=setfield(statsTableMag,{1}, 'PercentJointWork', []);
                 statsTableMag=setfield(statsTableMag,{1}, 'MaxGRF', []);
                 statsTableMag=setfield(statsTableMag,{1}, 'MaxID', []);
                 statsTableMag=setfield(statsTableMag,{1}, 'MaxIK', []);
@@ -47,7 +52,7 @@ for brace=[1:2]
                
             statsTableMag.(char(fieldNames(a)))=[[statsTableMag.(char(fieldNames(a)))];[statsTempMag.(char(fieldNames(a)))]];             
             
-            if a>3
+            if a>6
                 statsTableTime.(char(fieldNames(a)))=[[statsTableTime.(char(fieldNames(a)))];[statsTempTime.(char(fieldNames(a)))]];
             end
             
@@ -71,6 +76,7 @@ for a=1:length(fieldNames)
     statsTableTime.(char(fieldNames(a)))=array2table(statsTableTime.(char(fieldNames(a))), 'VariableNames',vars); 
 end
 
+clear fieldNames;
 
 cd('C:\MyOpenSim4');
 save('statsTable.mat');

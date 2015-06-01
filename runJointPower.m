@@ -1,4 +1,4 @@
-for subjectID=[1:14]
+for subjectID=[1:15]
 
 brace = 2; % Set brace or no brace condition
 freq=20;
@@ -21,10 +21,11 @@ else
 
  load AllVariables.mat;
  
- [AngVel AngImp Power  Work] = getJointEnergetics(IKfinal, IDfinal_BW, IDfinal);
- 
-  [Power_max, StancePercentPower2, AngVel_max, StancePercentAngVel2] ...
-    = getMaxValues2(stance, AngVel, Power);
+%  [FlexAtPeakGRF, FlexAtIC] = getFlexionAngles(GRFfinal_BW, IKfinal, outIK, GRFleg);
+%  [AngVel AngImp Power  Work] = getJointEnergetics(IKfinal, IDfinal_BW,
+%  IDfinal);
+
+[PercentJointWork] = getWorkContribution(Work,subjectID);
 
 save AllVariables.mat;
 

@@ -13,9 +13,10 @@
 %        statsTempMag = temporary structure with the time of the magnitudes
 %        of all the fields (does not include three knee flexion angles
 %        field)
+% Example: [statsTempMag, statsTempTime, fieldNames, AllSubjects] = prepareStatsTable2([1:15], 1, 5)
 
 
-function [statsTempMag statsTempTime fieldNames AllSubjects Temp] = prepareStatsTable2(whichSubjects, brace, task)
+function [statsTempMag, statsTempTime, fieldNames, AllSubjects] = prepareStatsTable2(whichSubjects, brace, task)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 leg = {'right'; 'right'; 'right' ; 'right'; 'right'; 'left' ; 'right'  ; 'right' ; 'left' ; 'right' ; 'right'  ; 'right' ; 'right' ; 'right' ; 'right'};
@@ -46,9 +47,12 @@ AllSubjects=[]; %create empty array
         %create file names of averaged trials (correspond to tables created
         %from averageTrials).
         
+        SubAvgFlexAtICFile=([task_label{task} condStr 'FlexAtIC.xls']);
+        SubAvgFlexAtPeakGRFFile=([task_label{task} condStr 'FlexAtPeakGRF.xls']);
         SubAvgFlexFile=([task_label{task} condStr 'FLEX.xls']);
         SubAvgWorkFile=([task_label{task} condStr 'Work.xls']);
         SubAvgAngImpFile=([task_label{task} condStr 'AngImp.xls']);
+        SubAvgPercentJointWorkFile=([task_label{task} condStr 'PercentJointWork.xls']);
         
         % maximum value tables
         SubAvgMaxGRFFile=([task_label{task} condStr 'MaxGRF.xls']);
@@ -62,9 +66,12 @@ AllSubjects=[]; %create empty array
         %need to check if this task exists for this subject
         if exist(SubAvgMaxGRFFile)==2 %file does exist. FE can be generalized to all files.
                 %read in tables created from averageTrials
+                SubAvgFlexAtIC=readtable(SubAvgFlexAtICFile);
+                SubAvgFlexAtPeakGRF=readtable(SubAvgFlexAtPeakGRFFile);
                 SubAvgFlex=readtable(SubAvgFlexFile);
                 SubAvgWork=readtable(SubAvgWorkFile);
                 SubAvgAngImp=readtable(SubAvgAngImpFile);
+                SubAvgPercentJointWork=readtable(SubAvgPercentJointWorkFile);
                 
                 %for maximums
                 SubAvgMaxGRF=readtable(SubAvgMaxGRFFile);
@@ -79,12 +86,18 @@ AllSubjects=[]; %create empty array
                         case 'right'
                         
                         case 'left'
-                        
-                            SubAvgWorktemp=SubAvgWork;
-                            SubAvgWorktemp(:,8:14)=SubAvgWork(:,15:21);
-                            SubAvgWorktemp(:,15:21)=SubAvgWork(:,8:14);
-                            SubAvgWork=SubAvgWorktemp;
+                                                                                
+                            SubAvgFlexAtICtemp=SubAvgFlexAtIC;
+                            SubAvgFlexAtICtemp(:,8:14)=SubAvgFlexAtIC(:,15:21);
+                            SubAvgFlexAtICtemp(:,15:21)=SubAvgFlexAtIC(:,8:14);
+                            SubAvgFlexAtIC=SubAvgFlexAtICtemp;
                             
+                            SubAvgFlexAtPeakGRFtemp=SubAvgFlexAtPeakGRF;
+                            SubAvgFlexAtPeakGRFtemp(:,8:14)=SubAvgFlexAtPeakGRF(:,15:21);
+                            SubAvgFlexAtPeakGRFtemp(:,15:21)=SubAvgFlexAtPeakGRF(:,8:14);
+                            SubAvgFlexAtPeakGRF=SubAvgFlexAtPeakGRFtemp;
+                         
+                       
                             SubAvgAngImptemp=SubAvgAngImp;
                             SubAvgAngImptemp(:,8:14)=SubAvgAngImp(:,15:21);
                             SubAvgAngImptemp(:,15:21)=SubAvgAngImp(:,8:14);
@@ -129,10 +142,13 @@ AllSubjects=[]; %create empty array
                             SubAvgMaxAngVeltemp(:,15:21)=SubAvgMaxAngVel(:,8:14);
                             SubAvgMaxAngVel=SubAvgMaxAngVeltemp;
                 end
-                                       
+                
+                AllSubjects=setfield(AllSubjects,{i}, 'FlexAtIC', SubAvgFlexAtIC);
+                AllSubjects=setfield(AllSubjects,{i}, 'FlexAtPeakGRF', SubAvgFlexAtPeakGRF);
                 AllSubjects=setfield(AllSubjects,{i}, 'FLEX', SubAvgFlex);
                 AllSubjects=setfield(AllSubjects,{i}, 'Work', SubAvgWork);
                 AllSubjects=setfield(AllSubjects,{i}, 'AngImp', SubAvgAngImp);
+                AllSubjects=setfield(AllSubjects,{i}, 'PercentJointWork', SubAvgPercentJointWork);
                 
                 %create structure with subject data. 
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxGRF', SubAvgMaxGRF);
@@ -144,9 +160,13 @@ AllSubjects=[]; %create empty array
                 
                 i= i+1;
         else
+            
+                AllSubjects=setfield(AllSubjects,{i}, 'FlexAtIC', []);
+                AllSubjects=setfield(AllSubjects,{i}, 'FlexAtPeakGRF',[]);
                 AllSubjects=setfield(AllSubjects,{i}, 'FLEX', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'Work', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'AngImp', []);
+                AllSubjects=setfield(AllSubjects,{i}, 'PercentJointWork', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxGRF', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxID', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxIK', []);
@@ -162,7 +182,8 @@ AllSubjects=[]; %create empty array
         
         %clear files for next subject
 
-        clearvars SubAvgMaxGRFFile SubAvgMaxIDFile SubAvgMaxIKFile SubAvgMaxMFFile SubAvgWork SubAvgAngImp SubAvgMaxPower SubAvgMaxAngVel
+        clearvars SubAvgMaxGRFFile SubAvgMaxIDFile SubAvgMaxIKFile SubAvgMaxMFFile SubAvgPercentJointWorkFile...
+            SubAvgWorkFile SubAvgAngImpFile SubAvgMaxPowerFile SubAvgMaxAngVelFile SubAvgFlexAtPeakGRFFile SubAvgFlexAtICFile
        
    end %end of subject while loop
        
@@ -172,7 +193,7 @@ AllSubjects=[]; %create empty array
        %blank.
        
 
-fieldNames = {'FLEX', 'Work', 'AngImp', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxPower', 'MaxAngVel'};
+fieldNames = {'FlexAtIC', 'FlexAtPeakGRF','FLEX', 'Work', 'AngImp', 'PercentJointWork', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxPower', 'MaxAngVel'};
 
 % if isempty(AllSubjects)==1 %if NONE of the subjects performed a task, AllSubjects will be blank
 %                            %and loop will move to next task. e.g. Sub 1 and
@@ -190,16 +211,20 @@ fieldNames = {'FLEX', 'Work', 'AngImp', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'Ma
     statsTempTime=setfield(statsTempTime,{1}, 'MaxPower', []);
     statsTempTime=setfield(statsTempTime,{1}, 'MaxAngVel', []);
 
-    statsTempMag=[];
-    statsTempMag=setfield(statsTempMag,{1}, 'FLEX', []); %has additional field
-    statsTempMag=setfield(statsTempMag,{1}, 'Work', []); %has additional field
-    statsTempMag=setfield(statsTempMag,{1}, 'AngImp', []); %has additional field
+    statsTempMag=[]; %has additional fields
+    statsTempMag=setfield(statsTempMag,{1}, 'FlexAtIC', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'FlexAtPeakGRF', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'FLEX', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'Work', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'AngImp', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'PercentJointWork',[]);
     statsTempMag=setfield(statsTempMag,{1}, 'MaxGRF', []);
     statsTempMag=setfield(statsTempMag,{1}, 'MaxID', []);
     statsTempMag=setfield(statsTempMag,{1}, 'MaxIK', []);
     statsTempMag=setfield(statsTempMag,{1}, 'MaxMF', []);
     statsTempMag=setfield(statsTempMag,{1}, 'MaxPower', []);
     statsTempMag=setfield(statsTempMag,{1}, 'MaxAngVel', []);
+    
                 
     for a=1:length(fieldNames) 
         c=1;
@@ -214,8 +239,8 @@ fieldNames = {'FLEX', 'Work', 'AngImp', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'Ma
             
         end
         
-        if c > length(whichSubjects)
-                task=task+1;
+        if c > length(whichSubjects)  %if all subjects didn't perform a task?
+%                 task=task+1; %not sure if needed?
                 break;
                 
             else
@@ -230,7 +255,7 @@ fieldNames = {'FLEX', 'Work', 'AngImp', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'Ma
                             %If subject did not perform task, will move on to next subject.
                             
                             %Not actually 0, but just a way to create a row in stats table for empty task
-                            if a==1 || a == 2 || a==3
+                            if a==1 || a==2 || a==3 || a==4 || a==5 || a==6
                                 Temp(:,d)={0}; % creates one row with 0 for the FLEX field.
                             else
                                 
@@ -238,7 +263,7 @@ fieldNames = {'FLEX', 'Work', 'AngImp', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'Ma
                             end
                             
                            if j==1
-                               d=j;
+                               d=j; %if subject 1 did not perform task, then the first row of Temp needs to be subject 2
                            end
                             d=d+1;
                             j=j+1;
@@ -254,7 +279,7 @@ fieldNames = {'FLEX', 'Work', 'AngImp', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'Ma
                 
              Temp=table2array(Temp); %should have all subjects
              
-             if a>3
+             if a>6
                  statsTempTime.(char(fieldNames(a)))(:,b)=Temp(2,:)'; %time in second row, need to transform into column
              end
              

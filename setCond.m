@@ -1,3 +1,10 @@
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function sets which trials to analyse by reading the appropriate
+% brace condition table with the number of the trials used.
+%%
+
 function [table] = setCond(brace, subjectID)
 
 cd('C:\MyOpenSim4')

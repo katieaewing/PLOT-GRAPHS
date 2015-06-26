@@ -1,3 +1,10 @@
+%% Created by: Katie Ewing 
+% Modified: June 2015
+% 
+% This function retrieves the flexion angles at peak GRF and at initial
+% contact and saves them to xls tables.
+%%
+
 function [FlexAtPeakGRF, FlexAtIC] = getFlexionAngles(GRFfinal_BW, IKfinal, outIK, GRFleg)
 
 % Magnitude of max GRF

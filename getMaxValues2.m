@@ -1,7 +1,13 @@
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function finds the maximum values and the time (with respect to the
+% landing phase) these occur for two newly added variables, Angular
+% Velocity and Power.
+%%
+
 function [Power_max, stancePercentPower2, AngVel_max, stancePercentAngVel2] ...
     = getMaxValues2(stance, AngVel, Power)
-
-
 
 
 % Magnitude of peak POWER

@@ -1,18 +1,24 @@
-% Created by: Katie Ewing
-% May 2015 
+%% Created by: Katie Ewing 
+% Modified: May 2015
 % 
-% This function calls the function, prepareStatsTable2, to extract multiple conditions and tasks and put them...
-... into one table that can be imported into a statistical software package.
+% This function calls the function, prepareStatsTable2, to extract multiple
+% conditions and tasks and put them into one table that can be imported
+% into a statistical software package.
 %
 % Input: whichSubjects = which subjects to average e.g. [1:14]
-%        tasks = which tasks e.g. for comparing DL30 and DL60 with and without a brace
-% Ouput: statsTableMag = structure with the magnitudes of all fields (e.g. knee flexion angles at three...
-        ...time points, GRF data, IK data, etc.) with each subject in a different row, and repeated in the same columns...
-        ...for all the extracted conditions.
-%        statsTableMag = structure with the time of the magnitudes of all the fields ...
-        ...(does not include three knee flexion angles field)
-% Example: [statsTableMag, statsTableTime] = finalStats([1:15], [5 6])            
+%        tasks = which tasks e.g. for comparing DL30 and DL60 with and
+%        without a brace
+% 
+% Ouput: statsTableMag = structure with the magnitudes of all fields (e.g.
+%        knee flexion angles at three time points, GRF data, IK data, etc.)
+%        with each subject in a different row, and repeated in the same
+%        columns for all the extracted conditions
+%        statsTableMag = structure with the time of the magnitudes of all
+%        the fields (does not include three knee flexion angles field)
+% 
+% Example: [statsTableMag, statsTableTime] = finalStats([1:15], [5 6])
 
+%%
 function [statsTableMag, statsTableTime] = finalStats(whichSubjects, tasks)
 
 for brace=[1:2]

@@ -1,4 +1,11 @@
-function [stance, GRF_all, GRF_Tor, IKfinal, IDfinal, MFfinal]= normalizeTime(tableIK, tableID, tableMF, IK1, IK2, GRF1, GRF2, MF1, MF2, outGRF, outIK, outMF, outID, vGRF)
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function normalizes all variables to percent landing phase in 200
+% increments.
+%%
+
+function [stance, GRF_all, GRF_Tor, IKfinal, IDfinal, MFfinal, MAfinal]= normalizeTime(tableIK, tableID, tableMF, tableMA, IK1, IK2, GRF1, GRF2, MF1, MF2, outGRF, outIK, outMF, outMA, outID, vGRF)
 
 %(time)
 stance=linspace(0,100,200); %define stance phase (0-100%, 200 points)
@@ -93,6 +100,21 @@ end
 MFfinal=array2table(MF, 'VariableNames', outMF.labels);
 
 % writetable(MFfinal,'MFfinal.xls');
+
+%(Moment arm data)
+resamp_MA= tableMA(MF1:MF2,:);
+resamp_MA2= table2array(resamp_MA)';
+
+for i=2:size(resamp_MA2, 1)
+  
+    hold=resamp3([resamp_MA2(1,:); resamp_MA2(i,:)], resamp_ts);
+   	MA(:,1)=hold(1,:);
+    MA(:,i)=hold(2,:);
+    
+end
+MAfinal=array2table(MA, 'VariableNames', outMA.labels);
+
+writetable(MAfinal,'MAfinal.xls');
 
 end
 

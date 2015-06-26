@@ -1,3 +1,10 @@
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function calculates the contribution of the hip, knee, and ankle to
+% the total work.
+%%
+
 function [PercentJointWork] = getWorkContribution(Work,subjectID)
 
 leg = {'right'; 'right'; 'right' ; 'right'; 'right'; 'left' ; 'right'  ; 'right' ; 'left' ; 'right' ; 'right'  ; 'right' ; 'right' ; 'right' ; 'right'};

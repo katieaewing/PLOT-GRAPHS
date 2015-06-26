@@ -1,4 +1,11 @@
-% This function will provide the necessary inputs for Justin's Finite Element model
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function will provide the necessary inputs for Justin's Finite
+% Element model.
+% This includes the knee flexion angle in RADIANS, muscle forces by GROUP,
+% and the GRF torque.
+%%
 
 function [FE_inputs]=inputsFEmodel(task, KneeJoint, whichLeg, GRF_all, GRF_Tor, IKfinal, MFfinal)
 
@@ -84,6 +91,8 @@ VarNames={'GRF_FE', 'FLEX_EXT', 'FLEX_EXT_RAD', 'HAMS_MED', 'HAMS_LAT', 'REC_FEM
 FE_inputs=array2table(All, 'VariableNames', VarNames);
 
 writetable(FE_inputs,'FE_Model_Inputs.xls');
+
+end
 
 
 

@@ -1,7 +1,8 @@
-% Set path names
-function [DirTask,IKpath, GRFpath,IDpath,MFpath]=setPaths(freq,subjectID,brace,task, trial)
-% function [DirTask,IKpath,EMGpath, GRFpath,IDpath,MFpath]=setPaths(freq,subjectID,brace,task, trial)
-
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function sets the paths for each of the OpenSim analyses.
+%
 % Inputs:   freq = frequency of kinetic filter 
 %                 i.e. freq=[15 20 30 40 50 60 80 100]
 % 
@@ -16,8 +17,14 @@ function [DirTask,IKpath, GRFpath,IDpath,MFpath]=setPaths(freq,subjectID,brace,t
 % 
 %           trial = trial numbers in Vicon taken for analysis 
 %                 i.e. trial=[2 3 4] for SJ_2, SJ_3, SJ_3
+%%
+
+function [DirTask,IKpath, GRFpath,IDpath,MFpath, MApath]=setPaths(freq,subjectID,brace,task, trial)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
+
+leg = {'right'; 'right'; 'right' ; 'right'; 'right'; 'left' ; 'right'  ; 'right' ; 'left' ; 'right' ; 'right'  ; 'right' ; 'right' ; 'right' ; 'right'};
+whichLeg = char(leg(subjectID));
 
 %Set directories
 Dir=['C:\MyOpenSim4','\Subject_',int2str(subjectID)];
@@ -35,7 +42,7 @@ switch brace
         MFpath='BraceLandingStudy_StaticOptimization_force.sto';
         IDpath='inverse_dynamics.sto';
 %         AngVelpath='MU2392_genericArms_noWrap_Mod2-scaled_Kinematics_u.sto';
-    
+       
     case 2
         DirTask=[DirBrace '\' task_label{task} '_Brace_' int2str(trial)];
         cd(DirTask);
@@ -48,6 +55,12 @@ switch brace
         
 end
 
+switch whichLeg
+    case 'left'
+        MApath='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_knee_angle_l.sto';
+    case 'right'
+        MApath='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_knee_angle_r.sto';
+end
 
 end 
     

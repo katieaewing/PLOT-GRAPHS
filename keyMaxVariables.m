@@ -1,5 +1,9 @@
-% This function will provide the necessary inputs for Justin's Finite Element model
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function calculates the maximum values of the key variables.
 
+%%
 function [MaxKeyVars] = keyMaxVariables(task, KneeJoint, whichLeg, maxGRF_BW, IKfinal_max2, MFfinal_BW_max2)
 
 % FLEX_EXT=abs(IKfinal.(KneeJoint{1}));

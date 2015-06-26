@@ -1,3 +1,10 @@
+%% ARCHIVE
+% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function plots the GRFs with error bars. 
+%%
+
 function plotGRFBar(tasks)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};

@@ -1,3 +1,10 @@
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function finds the maximum values and the time (with respect to the
+% landing phase) these occur for all variables.
+%%
+
 function [maxGRF_BW, stancePercentGRF, IKfinal_max2, stancePercentIK2, IDfinal_BW_max2, stancePercentID2, MFfinal_BW_max2, stancePercentMF2,Power_max, stancePercentPower2, AngVel_max, stancePercentAngVel2] ...
     = getMaxValues(stance, GRFfinal_BW, IKfinal, IDfinal_BW, MFfinal_BW, outGRF, outIK, outMF, outID, GRFleg, KneeJoint, AngVel, Power)
 

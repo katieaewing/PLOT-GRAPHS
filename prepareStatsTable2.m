@@ -1,5 +1,5 @@
-% Created by: Katie Ewing
-% May 2015 
+%% Created by: Katie Ewing
+% Modified: May 2015 
 % 
 % This function extracts all data (average of trials) from all the subjects
 % from ONE task and ONE brace condition. It is called multiple times by the
@@ -8,14 +8,17 @@
 % Input: whichSubjects = which subjects to average e.g. [1:14]
 %        brace = brace condition e.g. 1 (no brace) or 2 (brace)
 %        task = which task
-% Ouput: statsTempMag = temporary structure with the magnitudes of all fields (e.g. knee flexion angles at three...
-        ...time points, GRF data, IK data, etc.) with each subject in a different row. Missing subjects will appear as 0s.
+% Ouput: statsTempMag = temporary structure with the magnitudes of all
+%        fields (e.g. knee flexion angles at three time points, GRF data,
+%        IK data, etc.) with each subject in a different row. Missing
+%        subjects will appear as 0s.
 %        statsTempMag = temporary structure with the time of the magnitudes
 %        of all the fields (does not include three knee flexion angles
 %        field)
-% Example: [statsTempMag, statsTempTime, fieldNames, AllSubjects] = prepareStatsTable2([1:15], 1, 5)
+% Example: [statsTempMag, statsTempTime, fieldNames, AllSubjects] =
+% prepareStatsTable2([1:15], 1, 5)
 
-
+%%
 function [statsTempMag, statsTempTime, fieldNames, AllSubjects] = prepareStatsTable2(whichSubjects, brace, task)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};

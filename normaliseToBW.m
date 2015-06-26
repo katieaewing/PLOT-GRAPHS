@@ -1,6 +1,13 @@
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function normalizes all force variables (i.e. GRF and muscle forces
+% and joint torques) to body weight or mass.
+%%
+
 function [GRFfinal_BW, IDfinal_BW, MFfinal_BW] = normaliseToBW(subjectID, GRF_all, IDfinal, MFfinal, outGRF, outMF, outID)
 
-mass=[66.2 73.2 55.6 66.2 71 60.7 55.9 71.1 75.6 71.4 80.2 80.6 85.2 58.4 66.8]; %need to double check
+mass=[66.2 73.2 55.6 66.2 71 60.7 55.9 71.1 75.6 71.4 80.2 80.6 85.2 58.4 66.8]; %total mass of each of the subjects. Need to double check
 
 mass=mass(subjectID);
 

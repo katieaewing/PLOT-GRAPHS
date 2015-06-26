@@ -1,3 +1,14 @@
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function finds the indices for the start and end of the landing
+% phase in the GRF and MF files.
+%
+% Input: whichSubjects = subjects you want to average i.e. [1:15]
+%        brace = brace condition i.e. 1 for no brace, 2 for brace
+
+%%
+
 function [iniIndMF, EndIndMF, iniIndGRF, EndIndGRF] = getIndicesLanding(inputindGRF, outGRF, inputMF, IniTime, EndTime)    
 
     iniIndGRF=inputindGRF(1,1);

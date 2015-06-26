@@ -1,4 +1,15 @@
-function [tableIK, tableID, tableMF, outGRF, outIK, outMF, outID] = extractData(inputDirTask, inputIKpath, inputGRFpath, inputIDpath, inputMFpath)
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function extracts all output data from OpenSim.
+%
+% Input: Directory of the given task
+%		 Names of file paths
+
+%%
+
+
+function [tableIK, tableID, tableMF, tableMA, outGRF, outIK, outMF, outID, outMA] = extractData(inputDirTask, inputIKpath, inputGRFpath, inputIDpath, inputMFpath, inputMApath)
 % function [tableIK, tableID, tableMF, outGRF, outIK, outMF, outID, outEMG] = extractData(inputDirTask, inputIKpath, inputEMGpath, inputGRFpath, inputIDpath, inputMFpath)
       
     cd(inputDirTask);
@@ -22,6 +33,11 @@ function [tableIK, tableID, tableMF, outGRF, outIK, outMF, outID] = extractData(
         cd(DirID);
         [outID]= extractMotFile('FILE',inputIDpath,'plot',-1);
         tableID=array2table(outID.data, 'VariableNames', outID.labels);
+        
+        DirMA=[inputDirTask '\MuscleAnalysisResults'];
+        cd(DirMA);
+        [outMA]=extractMotFile('FILE',inputMApath,'plot',-1);
+        tableMA=array2table(outMA.data, 'VariableNames', outMA.labels);
     
 %         DirKinem=[inputDirTask '\KinematicsResults'];
 %         cd(DirKinem);

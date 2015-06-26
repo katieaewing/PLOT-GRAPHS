@@ -1,3 +1,10 @@
+%% Created by: Katie Ewing 
+% Modified: June 2015
+%
+% This function calculates the angular velocity, angular impulse, power,
+% and work during landing.
+%%
+
 function [AngVel AngImp Power  Work] = getJointEnergetics(IKfinal, IDfinal_BW, IDfinal)
 
 % load AllVariables.mat;

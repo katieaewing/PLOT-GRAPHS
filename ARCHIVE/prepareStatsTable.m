@@ -1,3 +1,5 @@
+%% ARCHIVE?!
+
 % This function averages all data (average of trials) across a range of Subjects.
 % Data must be in the folders created from the function averageTrials.
 % Input: subjects you want to average i.e. [1:10]
@@ -11,7 +13,7 @@ leg = {'right'; 'right'; 'right' ; 'right'; 'right'; 'left' ; 'right'  ; 'right'
 brace=1;
 for brace = [1 2]
 for task=[5 6]
-%     1:length(task_label) %average subjects one task at a time
+%     1:length(task_label) %a2verage subjects one task at a time
 
        AllSubjects=[]; %create empty array
        statsTable=[];

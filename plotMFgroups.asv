@@ -5,6 +5,7 @@
 %moments at 30 cm and 60 cm with and without brace.
 %Uses Adrian and Guan Shan's plotting function.
 %e.g. plotmeanGRF_IDprofile([5 6])
+%%
 function plotMFgroups(tasks)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
@@ -37,11 +38,12 @@ for task=tasks
     inMeanVasMed=[AvgMF(:,5), AvgMFBrace(:,5)];
     inMeanVasInt=[AvgMF(:,6), AvgMFBrace(:,6)];
     inMeanVasLat=[AvgMF(:,7), AvgMFBrace(:,7)];
-    inMeanQuads=[AvgMF(:,8), AvgMFBrace(:,8)];
-    inMeanGasMed=[AvgMF(:,9), AvgMFBrace(:,9)];
-    inMeanGasLat=[AvgMF(:,10), AvgMFBrace(:,10)];
-    inMeanGas=[AvgMF(:,11), AvgMFBrace(:,11)];
-    inMeanSol=[AvgMF(:,12), AvgMFBrace(:,12)];
+    inMeanVas=[AvgMF(:,8), AvgMFBrace(:,8)];
+    inMeanQuads=[AvgMF(:,9), AvgMFBrace(:,9)];
+    inMeanGasMed=[AvgMF(:,10), AvgMFBrace(:,10)];
+    inMeanGasLat=[AvgMF(:,11), AvgMFBrace(:,11)];
+    inMeanGas=[AvgMF(:,12), AvgMFBrace(:,12)];
+    inMeanSol=[AvgMF(:,13), AvgMFBrace(:,13)];
     
     inStdHamsMed=[StdMF(:,1), StdMFBrace(:,1)];
     inStdHamsLat=[StdMF(:,2), StdMFBrace(:,2)];
@@ -50,85 +52,91 @@ for task=tasks
     inStdVasMed=[StdMF(:,5), StdMFBrace(:,5)];
     inStdVasInt=[StdMF(:,6), StdMFBrace(:,6)];
     inStdVasLat=[StdMF(:,7), StdMFBrace(:,7)];
-    inStdQuads=[StdMF(:,8), StdMFBrace(:,8)];
-    inStdGasMed=[StdMF(:,9), StdMFBrace(:,9)];
-    inStdGasLat=[StdMF(:,10), StdMFBrace(:,10)];
-    inStdGas=[StdMF(:,11), StdMFBrace(:,11)];
-    inStdSol=[StdMF(:,12), StdMFBrace(:,12)];
-    
-    %calls function from Adrian and GS
-    figure(1);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanHamsMed',(inStdHamsMed./sqrt(15))','X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
-    
-    figure(2);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanHamsLat',(inStdHamsLat./sqrt(15))', 'X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
-    
-    figure(3);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanHams',(inStdHams./sqrt(15))', 'X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
-    
-    figure(4);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanRecFem',(inStdRecFem./sqrt(15))', 'X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
-    
-    figure(5);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanVasMed',(inStdVasMed./sqrt(15))', 'X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
-    
-    figure(6);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanVasInt',(inStdVasInt./sqrt(15))', 'X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
-    
-    figure(7);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanVasLat',(inStdVasLat./sqrt(15))', 'X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
-    
-    figure(8);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanQuads',(inStdQuads./sqrt(15))', 'X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
+    inStdVas=[StdMF(:,8), StdMFBrace(:,8)];
+    inStdQuads=[StdMF(:,9), StdMFBrace(:,9)];
+    inStdGasMed=[StdMF(:,10), StdMFBrace(:,10)];
+    inStdGasLat=[StdMF(:,11), StdMFBrace(:,11)];
+    inStdGas=[StdMF(:,12), StdMFBrace(:,12)];
+    inStdSol=[StdMF(:,13), StdMFBrace(:,13)];
     
     
-    figure(9);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanGasMed',(inStdGasMed./sqrt(15))', 'X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
     
-    figure(10);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanGasLat',(inStdGasLat./sqrt(15))', 'X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
+%     %calls function from Adrian and GS
+%     figure(1);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanHamsMed',(inStdHamsMed./sqrt(15))','X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
+%     figure(2);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanHamsLat',(inStdHamsLat./sqrt(15))', 'X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
+%     figure(3);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanHams',(inStdHams./sqrt(15))', 'X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
+%     figure(4);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanRecFem',(inStdRecFem./sqrt(15))', 'X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
+%     figure(5);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanVasMed',(inStdVasMed./sqrt(15))', 'X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
+%     figure(6);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanVasInt',(inStdVasInt./sqrt(15))', 'X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
+%     figure(7);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanVasLat',(inStdVasLat./sqrt(15))', 'X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
+%     figure(8);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanQuads',(inStdQuads./sqrt(15))', 'X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
+%     
+%     figure(9);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanGasMed',(inStdGasMed./sqrt(15))', 'X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
+%     figure(10);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanGasLat',(inStdGasLat./sqrt(15))', 'X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
+%     figure(11);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanGas',(inStdGas./sqrt(15))', 'X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
+%     figure(12);
+%     %     subplot(4,2,i);
+%     AGF_mnsdplot(inMeanSol',(inStdSol./sqrt(15))', 'X',linspace(0,100,200));
+%     %     ylim([0 3]);
+%     ylabel('Muscle Force(B.W.)');
+%     
     
-    figure(11);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanGas',(inStdGas./sqrt(15))', 'X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
     
-    figure(12);
-    %     subplot(4,2,i);
-    AGF_mnsdplot(inMeanSol',(inStdSol./sqrt(15))', 'X',linspace(0,100,200));
-    %     ylim([0 3]);
-    ylabel('Muscle Force(B.W.)');
     
 %     i=i+2;
 %     subplot(4,2,i);
@@ -158,7 +166,31 @@ for task=tasks
 %     clear AvgGRF StdGRF AvgID StdID AvgGRFBrace StdGRFBrace AvgIDBrace StdIDBrace
     
    
+stance=linspace(0,100,200);
 
+subplot(5,2,i);
+plot(stance, inMeanHams);
+ylabel('Muscle Force(B.W.)');
+legend({'NO BRACE','BRACE'});
+
+i=i+2;
+subplot(5,2,i);
+plot(stance,inMeanRecFem);
+
+i=i+2;
+subplot(5,2,i);
+plot(stance, inMeanVas);
+
+i=i+2;
+subplot(5,2,i);
+plot(stance, inMeanGas);
+
+i=i+2;
+
+subplot(5,2,i);
+plot(stance, inMeanSol);
+
+i=i-7;
 
 end
 

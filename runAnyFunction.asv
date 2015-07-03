@@ -8,7 +8,7 @@
 
 for subjectID=[1:15]
     
-    brace = 2; % Set brace or no brace condition
+    brace = 1; % Set brace or no brace condition
     freq=20;
     
     % Save the trial numbers used for each task
@@ -27,7 +27,7 @@ for subjectID=[1:15]
                 cd([DirTask '\TABLES']);
                 
                 load AllVariables.mat;
-%                 load MomentArms.mat %for getting muscle torques
+%                 load MomentArms.mat
                 
                 %  [FlexAtPeakGRF, FlexAtIC] = getFlexionAngles(GRFfinal_BW, IKfinal, outIK, GRFleg);
                 %  [AngVel AngImp Power  Work] = getJointEnergetics(IKfinal, IDfinal_BW,

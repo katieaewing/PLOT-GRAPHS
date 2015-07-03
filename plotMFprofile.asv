@@ -18,7 +18,7 @@ set(b(1),'FaceColor','b');
 set(b(2),'FaceColor','r');
 
 
-%30cm
+
 % AvgMFMax=[
 % AvgMFBraceMax=[0.7895 5.1142 1.252 4.1866];
 % 
@@ -32,11 +32,9 @@ AvgMFBraceMax=[2.2358 6.4407 1.5250 5.0763];
 StdMFMax=[0.9149 1.0363 0.3130 0.9527];
 StdMFBraceMax=[0.6969 1.1133 0.3608 0.8416];
 
-%no brace 60 cm had 14 subjects, brace 60cm had 15 subjects
 barwitherr([(StdMFMax./sqrt(14))' (StdMFBraceMax./sqrt(15))'],[AvgMFMax' AvgMFBraceMax'], 'LineWidth',2,...
     'BarWidth',0.7)
 set(gca, 'XTickLabel', {'HAMSTRINGS', 'QUADRICEPS', 'GASTROCNEMIUS', 'SOLEUS'})
-legend('No Brace', 'Brace')
-legend boxoff
-ylabel('Peak Muscle Force (B.W.)')
+legend('NO BRACE', 'BRACE')
+ylabel('Peak GRF (B.W.)')
    

@@ -6,6 +6,7 @@
 subplot(1,2,1)
 Male=[13.50 14.230];
 Female=[15.520 19.100];
+MaleStd=
 b=bar([Male;Female],'BarWidth',1);
 % legend('NO BRACE', 'BRACE', 'Location','northwest');
 % legend('boxoff');
@@ -25,6 +26,11 @@ set(gca, 'XTickLabel', {'MALE', 'FEMALE'});
 set(b(1),'FaceColor','w');
 set(b(2),'FaceColor','k');
 
+errorbarxy(Male, [1 2]);
+
+% standard errors
+% 	0	1.303	1.303
+% 	1	1.259	1.219
 
 %% Pie chart of joint contributions to total work
 

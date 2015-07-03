@@ -190,7 +190,7 @@ AllSubjects=[]; %create empty array
         %clear files for next subject
 
         clearvars SubAvgMaxGRFFile SubAvgMaxIDFile SubAvgMaxIKFile SubAvgMaxMFFile SubAvgPercentJointWorkFile...
-            SubAvgWorkFile SubAvgAngImpFile SubAvgMaxPowerFile SubAvgMaxAngVelFile SubAvgFlexAtPeakGRFFile SubAvgFlexAtICFile SubAvgMaxMFGroupFile
+            SubAvgWorkFile SubAvgAngImpFile SubAvgMaxPowerFile SubAvgMaxAngVelFile SubAvgFlexAtPeakGRFFile SubAvgFlexAtICFile
        
    end %end of subject while loop
        
@@ -200,7 +200,7 @@ AllSubjects=[]; %create empty array
        %blank.
        
 
-fieldNames = {'FlexAtIC', 'FlexAtPeakGRF','FLEX', 'Work', 'AngImp', 'PercentJointWork', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxMFGroup', 'MaxPower', 'MaxAngVel'};
+fieldNames = {'FlexAtIC', 'FlexAtPeakGRF','FLEX', 'Work', 'AngImp', 'PercentJointWork', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxPower', 'MaxAngVel'};
 
 % if isempty(AllSubjects)==1 %if NONE of the subjects performed a task, AllSubjects will be blank
 %                            %and loop will move to next task. e.g. Sub 1 and
@@ -215,7 +215,6 @@ fieldNames = {'FlexAtIC', 'FlexAtPeakGRF','FLEX', 'Work', 'AngImp', 'PercentJoin
     statsTempTime=setfield(statsTempTime,{1}, 'MaxID', []);
     statsTempTime=setfield(statsTempTime,{1}, 'MaxIK', []);
     statsTempTime=setfield(statsTempTime,{1}, 'MaxMF', []);
-    statsTempTime=setfield(statsTempTime,{1}, 'MaxMFGroup', []);
     statsTempTime=setfield(statsTempTime,{1}, 'MaxPower', []);
     statsTempTime=setfield(statsTempTime,{1}, 'MaxAngVel', []);
 
@@ -230,8 +229,6 @@ fieldNames = {'FlexAtIC', 'FlexAtPeakGRF','FLEX', 'Work', 'AngImp', 'PercentJoin
     statsTempMag=setfield(statsTempMag,{1}, 'MaxID', []);
     statsTempMag=setfield(statsTempMag,{1}, 'MaxIK', []);
     statsTempMag=setfield(statsTempMag,{1}, 'MaxMF', []);
-    statsTempMag=setfield(statsTempMag,{1}, 'MaxMFGroup', []);
-    
     statsTempMag=setfield(statsTempMag,{1}, 'MaxPower', []);
     statsTempMag=setfield(statsTempMag,{1}, 'MaxAngVel', []);
     

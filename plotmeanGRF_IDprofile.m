@@ -1,17 +1,26 @@
-%Katie Ewing
-%June 2015
+%% Created by: Katie Ewing
+%Modified: June 2015
 
 %Plots mean and standard error over stance phase of vertical GRF and joint
 %moments at 30 cm and 60 cm with and without brace.
 %Uses Adrian and Guan Shan's plotting function.
 %e.g. plotmeanGRF_IDprofile([5 6])
+
+%%
 function plotmeanGRF_IDprofile(tasks)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 
 i=1;
 for task=tasks
-   
+    switch task
+        case 5
+            n=15;
+        case 6
+            n=14;
+    end
+
+    
     DirSubAvg='C:\MyOpenSim4\SUBJECT_AVERAGES';
     cd([DirSubAvg '\' task_label{task}]);
      
@@ -43,20 +52,20 @@ for task=tasks
     %calls function from Adrian and GS
     figure(1);
     subplot(4,2,i);
-    AGF_mnsdplot(inMeanGRF',(inStdGRF./sqrt(15))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
+    AGF_mnsdplot(inMeanGRF',(inStdGRF./sqrt(n))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
     ylim([0 3]);
     ylabel('Vertical GRF (B.W.)');
     
     i=i+2;
     subplot(4,2,i);
-    AGF_mnsdplot(-inMeanID_hip',(-inStdID_hip./sqrt(15))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
+    AGF_mnsdplot(-inMeanID_hip',(-inStdID_hip./sqrt(n))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
     ylim([-2 3]);
     ylabel('Moment (N-m/kg)');
     title('Hip');
     
     i=i+2;
     subplot(4,2,i);
-    AGF_mnsdplot(inMeanID_knee',(inStdID_knee./sqrt(15))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
+    AGF_mnsdplot(inMeanID_knee',(inStdID_knee./sqrt(n))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
     ylim([-1 2]);
 %     xlabel('Percent landing phase');
     ylabel('Moment (N-m/kg)');
@@ -64,7 +73,7 @@ for task=tasks
     
     i=i+2;
     subplot(4,2,i);
-    AGF_mnsdplot(-inMeanID_ankle',(-inStdID_ankle./sqrt(15))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
+    AGF_mnsdplot(-inMeanID_ankle',(-inStdID_ankle./sqrt(n))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
     ylim([0 2]);
     xlabel('Percent landing phase');
     ylabel('Moment (N-m/kg)');

@@ -40,6 +40,7 @@ for brace=[1:2]
                 statsTableMag=setfield(statsTableMag,{1}, 'MaxID', []);
                 statsTableMag=setfield(statsTableMag,{1}, 'MaxIK', []);
                 statsTableMag=setfield(statsTableMag,{1}, 'MaxMF', []);
+                statsTableMag=setfield(statsTableMag,{1}, 'MaxMFGroup', []);
                 statsTableMag=setfield(statsTableMag,{1}, 'MaxPower', []);
                 statsTableMag=setfield(statsTableMag,{1}, 'MaxAngVel', []);
                 
@@ -48,6 +49,7 @@ for brace=[1:2]
                 statsTableTime=setfield(statsTableTime,{1}, 'MaxID', []);
                 statsTableTime=setfield(statsTableTime,{1}, 'MaxIK', []);
                 statsTableTime=setfield(statsTableTime,{1}, 'MaxMF', []);
+                statsTableTime=setfield(statsTableTime,{1}, 'MaxMFGroup', []);
                 statsTableTime=setfield(statsTableTime,{1}, 'MaxPower', []);
                 statsTableTime=setfield(statsTableTime,{1}, 'MaxAngVel', []);
            
@@ -75,7 +77,7 @@ for a=1:length(fieldNames)
     statsTableMag.(char(fieldNames(a)))=array2table(statsTableMag.(char(fieldNames(a))), 'VariableNames',vars);         
 end
 
-fieldNames = {'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxPower','MaxAngVel'};
+fieldNames = {'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxMFGroup', 'MaxPower','MaxAngVel'};
 
 for a=1:length(fieldNames)
     vars=AllSubjects(2).(char(fieldNames(a))).Properties.VariableNames; 
@@ -85,7 +87,7 @@ end
 clear fieldNames;
 
 cd('C:\MyOpenSim4');
-save('statsTable.mat');
+save('statsTable2.mat');
 
 end
 

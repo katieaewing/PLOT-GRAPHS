@@ -57,7 +57,7 @@ for task=[5 6]
 %                 IDArray=readtable('IDfinal_BW.xls');
 %                 GRFArray=readtable('GRFfinal_BW.xls');
 %                 MFArray=readtable('MFfinal_BW.xls');
-%                 MFGroupArray=readtable('MF_BW_groups.xls');
+                MFGroupArray=readtable('MF_BW_groups.xls');
 %                 MAArray=readtable('MAfinal.xls');
 %                 MuscleTorqueArray=readtable('MuscleTorque_BW.xls');
                   
@@ -76,7 +76,7 @@ for task=[5 6]
 %                 MaxIDArray=readtable('maxID_BW_mag_time.xls');
 %                 MaxGRFArray=readtable('maxGRF_BW_mag_time.xls');
 %                 MaxMFArray=readtable('maxMF_BW_mag_time.xls');
-%                 MaxMFGroupArray=readtable('maxMF_BW_groups_mag_time.xls');
+                MaxMFGroupArray=readtable('maxMF_BW_groups_mag_time.xls');
 %                 MaxPowerArray=readtable('maxPower_mag_time.xls');
 %                 MaxAngVelArray=readtable('maxAngVel_mag_time.xls');
 %                 
@@ -90,10 +90,10 @@ for task=[5 6]
 %                 AllCombined=setfield(AllCombined,{i},'ID_BW', IDArray);
 %                 AllCombined=setfield(AllCombined,{i},'GRF_BW', GRFArray);
 %                 AllCombined=setfield(AllCombined,{i},'MF_BW', MFArray);
-%                 AllCombined=setfield(AllCombined,{i},'MFGroup', MFGroupArray);
+                AllCombined=setfield(AllCombined,{i},'MFGroup', MFGroupArray);
 %                 AllCombined=setfield(AllCombined,{i},'MA', MAArray);
 %                 AllCombined=setfield(AllCombined,{i},'MuscleTorque', MuscleTorqueArray);
-                    AllCombined=setfield(AllCombined,{i},'RMStorque', load('AllVariables.mat','RMStorques'));
+%                     AllCombined=setfield(AllCombined,{i},'RMStorque', load('AllVariables.mat','RMStorques'));
 
 %                 AllCombined=setfield(AllCombined,{i},'FLEX', FlexArray);
 %                 AllCombined=setfield(AllCombined,{i},'Power', PowerArray);
@@ -104,7 +104,7 @@ for task=[5 6]
 %                 AllCombined=setfield(AllCombined,{i},'MaxID', MaxIDArray);
 %                 AllCombined=setfield(AllCombined,{i},'MaxGRF', MaxGRFArray);
 %                 AllCombined=setfield(AllCombined,{i},'MaxMF', MaxMFArray);
-%                 AllCombined=setfield(AllCombined,{i},'MaxMFGroup',MaxMFGroupArray);
+                AllCombined=setfield(AllCombined,{i},'MaxMFGroup',MaxMFGroupArray);
 %                 AllCombined=setfield(AllCombined,{i},'MaxPower', MaxPowerArray);
 %                 AllCombined=setfield(AllCombined,{i},'MaxAngVel', MaxAngVelArray);
 %                 AllCombined=setfield(AllCombined,{i},'PercentJointWork', PercentWorkArray);
@@ -119,7 +119,8 @@ for task=[5 6]
 
             cd ..\..\AVERAGES
 %             fieldNames = {'FlexAtPeakGRF', 'FlexAtIC', 'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'MFGroup', 'MA', 'MuscleTorque','RMStorque', 'FLEX', 'Power', 'Work','AngVel','AngImp', 'MaxIK', 'MaxID','MaxGRF','MaxMF', 'MaxMFGroup', 'MaxPower', 'MaxAngVel', 'PercentJointWork'};
-            fieldNames = {'RMStorque'};
+%             fieldNames = {'RMStorque'};
+                fieldNames = {'MFGroup','MaxMFGroup'};
 
             for a=1:length(fieldNames)
         %         cd(DirTask);

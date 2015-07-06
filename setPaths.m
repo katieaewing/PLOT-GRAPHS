@@ -19,7 +19,7 @@
 %                 i.e. trial=[2 3 4] for SJ_2, SJ_3, SJ_3
 %%
 
-function [DirTask,IKpath, GRFpath,IDpath,MFpath, MApath]=setPaths(freq,subjectID,brace,task, trial)
+function [DirTask,IKpath, GRFpath,IDpath,MFpath, MApath, MApathHipFlex, MApathAnkleFlex]=setPaths(freq,subjectID,brace,task, trial)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 
@@ -57,9 +57,31 @@ end
 
 switch whichLeg
     case 'left'
-        MApath='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_knee_angle_l.sto';
+        
+        if task == 3 || task == 4
+            MApath='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_knee_angle_r.sto';
+            MApathHipFlex='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_hip_flexion_r.sto';
+            MApathAnkleFlex='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_ankle_angle_r.sto';
+        else
+            
+            MApath='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_knee_angle_l.sto';
+            MApathHipFlex='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_hip_flexion_l.sto';
+            MApathAnkleFlex='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_ankle_angle_l.sto';
+        end
+         
+         
     case 'right'
-        MApath='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_knee_angle_r.sto';
+        
+        if task == 3 || task == 4
+            MApath='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_knee_angle_l.sto';
+            MApathHipFlex='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_hip_flexion_l.sto';
+            MApathAnkleFlex='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_ankle_angle_l.sto';
+        else
+            
+            MApath='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_knee_angle_r.sto';
+            MApathHipFlex='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_hip_flexion_r.sto';
+            MApathAnkleFlex='MU2392_genericArms_noWrap_Mod2-scaled_MuscleAnalysis_MomentArm_ankle_angle_r.sto';
+        end
 end
 
 end 

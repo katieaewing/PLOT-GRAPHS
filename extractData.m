@@ -9,7 +9,7 @@
 %%
 
 
-function [tableIK, tableID, tableMF, tableMA, outGRF, outIK, outMF, outID, outMA] = extractData(inputDirTask, inputIKpath, inputGRFpath, inputIDpath, inputMFpath, inputMApath)
+function [tableIK, tableID, tableMF, tableMA, tableMAHip, tableMAAnkle, outGRF, outIK, outMF, outID, outMA, outMAHip, outMAAnkle] = extractData(inputDirTask, inputIKpath, inputGRFpath, inputIDpath, inputMFpath, inputMApath, inputMAHippath, inputMAAnklepath)
 % function [tableIK, tableID, tableMF, outGRF, outIK, outMF, outID, outEMG] = extractData(inputDirTask, inputIKpath, inputEMGpath, inputGRFpath, inputIDpath, inputMFpath)
       
     cd(inputDirTask);
@@ -38,6 +38,14 @@ function [tableIK, tableID, tableMF, tableMA, outGRF, outIK, outMF, outID, outMA
         cd(DirMA);
         [outMA]=extractMotFile('FILE',inputMApath,'plot',-1);
         tableMA=array2table(outMA.data, 'VariableNames', outMA.labels);
+
+        DirMA=[inputDirTask '\MuscleAnalysisResults'];
+        cd(DirMA);
+        [outMAHip]=extractMotFile('FILE',inputMAHippath,'plot',-1);
+        tableMAHip=array2table(outMAHip.data, 'VariableNames', outMAHip.labels);
+        
+        [outMAAnkle]=extractMotFile('FILE',inputMAAnklepath,'plot',-1);
+        tableMAAnkle=array2table(outMAAnkle.data, 'VariableNames', outMAAnkle.labels);
     
 %         DirKinem=[inputDirTask '\KinematicsResults'];
 %         cd(DirKinem);

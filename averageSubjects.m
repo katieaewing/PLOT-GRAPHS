@@ -47,13 +47,16 @@ for task=[5 6]
 %         SubAvgID_BWFile=([task_label{task} condStr 'ID_BW.xls']);
 %         SubAvgGRF_BWFile=([task_label{task} condStr 'GRF_BW.xls']);
 %         SubAvgMF_BWFile=([task_label{task} condStr 'MF_BW.xls']);
-          SubAvgMFGroupFile=([task_label{task} condStr 'MFGroup.xls']);
+%         SubAvgMFGroupFile=([task_label{task} condStr 'MFGroup.xls']);
 %         SubAvgFlexFile=([task_label{task} condStr 'FLEX.xls']);
 %         SubAvgPowerFile=([task_label{task} condStr 'Power.xls']);
 %         SubAvgWorkFile=([task_label{task} condStr 'Work.xls']);
 %         SubAvgAngVelFile=([task_label{task} condStr 'AngVel.xls']);
 %         SubAvgAngImpFile=([task_label{task} condStr 'AngImp.xls']);
 %         SubAvgMuscleTorqueFile=([task_label{task} condStr 'MuscleTorque.xls']);
+%         SubAvgMuscleTorqueHipFile=([task_label{task} condStr 'MuscleTorqueHip.xls']);
+%         SubAvgMuscleTorqueAnkleFile=([task_label{task} condStr 'MuscleTorqueAnkle.xls']);
+        SubAvgRMSTorquesFile=([task_label{task} condStr 'AllRMSTorques.xls']);
 
         
         % and for maximum value tables
@@ -61,12 +64,12 @@ for task=[5 6]
 %         SubAvgMaxIDFile=([task_label{task} condStr 'MaxID.xls']);
 %         SubAvgMaxIKFile=([task_label{task} condStr 'MaxIK.xls']);
 %         SubAvgMaxMFFile=([task_label{task} condStr 'MaxMF.xls']);
-           SubAvgMaxMFGroupFile=([task_label{task} condStr 'MaxMFGroup.xls']);
+%            SubAvgMaxMFGroupFile=([task_label{task} condStr 'MaxMFGroup.xls']);
 %         SubAvgMaxPowerFile=([task_label{task} condStr 'MaxPower.xls']);
 %         SubAvgMaxAngVelFile=([task_label{task} condStr 'MaxAngVel.xls']);
          
         %need to check if this task exists for this subject
-        if exist(SubAvgMFGroupFile)==2 %file does exist. FE can be generalized to all files.
+        if exist(SubAvgRMSTorquesFile)==2 %file does exist. FE can be generalized to all files.
                 %read in tables created from averageTrials
                  
 %                 SubAvgFE=readtable(SubAvgFEFile);
@@ -74,26 +77,27 @@ for task=[5 6]
 %                 SubAvgID_BW=readtable(SubAvgID_BWFile);
 %                 SubAvgGRF_BW=readtable(SubAvgGRF_BWFile);
 %                 SubAvgMF_BW=readtable(SubAvgMF_BWFile);
-                  SubAvgMFGroup=readtable(SubAvgMFGroupFile);
+%                 SubAvgMFGroup=readtable(SubAvgMFGroupFile);
 %                 SubAvgFlex=readtable(SubAvgFlexFile);
 %                 SubAvgPower=readtable(SubAvgPowerFile);
 %                 SubAvgWork=readtable(SubAvgWorkFile);
 %                 SubAvgAngVel=readtable(SubAvgAngVelFile);
 %                 SubAvgAngImp=readtable(SubAvgAngImpFile);
-%                   SubAvgMuscleTorque=readtable(SubAvgMuscleTorqueFile);
-                
-                
+%                  SubAvgMuscleTorque=readtable(SubAvgMuscleTorqueFile);
+%                  SubAvgMuscleTorqueHip=readtable(SubAvgMuscleTorqueHipFile);
+%                  SubAvgMuscleTorqueAnkle=readtable(SubAvgMuscleTorqueAnkleFile);
+                  SubAvgRMSTorques=readtable(SubAvgRMSTorquesFile);
                 
 %                 SubAvgMaxGRF=readtable(SubAvgMaxGRFFile);
 %                 SubAvgMaxID=readtable(SubAvgMaxIDFile);
 %                 SubAvgMaxIK=readtable(SubAvgMaxIKFile);
 %                 SubAvgMaxMF=readtable(SubAvgMaxMFFile);
-                  SubAvgMaxMFGroup=readtable(SubAvgMaxMFGroupFile);
+%                 SubAvgMaxMFGroup=readtable(SubAvgMaxMFGroupFile);
 %                 SubAvgMaxPower=readtable(SubAvgMaxPowerFile);
 %                 SubAvgMaxAngVel=readtable(SubAvgMaxAngVelFile);
                     
                 switch whichLeg
-                        
+                        %NOTE: THIS SHOULD BE CHANGED FOR SINGLE-LEG LANDING!!!
                         case 'right'
                         
                         case 'left'
@@ -135,6 +139,28 @@ for task=[5 6]
 %                             SubAvgMuscleTorquetemp(:,92)=SubAvgMuscleTorque(:,93);
 %                             SubAvgMuscleTorquetemp(:,93)=SubAvgMuscleTorque(:,92);
 %                             SubAvgMuscleTorque=SubAvgMuscleTorquetemp;
+% 
+%                             SubAvgMuscleTorqueHiptemp=SubAvgMuscleTorqueHip;
+%                             SubAvgMuscleTorqueHiptemp(:,2:44)=SubAvgMuscleTorqueHip(:,45:87);
+%                             SubAvgMuscleTorqueHiptemp(:,45:87)=SubAvgMuscleTorqueHip(:,2:44);
+%                             SubAvgMuscleTorqueHiptemp(:,88)=SubAvgMuscleTorqueHip(:,89);
+%                             SubAvgMuscleTorqueHiptemp(:,89)=SubAvgMuscleTorqueHip(:,88);
+%                             SubAvgMuscleTorqueHiptemp(:,90)=SubAvgMuscleTorqueHip(:,91);
+%                             SubAvgMuscleTorqueHiptemp(:,91)=SubAvgMuscleTorqueHip(:,90);
+%                             SubAvgMuscleTorqueHiptemp(:,92)=SubAvgMuscleTorqueHip(:,93);
+%                             SubAvgMuscleTorqueHiptemp(:,93)=SubAvgMuscleTorqueHip(:,92);
+%                             SubAvgMuscleTorqueHip=SubAvgMuscleTorqueHiptemp;
+%                             
+%                             SubAvgMuscleTorqueAnkletemp=SubAvgMuscleTorqueAnkle;
+%                             SubAvgMuscleTorqueAnkletemp(:,2:44)=SubAvgMuscleTorqueAnkle(:,45:87);
+%                             SubAvgMuscleTorqueAnkletemp(:,45:87)=SubAvgMuscleTorqueAnkle(:,2:44);
+%                             SubAvgMuscleTorqueAnkletemp(:,88)=SubAvgMuscleTorqueAnkle(:,89);
+%                             SubAvgMuscleTorqueAnkletemp(:,89)=SubAvgMuscleTorqueAnkle(:,88);
+%                             SubAvgMuscleTorqueAnkletemp(:,90)=SubAvgMuscleTorqueAnkle(:,91);
+%                             SubAvgMuscleTorqueAnkletemp(:,91)=SubAvgMuscleTorqueAnkle(:,90);
+%                             SubAvgMuscleTorqueAnkletemp(:,92)=SubAvgMuscleTorqueAnkle(:,93);
+%                             SubAvgMuscleTorqueAnkletemp(:,93)=SubAvgMuscleTorqueAnkle(:,92);
+%                             SubAvgMuscleTorqueAnkle=SubAvgMuscleTorqueAnkletemp;
 %                                                                                     
 %                             SubAvgPowertemp=SubAvgPower;
 %                             SubAvgPowertemp(:,8:14)=SubAvgPower(:,15:21);
@@ -204,19 +230,22 @@ for task=[5 6]
 %                 AllSubjects=setfield(AllSubjects,{i}, 'ID_BW', SubAvgID_BW);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'GRF_BW', SubAvgGRF_BW);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MF_BW', SubAvgMF_BW);
-                    AllSubjects=setfield(AllSubjects,{i}, 'MFGroup', SubAvgMFGroup);
+%                 AllSubjects=setfield(AllSubjects,{i}, 'MFGroup', SubAvgMFGroup);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'FLEX', SubAvgFlex);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'Power', SubAvgPower);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'Work', SubAvgWork);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'AngVel', SubAvgAngVel);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'AngImp', SubAvgAngImp);
-%                     AllSubjects=setfield(AllSubjects,{i}, 'MuscleTorque', SubAvgMuscleTorque);
+%                 AllSubjects=setfield(AllSubjects,{i}, 'MuscleTorque', SubAvgMuscleTorque);
+%                 AllSubjects=setfield(AllSubjects,{i}, 'MuscleTorqueHip', SubAvgMuscleTorqueHip);
+%                 AllSubjects=setfield(AllSubjects,{i}, 'MuscleTorqueAnkle', SubAvgMuscleTorqueAnkle);
+                   AllSubjects=setfield(AllSubjects,{i}, 'AllRMSTorques', SubAvgRMSTorques); 
 %                 
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxGRF', SubAvgMaxGRF);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxID', SubAvgMaxID);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxIK', SubAvgMaxIK);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxMF', SubAvgMaxMF);
-                     AllSubjects=setfield(AllSubjects,{i}, 'MaxMFGroup', SubAvgMaxMFGroup);
+%                 AllSubjects=setfield(AllSubjects,{i}, 'MaxMFGroup', SubAvgMaxMFGroup);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxPower', SubAvgMaxPower);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxAngVel', SubAvgMaxAngVel);
 
@@ -229,19 +258,22 @@ for task=[5 6]
 %                 AllSubjects=setfield(AllSubjects,{i}, 'ID_BW', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'GRF_BW', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MF_BW', []);
-                    AllSubjects=setfield(AllSubjects,{i}, 'MFGroup', []);
+%                 AllSubjects=setfield(AllSubjects,{i}, 'MFGroup', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'FLEX', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'Power', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'Work', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'AngVel', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'AngImp', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MuscleTorque', []);
+%                 AllSubjects=setfield(AllSubjects,{i}, 'MuscleTorqueHip', []);
+%                 AllSubjects=setfield(AllSubjects,{i}, 'MuscleTorqueAnkle', []);
+                    AllSubjects=setfield(AllSubjects,{i}, 'AllRMSTorques', []);
 %                 
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxGRF', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxID', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxIK', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxMF', []);
-                     AllSubjects=setfield(AllSubjects,{i}, 'MaxMFGroup', []);
+%                 AllSubjects=setfield(AllSubjects,{i}, 'MaxMFGroup', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxPower', []);
 %                 AllSubjects=setfield(AllSubjects,{i}, 'MaxAngVel', []);
                 
@@ -253,7 +285,7 @@ for task=[5 6]
         
         %clear files for next subject
         clearvars SubAvgFEFile SubAvgIKFile SubAvgID_BWFile SubAvgGRF_BWFile SubAvgMF_BWFile SubAvgMFGroupFile SubAvgFlexFile SubAvgPowerFile SubAvgWorkFile SubAvgAngVelFile SubAvgAngImpFile 
-        clearvars SubAvgMaxGRFFile SubAvgMaxIDFile SubAvgMaxIKFile SubAvgMaxMFFile SubAvgMaxMFGroupFile SubAvgMaxPowerFile SubAvgMaxAngVelFile SubAvgMuscleTorqueFile
+        clearvars SubAvgMaxGRFFile SubAvgMaxIDFile SubAvgMaxIKFile SubAvgMaxMFFile SubAvgMaxMFGroupFile SubAvgMaxPowerFile SubAvgMaxAngVelFile SubAvgMuscleTorqueFile SubAvgMuscleTorqueHipFile SubAvgMuscleTorqueAnkleFile  SubAvgRMSTorquesFile
        
        end %end of subject while loop
        
@@ -266,10 +298,10 @@ for task=[5 6]
 cd(DirSubAvg);
 cd(char(task_label(task)));
 
-% fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'MFGroup', 'FLEX', 'Power', 'Work','AngVel', 'AngImp', 'MuscleTorque', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxMFGroup','MaxPower','MaxAngVel'};
-fieldNames =  {'MFGroup', 'MaxMFGroup'};
+% fieldNames = {'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'MFGroup', 'FLEX', 'Power', 'Work','AngVel', 'AngImp', 'MuscleTorque', 'MuscleTorqueHip','MuscleTorqueAnkle', 'AllRMSTorques','MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxMFGroup','MaxPower','MaxAngVel'};
+% fieldNames =  {'MFGroup', 'MaxMFGroup'};
 
-% fieldNames =  {'MuscleTorque'};
+fieldNames =  {'AllRMSTorques'};
 
 % if isempty(AllSubjects)==1 %if NONE of the subjects performed a task, AllSubjects will be blank
 %                            %and loop will move to next task. e.g. Sub 1 and

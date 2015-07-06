@@ -13,6 +13,13 @@ task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 i=1;
 for task=tasks
    
+    switch task
+        case 5
+            n=15;
+        case 6
+            n=14;
+    end
+    
     DirSubAvg='C:\MyOpenSim4\SUBJECT_AVERAGES';
     cd([DirSubAvg '\' task_label{task}]);
      
@@ -57,36 +64,91 @@ for task=tasks
     stance=linspace(0,100,200);
     heading={'HAMS','REC FEM', 'VAS','GAS','SOL'}; %for legends
     
+%     subplot(5,2,i);
+%     plot(stance, inMeanHams);
+%     ylabel('Muscle Force(B.W.)');
+%     legend({'NO BRACE','BRACE'});
+%     title(heading(1));
+% 
+%     i=i+2;
+%     subplot(5,2,i);
+%     plot(stance,inMeanRecFem);
+%     title(heading(2));
+% 
+%     i=i+2;
+%     subplot(5,2,i);
+%     plot(stance, inMeanVas);
+%     title(heading(3));
+% 
+%     i=i+2;
+%     subplot(5,2,i);
+%     plot(stance, inMeanGas);
+%     title(heading(4));
+% 
+%     i=i+2;
+% 
+%     subplot(5,2,i);
+%     plot(stance, inMeanSol);
+%     title(heading(5));
+% 
+%     i=i-7;
+
+
     subplot(5,2,i);
-    plot(stance, inMeanHams);
-    ylabel('Muscle Force(B.W.)');
-    legend({'NO BRACE','BRACE'});
+   AGF_mnsdplot(inMeanHams',(inStdHams./sqrt(n))', 'X',linspace(0,100,200));
+    
+   ax=gca;
+   set(ax,'XTick',[0 50 100]);
+%    set(ax,'YTick',[0 1 2]);
+    axis([0 100 0 2])
+     ylabel('Muscle Force(B.W.)');
+   
+%     legend({'NO BRACE','BRACE'});
     title(heading(1));
 
     i=i+2;
     subplot(5,2,i);
-    plot(stance,inMeanRecFem);
+    ax=gca;
+     AGF_mnsdplot(inMeanRecFem',(inStdRecFem./sqrt(n))', 'X',linspace(0,100,200));
     title(heading(2));
+    set(ax,'XTick',[0 50 100]);
+    axis([0 100 0 2])
+%     set(ax,'YTick',[0 1 2]);
 
     i=i+2;
     subplot(5,2,i);
-    plot(stance, inMeanVas);
+     ax=gca;
+     AGF_mnsdplot(inMeanVas',(inStdVas./sqrt(n))', 'X',linspace(0,100,200));
     title(heading(3));
+    set(ax,'XTick',[0 50 100]);
+%     set(ax,'YTick',[0 4 8]);
+    axis([0 100 0 8])
 
     i=i+2;
     subplot(5,2,i);
-    plot(stance, inMeanGas);
+     ax=gca;
+    AGF_mnsdplot(inMeanGas',(inStdGas./sqrt(n))', 'X',linspace(0,100,200));
     title(heading(4));
+%     set(ax,'YTick',[0 1 2]);
+    set(ax,'XTick',[0 50 100]);
+    axis([0 100 0 2])
 
     i=i+2;
 
     subplot(5,2,i);
-    plot(stance, inMeanSol);
+     ax=gca;
+     AGF_mnsdplot(inMeanSol',(inStdSol./sqrt(n))', 'X',linspace(0,100,200));
     title(heading(5));
+    axis([0 100 0 6])
+    set(ax,'XTick',[0 50 100]);
+%     set(ax,'YTick',[0 2 4 6]);
+    axis([0 100 0 6])
 
     i=i-7;
-
+     
+    
+    
 end
 
-%     export_fig 'test' '-eps' '-painters' 'transparent'
+    export_fig 'muscle forces' '-eps' '-painters' 'transparent'
 end

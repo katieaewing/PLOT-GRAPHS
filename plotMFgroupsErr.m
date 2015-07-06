@@ -1,4 +1,4 @@
-%%Created by: Katie Ewing
+%% Created by: Katie Ewing
 %Modified: June 2015
 
 %Plots mean and standard error over stance phase of each muscle group for a
@@ -117,6 +117,7 @@ i=1;
     %put muscle group on top of each figure
     heading={'HAMS MED', 'HAMS LAT', 'HAMS', 'REC FEM', 'VAS MED', 'VAS INT','VAS LAT', 'VAS', 'GAS MED', 'GAS LAT', 'GAS','SOL'}; %for legends
 
+    
     for i=1:12
         figure(i);
         title(heading(i));

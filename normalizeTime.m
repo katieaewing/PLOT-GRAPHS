@@ -1,11 +1,13 @@
 %% Created by: Katie Ewing 
-% Modified: June 2015
+% Modified: July 2015
 %
 % This function normalizes all variables to percent landing phase in 200
 % increments.
 %%
 
-function [stance, GRF_all, GRF_Tor, IKfinal, IDfinal, MFfinal, MAfinal]= normalizeTime(tableIK, tableID, tableMF, tableMA, IK1, IK2, GRF1, GRF2, MF1, MF2, outGRF, outIK, outMF, outMA, outID, vGRF)
+function [stance, GRF_all, GRF_Tor, IKfinal, IDfinal, MFfinal, MAfinal, MAfinalHip, MAfinalAnkle]= normalizeTime(tableIK, tableID, tableMF, tableMA, tableMAHip, tableMAAnkle, IK1, IK2, GRF1, GRF2, MF1, MF2, outGRF, outIK, outMF, outMA, outMAHip, outMAAnkle, outID, vGRF)
+
+% [stance, MAfinalHip, MAfinalAnkle]= normalizeTime(tableIK,tableMAHip, tableMAAnkle, IK1, IK2, MF1, MF2, outMAHip, outMAAnkle)
 
 %(time)
 stance=linspace(0,100,200); %define stance phase (0-100%, 200 points)
@@ -101,7 +103,7 @@ MFfinal=array2table(MF, 'VariableNames', outMF.labels);
 
 % writetable(MFfinal,'MFfinal.xls');
 
-%(Moment arm data)
+%(Moment arm data KNEE)
 resamp_MA= tableMA(MF1:MF2,:);
 resamp_MA2= table2array(resamp_MA)';
 
@@ -114,7 +116,39 @@ for i=2:size(resamp_MA2, 1)
 end
 MAfinal=array2table(MA, 'VariableNames', outMA.labels);
 
-writetable(MAfinal,'MAfinal.xls');
+% writetable(MAfinal,'MAfinal.xls');
+
+
+%(Moment arm data HIP)
+resamp_MAHip= tableMAHip(MF1:MF2,:);
+resamp_MAHip2= table2array(resamp_MAHip)';
+
+for i=2:size(resamp_MAHip2, 1)
+  
+    hold=resamp3([resamp_MAHip2(1,:); resamp_MAHip2(i,:)], resamp_ts);
+   	MAHip(:,1)=hold(1,:);
+    MAHip(:,i)=hold(2,:);
+    
+end
+MAfinalHip=array2table(MAHip, 'VariableNames', outMAHip.labels);
+
+% writetable(MAfinalHip,'MAfinalHip.xls');
+
+
+%(Moment arm data ANKLE)
+resamp_MAAnkle= tableMAAnkle(MF1:MF2,:);
+resamp_MAAnkle2= table2array(resamp_MAAnkle)';
+
+for i=2:size(resamp_MAAnkle2, 1)
+  
+    hold=resamp3([resamp_MAAnkle2(1,:); resamp_MAAnkle2(i,:)], resamp_ts);
+   	MAAnkle(:,1)=hold(1,:);
+    MAAnkle(:,i)=hold(2,:);
+    
+end
+MAfinalAnkle=array2table(MAAnkle, 'VariableNames', outMAAnkle.labels);
+
+% writetable(MAfinalAnkle,'MAfinalAnkle.xls');
 
 end
 

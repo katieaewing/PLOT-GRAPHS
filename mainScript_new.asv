@@ -46,10 +46,10 @@ for task=[5 6] % or for all tasks, 1:length(myTable)
         else
             
 % Set path names
-[DirTask,IKpath, GRFpath,IDpath,MFpath, MApath]=setPaths(freq,subjectID,brace,task, trial); %removed EMGpath
- 
+[DirTask,IKpath, GRFpath,IDpath,MFpath, MApath, MApathHipFlex, MApathAnkleFlex]=setPaths(freq,subjectID,brace,task, trial);
+
 % Extract data
-[tableIK, tableID, tableMF, tableMA, outGRF, outIK, outMF, outID, outMA]=extractData(DirTask,IKpath, GRFpath, IDpath, MFpath, MApath); %removed EMGpath
+[tableIK, tableID, tableMF, tableMA, tableMAHip, tableMAAnkle, outGRF, outIK, outMF, outID, outMA, outMAHip, outMAAnkle] = extractData(DirTask, IKpath, GRFpath, IDpath, MFpath, MApath, MApathHipFlex, MApathAnkleFlex);
 
 % Define the landing phase
 [KneeJoint, indIniIK, indMaxIK, indGRF, IniTime, EndTime, vGRF, whichLeg, GRFleg] = getLandingPhase(subjectID, outGRF, tableIK, task);
@@ -58,32 +58,34 @@ for task=[5 6] % or for all tasks, 1:length(myTable)
 [iniIndMF, EndIndMF, iniIndGRF, EndIndGRF] = getIndicesLanding(indGRF,outGRF, tableMF, IniTime, EndTime);
 
 % Normalize time of vectors to landing phase
-[stance, GRF_all, GRF_Tor, IKfinal, IDfinal, MFfinal, MAfinal]...
-    =normalizeTime(tableIK, tableID, tableMF, tableMA, indIniIK, indMaxIK, iniIndGRF, EndIndGRF, iniIndMF, EndIndMF, outGRF, outIK, outMF, outMA, outID, vGRF);
+[stance, GRF_all, GRF_Tor, IKfinal, IDfinal, MFfinal, MAfinal, MAfinalHip, MAfinalAnkle]...
+    =normalizeTime(tableIK, tableID, tableMF, tableMA, tableMAHip, tableMAAnkle, indIniIK, indMaxIK, iniIndGRF, EndIndGRF, iniIndMF, EndIndMF, outGRF, outIK, outMF, outMA, outMAHip, outMAAnkle, outID, vGRF);
 
-% % Normalize data to Body Weight
-% [GRFfinal_BW, IDfinal_BW, MFfinal_BW] = normaliseToBW(subjectID, GRF_all, IDfinal, MFfinal, outGRF, outMF, outID);
+% Normalize data to Body Weight
+[GRFfinal_BW, IDfinal_BW, MFfinal_BW] = normaliseToBW(subjectID, GRF_all, IDfinal, MFfinal, outGRF, outMF, outID);
 
-% %Calculate angular velocity and joint power (in radians)
-%  [AngVel, AngImp, Power, Work] = getJointEnergetics(IKfinal, IDfinal_BW, IDfinal);
-% 
-%  %Calculate contribution of each joint to total work
-%  [PercentJointWork] = getWorkContribution(Work,subjectID)
-%  
-% % Get time and magnitude of peaks
-%  [maxGRF_BW, stancePercentGRF, IKfinal_max2, stancePercentIK2, IDfinal_BW_max2, stancePercentID2, MFfinal_BW_max2, stancePercentMF2,Power_max, StancePercentPower2, AngVel_max, StancePercentAngVel2] ...
-%     = getMaxValues(stance, GRFfinal_BW, IKfinal, IDfinal_BW, MFfinal_BW, outGRF, outIK, outMF, outID, GRFleg, KneeJoint, AngVel, Power);
-% 
-% % Get flexion angles at peak GRF and at initial contact
-% [FlexAtPeakGRF, FlexAtIC] = getFlexionAngles(GRFfinal_BW, IKfinal, outIK, GRFleg);
-% 
-% % Get maximum values of key variables
-% [MaxKeyVars] = keyMaxVariables(task, KneeJoint, whichLeg, maxGRF_BW, IKfinal_max2, MFfinal_BW_max2);
-% 
-% % Create inputs for FE knee model
-% [FE_inputs]=inputsFEmodel(task, KneeJoint, whichLeg, GRF_all, GRF_Tor, IKfinal, MFfinal);
+%Calculate angular velocity and joint power (in radians)
+ [AngVel, AngImp, Power, Work] = getJointEnergetics(IKfinal, IDfinal_BW, IDfinal);
 
-save MomentArms.mat;
+ %Calculate contribution of each joint to total work
+ [PercentJointWork] = getWorkContribution(Work,subjectID);
+ 
+% Get time and magnitude of peaks
+ [maxGRF_BW, stancePercentGRF, IKfinal_max2, stancePercentIK2, IDfinal_BW_max2, stancePercentID2, MFfinal_BW_max2, stancePercentMF2,Power_max, StancePercentPower2, AngVel_max, StancePercentAngVel2] ...
+    = getMaxValues(stance, GRFfinal_BW, IKfinal, IDfinal_BW, MFfinal_BW, outGRF, outIK, outMF, outID, GRFleg, KneeJoint, AngVel, Power);
+
+% Get flexion angles at peak GRF and at initial contact
+[FlexAtPeakGRF, FlexAtIC] = getFlexionAngles(GRFfinal_BW, IKfinal, outIK, GRFleg);
+
+% Get maximum values of key variables
+[MaxKeyVars] = keyMaxVariables(task, KneeJoint, whichLeg, maxGRF_BW, IKfinal_max2, MFfinal_BW_max2);
+
+% Create inputs for FE knee model
+[FE_inputs]=inputsFEmodel(task, KneeJoint, whichLeg, GRF_all, GRF_Tor, IKfinal, MFfinal);
+
+% [MuscleTorqueHip, MuscleTorqueHip_BW, MuscleTorqueAnkle, MuscleTorqueAnkle_BW] = getMuscleTorques(subjectID, MAfinalHip, MAfinalAnkle, MFfinal);
+
+% save AllVariables.mat;
 
 % plotThisTrial2; %plot all graphs for this trial to check if everything looks okay
 
@@ -113,8 +115,8 @@ plotGRFBar2(tasks)
 
 
 %% For just averaging the trials without running everything above
-for subjectID=[1:15]
-brace = 2;
+for subjectID=[6:15]
+brace = 1;
 [myTable] = setCond(brace, subjectID);
 averageTrials(subjectID, brace, myTable);
 end

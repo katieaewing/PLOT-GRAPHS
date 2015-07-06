@@ -5,7 +5,7 @@
 % value should be between 0-50 N-m.
 
 %%
-function [AllRMSTorques] = getRMStorques(task, MuscleTorque, MuscleTorqueHip, MuscleTorqueAnkle, IDfinal, whichLeg);
+function [RMStorquesHip, RMStorquesAnkle] = getRMStorques(MuscleTorque, MuscleTorqueHip, MuscleTorqueAnkle, IDfinal, whichLeg);
 
 switch whichLeg
     case 'right'
@@ -33,8 +33,8 @@ switch whichLeg
         
 end
 
-AllTorquesKnee=MuscleTorque(:,2:93); 
-AllTorquesHip=MuscleTorqueHip(:,2:93); 
+AllTorquesHip=MuscleTorque(:,2:93); 
+AllTorquesKnee=MuscleTorqueHip(:,2:93); 
 AllTorquesAnkle=MuscleTorqueAnkle(:,2:93); %units of N-m
 
 SumTorquesHip=sum(AllTorquesHip,2);
@@ -43,18 +43,11 @@ SumTorquesAnkle=sum(AllTorquesAnkle,2);
 
 HipTorqueID=table2array(IDfinal(:,HipID));
 KneeTorqueID=table2array(IDfinal(:,KneeID));
-AnkleTorqueID=table2array(IDfinal(:,AnkleID));
+table2array(IDfinal(:,KneeID));
 
-HipDiffID=HipTorqueID-SumTorquesHip;
-KneeDiffID=KneeTorqueID-SumTorquesKnee;
-AnkleDiffID=AnkleTorqueID-SumTorquesAnkle;
+DiffID=KneeTorqueID-SumTorques;
 
-HipRMStorques=sqrt(mean(HipDiffID.^2));
-KneeRMStorques=sqrt(mean(KneeDiffID.^2));
-AnkleRMStorques=sqrt(mean(AnkleDiffID.^2));
-
-AllRMSTorques=[HipRMStorques, KneeRMStorques, AnkleRMStorques];
-AllRMSTorques=array2table(AllRMSTorques, 'VariableNames', {'Hip', 'Knee','Ankle'});
+RMStorques=sqrt(mean(DiffID.^2));
 
 % save('AllVariables','RMStorques');
 

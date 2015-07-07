@@ -3,7 +3,7 @@
 
 %Plots mean and standard error over stance phase of each muscle group for a
 %given task with and without brace.
-%Each muscle group in separate plot
+%Each muscle group in separate plot.
 %Uses Adrian and Guan Shan's plotting function.
 %e.g. plotMFgroupsErr([6])
 %%

@@ -1,7 +1,7 @@
 %% Created by: Katie Ewing
 %Modified: July 2015
 
-%Plots mean over stance phase of each muscle group at 30 cm and 60 cm with and without brace.
+%Plots mean over landing phase of each muscle group at 30 cm and 60 cm with and without brace.
 %Each group in separate subplot.
 
 %e.g. plotMFgroups([5 6])

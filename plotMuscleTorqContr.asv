@@ -7,7 +7,7 @@
 %e.g. plotMuscleTorqContr([5 6])
 
 %%
-function plotMuscleTorqContr(tasks)
+function plotMuscleTorqContr(tasks, joint)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 
@@ -17,21 +17,65 @@ for task=tasks
    
     DirSubAvg='C:\MyOpenSim4\SUBJECT_AVERAGES';
     cd([DirSubAvg '\' task_label{task}]);
-     
-    AvgMT=table2array(readtable(['SubAvg_' task_label{task} '_MuscleTorque.xls']));
-    StdMT=table2array(readtable(['SubStd_' task_label{task} '_MuscleTorque.xls'])); 
     
     AvgID=table2array(readtable(['SubAvg_' task_label{task} '_ID_BW.xls']));
     StdID=table2array(readtable(['SubStd_' task_label{task} '_ID_BW.xls'])); 
         
-    DirSubAvgBrace='C:\MyOpenSim4\SUBJECT_AVERAGES_BRACE'; 
-    cd([DirSubAvgBrace '\' task_label{task}]);
-    
-    AvgMTBrace=table2array(readtable(['SubAvg_' task_label{task} '_Brace_MuscleTorque.xls']));
-    StdMTBrace=table2array(readtable(['SubStd_' task_label{task} '_Brace_MuscleTorque.xls'])); 
-    
-    AvgIDBrace=table2array(readtable(['SubAvg_' task_label{task} '_Brace_ID_BW.xls']));
-    StdIDBrace=table2array(readtable(['SubStd_' task_label{task} '_Brace_ID_BW.xls']));
+     
+    switch joint
+        case 'hip'
+             
+            MeanID=AvgID(:,8);
+            AvgMT=table2array(readtable(['SubAvg_' task_label{task} '_MuscleTorqueHip.xls']));
+            StdMT=table2array(readtable(['SubStd_' task_label{task} '_MuscleTorqueHip.xls']));
+            
+            DirSubAvgBrace='C:\MyOpenSim4\SUBJECT_AVERAGES_BRACE';
+            cd([DirSubAvgBrace '\' task_label{task}]);
+            
+            AvgMTBrace=table2array(readtable(['SubAvg_' task_label{task} '_Brace_MuscleTorqueHip.xls']));
+            StdMTBrace=table2array(readtable(['SubStd_' task_label{task} '_Brace_MuscleTorqueHip.xls']));
+            
+            AvgIDBrace=table2array(readtable(['SubAvg_' task_label{task} '_Brace_ID_BW.xls']));
+            StdIDBrace=table2array(readtable(['SubStd_' task_label{task} '_Brace_ID_BW.xls']));
+            
+            MeanIDBrace=AvgIDBrace(:,8);
+            
+        case 'knee'
+            MeanID=AvgID(:,11);
+            
+            AvgMT=table2array(readtable(['SubAvg_' task_label{task} '_MuscleTorque.xls']));
+            StdMT=table2array(readtable(['SubStd_' task_label{task} '_MuscleTorque.xls']));
+            
+            DirSubAvgBrace='C:\MyOpenSim4\SUBJECT_AVERAGES_BRACE';
+            cd([DirSubAvgBrace '\' task_label{task}]);
+            
+            AvgMTBrace=table2array(readtable(['SubAvg_' task_label{task} '_Brace_MuscleTorque.xls']));
+            StdMTBrace=table2array(readtable(['SubStd_' task_label{task} '_Brace_MuscleTorque.xls']));
+            
+            AvgIDBrace=table2array(readtable(['SubAvg_' task_label{task} '_Brace_ID_BW.xls']));
+            StdIDBrace=table2array(readtable(['SubStd_' task_label{task} '_Brace_ID_BW.xls']));
+            
+            MeanIDBrace=AvgIDBrace(:,11);
+            
+            toPlot=[HamsTorq, RFTorq, VasTorq,GasTorq];
+            
+        case 'ankle'
+            
+            MeanID=AvgID(:,12);
+            AvgMT=table2array(readtable(['SubAvg_' task_label{task} '_MuscleTorqueAnkle.xls']));
+            StdMT=table2array(readtable(['SubStd_' task_label{task} '_MuscleTorqueAnkle.xls']));
+            
+            DirSubAvgBrace='C:\MyOpenSim4\SUBJECT_AVERAGES_BRACE';
+            cd([DirSubAvgBrace '\' task_label{task}]);
+            
+            AvgMTBrace=table2array(readtable(['SubAvg_' task_label{task} '_Brace_MuscleTorqueAnkle.xls']));
+            StdMTBrace=table2array(readtable(['SubStd_' task_label{task} '_Brace_MuscleTorqueAnkle.xls']));
+            
+            AvgIDBrace=table2array(readtable(['SubAvg_' task_label{task} '_Brace_ID_BW.xls']));
+            StdIDBrace=table2array(readtable(['SubStd_' task_label{task} '_Brace_ID_BW.xls']));
+            
+            MeanIDBrace=AvgIDBrace(:,12);
+    end
     
     
 %     inMeanID_hip=[AvgID(:,8), AvgIDBrace(:,8)];
@@ -43,16 +87,19 @@ for task=tasks
 %     inStdID_knee=[StdID(:,11), StdIDBrace(:,11)];
 %     inStdID_ankle=[StdID(:,12), StdIDBrace(:,12)];
 
-    MeanID_hip=AvgID(:,8);
-    MeanID_knee=AvgID(:,11);
-    MeanID_ankle=AvgID(:,12);
-    
-    MeanIDBrace_hip=AvgIDBrace(:,8);
-    MeanIDBrace_knee=AvgIDBrace(:,11);
-    MeanIDBrace_ankle=AvgIDBrace(:,12);
+%     MeanID_hip=AvgID(:,8);
+%     MeanID_knee=AvgID(:,11);
+%     MeanID_ankle=AvgID(:,12);
+%     
+%     MeanIDBrace_hip=AvgIDBrace(:,8);
+%     MeanIDBrace_knee=AvgIDBrace(:,11);
+%     MeanIDBrace_ankle=AvgIDBrace(:,12);
        
     
     %Muscle group joint torques for NO BRACE
+    GlutMedTorq=sum(AvgMT(:,2:4),2);
+    GlutMinTorq=sum(AvgMT(:,5:7),2);
+    GlutMaxTorq=sum(AvgMT(:,21:23),2);
     HamsTorq=sum(AvgMT(:,8:11),2);
     SarTorq=AvgMT(:,12);
     TFLTorq=AvgMT(:,18);
@@ -60,8 +107,14 @@ for task=tasks
     RFTorq=AvgMT(:,29);
     VasTorq=sum(AvgMT(:,30:32),2);
     GasTorq=sum(AvgMT(:,33:34),2);
+    SolTorq=AvgMT(:,35);
+    TATorq=AvgMT(:,39);
+    
     
     %Muscle group joint torques for BRACE
+    GlutMedTorqBrace=sum(AvgMTBrace(:,2:4),2);
+    GlutMinTorqBrace=sum(AvgMTBrace(:,5:7),2);
+    GlutMaxTorqBrace=sum(AvgMTBrace(:,21:23),2);
     HamsTorqBrace=sum(AvgMTBrace(:,8:11),2);
     SarTorqBrace=AvgMTBrace(:,12);
     TFLTorqBrace=AvgMTBrace(:,18);
@@ -69,14 +122,20 @@ for task=tasks
     RFTorqBrace=AvgMTBrace(:,29);
     VasTorqBrace=sum(AvgMTBrace(:,30:32),2);
     GasTorqBrace=sum(AvgMTBrace(:,33:34),2);
+    SolTorqBrace=AvgMTBrace(:,35);
+    TATorqBrace=AvgMTBrace(:,39);
+    
+    
+    
     
    stance=linspace(0,100,200); 
     
 
    subplot(2,2,i);
-   area(stance, MeanID_knee, 'EdgeColor',[1 1 1], 'FaceColor',[.93 .93 .93]);
+   area(stance, MeanID, 'EdgeColor',[1 1 1], 'FaceColor',[.93 .93 .93]);
    hold on;
-   plot(stance,[HamsTorq,RFTorq, VasTorq,GasTorq]);
+   
+   plot(stance,toPlot);
    legend('Total Knee Joint Torque','HAMS', 'RF','VAS','GAS');
    legend('boxoff');
    legend('Location', 'northwest');
@@ -87,7 +146,7 @@ for task=tasks
     
     i=i+2;
      subplot(2,2,i);
-   area(stance, MeanIDBrace_knee, 'EdgeColor',[1 1 1], 'FaceColor',[.93 .93 .93]);
+   area(stance, MeanIDBrace, 'EdgeColor',[1 1 1], 'FaceColor',[.93 .93 .93]);
    hold on;
    plot(stance,[HamsTorqBrace,RFTorqBrace, VasTorqBrace,GasTorqBrace]);
 %    legend('Total Knee Joint Torque','HAMS', 'QUADS','GAS');

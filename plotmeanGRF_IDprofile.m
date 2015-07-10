@@ -56,8 +56,8 @@ for task=tasks
     ylim([0 3]);
     ylabel('Vertical GRF (B.W.)');
     
-    i=i+2;
-    subplot(4,2,i);
+    i=i+2; %NOTE: FOR HIP, WE PLOT THE NEGATIVE TO ENSURE THAT POSITIVE IS EXTENSION MOMENT
+    subplot(4,2,i); 
     AGF_mnsdplot(-inMeanID_hip',(-inStdID_hip./sqrt(n))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
     ylim([-2 3]);
     ylabel('Moment (N-m/kg)');
@@ -72,7 +72,7 @@ for task=tasks
     title('Knee');
     
     i=i+2;
-    subplot(4,2,i);
+    subplot(4,2,i);   %NOTE: FOR ANKLE, WE PLOT THE NEGATIVE TO ENSURE THAT POSITIVE IS PLANTARFLEXION MOMENT
     AGF_mnsdplot(-inMeanID_ankle',(-inStdID_ankle./sqrt(n))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
     ylim([0 2]);
     xlabel('Percent landing phase');

@@ -1,5 +1,5 @@
 %% Created by: Katie Ewing 
-% Modified: June 2015
+% Modified: July 2015
 
 % This function calculates the RMS of the residual moments (N-m). This
 % value should be between 0-50 N-m.

@@ -1,9 +1,11 @@
-%%Created by: Katie Ewing
+%% Created by: Katie Ewing
 %Modified: July 2015
 
 %Plots average joint torque as calculated from inverse dynamics. Then plots
 %torque of each major muscle group crossing a specified joint.
-%e.g. plotMuscleTorqContr([5 6])
+%e.g. plotMuscleTorqContr([5 6], 'hip')
+%NOTE: POSITIVE MEANS EXTENSION MOMENT, NEGATIVE MEANS FLEXION MOMENT.
+
 
 %%
 function plotMuscleTorqContr(tasks, joint)
@@ -24,7 +26,7 @@ for task=tasks
     switch joint
         case 'hip'
              
-            MeanID=AvgID(:,8);
+            MeanID=-AvgID(:,8);
             AvgMT=table2array(readtable(['SubAvg_' task_label{task} '_MuscleTorqueHip.xls']));
             StdMT=table2array(readtable(['SubStd_' task_label{task} '_MuscleTorqueHip.xls']));
             
@@ -37,7 +39,7 @@ for task=tasks
             AvgIDBrace=table2array(readtable(['SubAvg_' task_label{task} '_Brace_ID_BW.xls']));
             StdIDBrace=table2array(readtable(['SubStd_' task_label{task} '_Brace_ID_BW.xls']));
             
-            MeanIDBrace=AvgIDBrace(:,8);
+            MeanIDBrace=-AvgIDBrace(:,8);
             
         case 'knee'
             MeanID=AvgID(:,11);
@@ -58,7 +60,7 @@ for task=tasks
                       
         case 'ankle'
             
-            MeanID=AvgID(:,12);
+            MeanID=-AvgID(:,12);
             AvgMT=table2array(readtable(['SubAvg_' task_label{task} '_MuscleTorqueAnkle.xls']));
             StdMT=table2array(readtable(['SubStd_' task_label{task} '_MuscleTorqueAnkle.xls']));
             
@@ -71,7 +73,7 @@ for task=tasks
             AvgIDBrace=table2array(readtable(['SubAvg_' task_label{task} '_Brace_ID_BW.xls']));
             StdIDBrace=table2array(readtable(['SubStd_' task_label{task} '_Brace_ID_BW.xls']));
             
-            MeanIDBrace=AvgIDBrace(:,12);
+            MeanIDBrace=-AvgIDBrace(:,12);
     end
     
     
@@ -127,22 +129,22 @@ for task=tasks
     
     switch joint
         case 'hip'
-            toPlot=[IlPsTorq, GlutMaxTorq,HamsTorq, RFTorq];
-            toPlotBrace=[IlPsTorqBrace, GlutMaxTorqBrace,HamsTorqBrace, RFTorqBrace];
+            toPlot=[-IlPsTorq, -GlutMaxTorq,-HamsTorq, -RFTorq];
+            toPlotBrace=[-IlPsTorqBrace, -GlutMaxTorqBrace,-HamsTorqBrace, -RFTorqBrace];
 %             toPlotBrace=[GlutMedTorqBrace, GlutMinTorqBrace,GlutMaxTorqBrace,HamsTorqBrace, RFTorqBrace];
             plotLegend={'Total Joint Torque', 'ILPSO','GMAX', 'HAMS', 'RF'};
 %             plotLegend={'Total Joint Torque','GLUT MED', 'GLUT MIN', 'GLUT MAX', 'HAMS', 'RF'};
-             plotAxis=[0 100 -2.5 1];
+             plotAxis=[0 100 -1 2.5];
         case 'knee'
             toPlot=[HamsTorq, RFTorq, VasTorq,GasTorq];
             toPlotBrace=[HamsTorqBrace,RFTorqBrace, VasTorqBrace,GasTorqBrace];
             plotLegend={'Total Joint Torque','HAMS', 'RF','VAS','GAS'};
             plotAxis=[0 100 -0.5 2];
         case 'ankle'
-            toPlot=[GasTorq, SolTorq,TATorq];
-            toPlotBrace=[GasTorqBrace, SolTorqBrace,TATorqBrace];
+            toPlot=[-GasTorq, -SolTorq,-TATorq];
+            toPlotBrace=[-GasTorqBrace, -SolTorqBrace,-TATorqBrace];
             plotLegend={'Total Joint Torque','GAS','SOL', 'TA'};
-            plotAxis=[0 100 -2 0.5];
+            plotAxis=[0 100 -0.5 2];
     end
     
     

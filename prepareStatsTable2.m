@@ -65,6 +65,9 @@ AllSubjects=[]; %create empty array
         SubAvgMaxMFGroupFile=([task_label{task} condStr 'MaxMFGroup.xls']);
         SubAvgMaxPowerFile=([task_label{task} condStr 'MaxPower.xls']);
         SubAvgMaxAngVelFile=([task_label{task} condStr 'MaxAngVel.xls']);
+        SubAvgMaxMuscleTorqueGroupKneeFile=([task_label{task} condStr 'MaxMuscleTorqueGroupKnee.xls']);
+        SubAvgMaxMuscleTorqueGroupHipFile=([task_label{task} condStr 'MaxMuscleTorqueGroupHip.xls']);
+        SubAvgMaxMuscleTorqueGroupAnkleFile=([task_label{task} condStr 'MaxMuscleTorqueGroupAnkle.xls']);
         
          
         %need to check if this task exists for this subject
@@ -85,7 +88,10 @@ AllSubjects=[]; %create empty array
                 SubAvgMaxMFGroup=readtable(SubAvgMaxMFGroupFile);
                 SubAvgMaxPower=readtable(SubAvgMaxPowerFile);
                 SubAvgMaxAngVel=readtable(SubAvgMaxAngVelFile);
-                    
+                SubAvgMaxMuscleTorqueGroupHip=readtable(SubAvgMaxMuscleTorqueGroupHipFile);
+                SubAvgMaxMuscleTorqueGroupKnee=readtable(SubAvgMaxMuscleTorqueGroupKneeFile);
+                SubAvgMaxMuscleTorqueGroupAnkle=readtable(SubAvgMaxMuscleTorqueGroupAnkleFile);
+                
                 switch whichLeg
                         
                         case 'right'
@@ -163,6 +169,9 @@ AllSubjects=[]; %create empty array
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxMFGroup', SubAvgMaxMFGroup);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxPower', SubAvgMaxPower);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxAngVel', SubAvgMaxAngVel);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxMuscleTorqueGroupHip', SubAvgMaxMuscleTorqueGroupHip);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxMuscleTorqueGroupKnee', SubAvgMaxMuscleTorqueGroupKnee);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxMuscleTorqueGroupAnkle', SubAvgMaxMuscleTorqueGroupAnkle);
                 
                 i= i+1;
         else
@@ -180,6 +189,9 @@ AllSubjects=[]; %create empty array
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxMFGroup', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxPower', []);
                 AllSubjects=setfield(AllSubjects,{i}, 'MaxAngVel', []);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxMuscleTorqueGroupHip',[]);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxMuscleTorqueGroupKnee', []);
+                AllSubjects=setfield(AllSubjects,{i}, 'MaxMuscleTorqueGroupAnkle', []);
                 
                 i = i+1;
             %if files do NOT exist for this task and this subject,
@@ -188,10 +200,11 @@ AllSubjects=[]; %create empty array
         end
         
         %clear files for next subject
-
+% 
         clearvars SubAvgMaxGRFFile SubAvgMaxIDFile SubAvgMaxIKFile SubAvgMaxMFFile SubAvgPercentJointWorkFile...
             SubAvgWorkFile SubAvgAngImpFile SubAvgMaxPowerFile SubAvgMaxAngVelFile SubAvgFlexAtPeakGRFFile SubAvgFlexAtICFile SubAvgMaxMFGroupFile
-       
+       clearvars  SubAvgMaxMuscleTorqueGroupKneeFile SubAvgMaxMuscleTorqueGroupHipFile SubAvgMaxMuscleTorqueGroupAnkleFile
+        
    end %end of subject while loop
        
        %Should now have a structure, AllSubjects, that contains all of the
@@ -200,7 +213,7 @@ AllSubjects=[]; %create empty array
        %blank.
        
 
-fieldNames = {'FlexAtIC', 'FlexAtPeakGRF','FLEX', 'Work', 'AngImp', 'PercentJointWork', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxMFGroup', 'MaxPower', 'MaxAngVel'};
+fieldNames = {'FlexAtIC', 'FlexAtPeakGRF','FLEX', 'Work', 'AngImp', 'PercentJointWork', 'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxMFGroup', 'MaxPower', 'MaxAngVel', 'MaxMuscleTorqueGroupHip', 'MaxMuscleTorqueGroupKnee', 'MaxMuscleTorqueGroupAnkle'};
 
 % if isempty(AllSubjects)==1 %if NONE of the subjects performed a task, AllSubjects will be blank
 %                            %and loop will move to next task. e.g. Sub 1 and
@@ -218,6 +231,11 @@ fieldNames = {'FlexAtIC', 'FlexAtPeakGRF','FLEX', 'Work', 'AngImp', 'PercentJoin
     statsTempTime=setfield(statsTempTime,{1}, 'MaxMFGroup', []);
     statsTempTime=setfield(statsTempTime,{1}, 'MaxPower', []);
     statsTempTime=setfield(statsTempTime,{1}, 'MaxAngVel', []);
+    statsTempTime=setfield(statsTempTime,{1}, 'MaxMuscleTorqueGroupHip', []); 
+    statsTempTime=setfield(statsTempTime,{1}, 'MaxMuscleTorqueGroupKnee', []); 
+    statsTempTime=setfield(statsTempTime,{1}, 'MaxMuscleTorqueGroupAnkle', []); 
+
+
 
     statsTempMag=[]; %has additional fields
     statsTempMag=setfield(statsTempMag,{1}, 'FlexAtIC', []); 
@@ -234,7 +252,11 @@ fieldNames = {'FlexAtIC', 'FlexAtPeakGRF','FLEX', 'Work', 'AngImp', 'PercentJoin
     
     statsTempMag=setfield(statsTempMag,{1}, 'MaxPower', []);
     statsTempMag=setfield(statsTempMag,{1}, 'MaxAngVel', []);
-    
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxMuscleTorqueGroupHip', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxMuscleTorqueGroupKnee', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxMuscleTorqueGroupAnkle', []); 
+
+
                 
     for a=1:length(fieldNames) 
         c=1;

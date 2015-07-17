@@ -6,7 +6,7 @@
 % Uses variables previously saved in AllVariables.mat
 
 %%
-function [MuscleTorque, MuscleTorque_BW, MuscleTorqueHip, MuscleTorqueHip_BW, MuscleTorqueAnkle, MuscleTorqueAnkle_BW] = getMuscleTorques(subjectID, MAfinal, MAfinalHip, MAfinalAnkle, MFfinal)
+function [MuscleTorque, MuscleTorque_BW, MuscleTorqueHip, MuscleTorqueHip_BW, MuscleTorqueAnkle, MuscleTorqueAnkle_BW] = getMuscleTorques(subjectID, MAfinalHip, MAfinalAnkle, MFfinal)
 
 % [MuscleTorque, MuscleTorque_BW] = getMuscleTorques(subjectID, MAfinalHip, MAfinalAnkle, MFfinal)
 

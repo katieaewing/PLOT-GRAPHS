@@ -56,6 +56,7 @@ AnkleRMStorques=sqrt(mean(AnkleDiffID.^2));
 AllRMSTorques=[HipRMStorques, KneeRMStorques, AnkleRMStorques];
 AllRMSTorques=array2table(AllRMSTorques, 'VariableNames', {'Hip', 'Knee','Ankle'});
 
+writetable(AllRMSTorques,'AllRMSTorques.xls');
 % save('AllVariables','RMStorques');
 
 end

@@ -27,7 +27,7 @@ for brace=[1:2]
     
         [statsTempMag, statsTempTime, fieldNames, AllSubjects] = prepareStatsTable2(whichSubjects, brace, task);
         
-        if task==7 && brace == 1  %CHANGE!!  for the first condition (DL30), create empty table.
+        if task==7 && brace == 1  %for the first condition (DL30), create empty table.
                 statsTableMag=[];
                 
                 statsTableMag=setfield(statsTableMag,{1}, 'FlexAtIC', []);

@@ -1,12 +1,14 @@
 %% Created by: Katie Ewing 
-% Modified: June 2015
+% Modified: July 2015
 %
 % This function finds the indices for the start and end of the landing
 % phase. The start is defined by foot strike (vGRF greater than 0) and the
 % end by maximum knee flexion.
+%
+% If task is the stop-jump, will also output the time of takeoff.
 %%
 
-function [KneeJoint, indIniIK, indMaxIK, indGRF, IniTime, EndTime, vGRF, whichLeg, GRFleg] = getLandingPhase(subjectID, outGRF, inputIK, task)
+function [KneeJoint, indIniIK, indMaxIK, indGRF, IniTime, EndTime, vGRF, whichLeg, GRFleg, OffTime, OffIndIK] = getLandingPhase(subjectID, outGRF, inputIK, task)
 
 leg = {'right'; 'right'; 'right' ; 'right'; 'right'; 'left' ; 'right'  ; 'right' ; 'left' ; 'right' ; 'right'  ; 'right' ; 'right' ; 'right' ; 'right'};
 
@@ -62,7 +64,14 @@ end
     maxKFtime=inputIK.time(indMaxIK); %maxKFtime is time of max knee flexion angle
     EndTime=maxKFtime;
    
-   
+   if task == 7
+        OffTime=outGRF.data(indGRF(end),1);  %time of take off
+        
+        %Find frame of off time in IKdata
+        [~,OffIndIK]=min(abs(OffTime-timeIK));
+        
+    end
+    
 end
 
        

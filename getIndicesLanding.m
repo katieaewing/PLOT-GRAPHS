@@ -9,11 +9,11 @@
 
 %%
 
-function [iniIndMF, EndIndMF, iniIndGRF, EndIndGRF] = getIndicesLanding(inputindGRF, outGRF, inputMF, IniTime, EndTime)    
+function [iniIndMF, EndIndMF, iniIndGRF, EndIndGRF, OffIndGRF, OffIndMF] = getIndicesLanding(task, indGRF, outGRF, inputMF, IniTime, EndTime, OffTime)    
 
-    iniIndGRF=inputindGRF(1,1);
+    iniIndGRF=indGRF(1,1);
 
-    %(Finding frame of end time in inputGRF data)
+    %Find frame of end time in input GRF data
     EndIndGRF=1;
     while abs((outGRF.data(EndIndGRF,1) - EndTime))> 0.0001
         EndIndGRF=EndIndGRF+1;
@@ -31,6 +31,17 @@ function [iniIndMF, EndIndMF, iniIndGRF, EndIndGRF] = getIndicesLanding(inputind
         EndIndMF=EndIndMF+1;
     end
     
+    if task == 7
+        
+        %Find frame of off time in GRF data
+        OffIndGRF=indGRF(end);
+        
+        %Find frame of off time in MF data
+        [~,OffIndMF]=min(abs(OffTime-inputMF.(1)));
+    
+    end
+    
+        
 end
 
 	            

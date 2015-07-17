@@ -24,8 +24,7 @@ end
 
 AllCombined=[];
 
-for task=[5 6]
-%     1:length(myTable)
+for task=[7]  %CHANGE  %     1:length(myTable)
     trial=myTable(task, 2:4);
     
             if trial==0
@@ -52,80 +51,80 @@ for task=[5 6]
 
                 cd(DirTask);
 
-%                 FEArray=readtable('FE_Model_Inputs.xls');
-%                 IKArray=readtable('IKfinal.xls');
-%                 IDArray=readtable('IDfinal_BW.xls');
-%                 GRFArray=readtable('GRFfinal_BW.xls');
-%                 MFArray=readtable('MFfinal_BW.xls');
-%                 MFGroupArray=readtable('MF_BW_groups.xls');
-%                 MAArray=readtable('MAfinal.xls');
-%                 MuscleTorqueArray=readtable('MuscleTorque_BW.xls');
-%                 MuscleTorqueHipArray=readtable('MuscleTorqueHip_BW.xls');
-%                 MuscleTorqueAnkleArray=readtable('MuscleTorqueAnkle_BW.xls');
-                 MuscleTorqueKneeGroupArray=readtable('muscleTorqueGroupsKnee.xls');
-                 MuscleTorqueHipGroupArray=readtable('muscleTorqueGroupsHip.xls');
-                 MuscleTorqueAnkleGroupArray=readtable('muscleTorqueGroupsAnkle.xls');
-                  
-%                 FlexArray=readtable('three_flexion_angles.xls');
-%                 PowerArray=readtable('Power.xls');
-%                 WorkArray=readtable('Work.xls');
-%                 AngVelArray=readtable('AngVel.xls');
-%                 AngImpArray=readtable('AngImp.xls');
-%                                 
-%                 FlexAtPeakGRFArray=readtable('FlexAtPeakGRF.xls');
-%                 FlexAtICArray=readtable('FlexAtIC.xls');
-%                 PercentWorkArray=readtable('PercentJointWork.xls');
+                FEArray=readtable('FE_Model_Inputs.xls');
+                IKArray=readtable('IKfinal.xls');
+                IDArray=readtable('IDfinal_BW.xls');
+                GRFArray=readtable('GRFfinal_BW.xls');
+                MFArray=readtable('MFfinal_BW.xls');
+                MFGroupArray=readtable('MF_BW_groups.xls');
+                MAArray=readtable('MAfinal.xls');
+                MuscleTorqueArray=readtable('MuscleTorque_BW.xls');
+                MuscleTorqueHipArray=readtable('MuscleTorqueHip_BW.xls');
+                MuscleTorqueAnkleArray=readtable('MuscleTorqueAnkle_BW.xls');
+                AllRMSTorquesArray=readtable('AllRMSTorques.xls');
+                MuscleTorqueKneeGroupArray=readtable('muscleTorqueGroupsKnee.xls');
+                MuscleTorqueHipGroupArray=readtable('muscleTorqueGroupsHip.xls');
+                MuscleTorqueAnkleGroupArray=readtable('muscleTorqueGroupsAnkle.xls');
+                
+                FlexArray=readtable('three_flexion_angles.xls');
+                PowerArray=readtable('Power.xls');
+                WorkArray=readtable('Work.xls');
+                AngVelArray=readtable('AngVel.xls');
+                AngImpArray=readtable('AngImp.xls');
+                
+                FlexAtPeakGRFArray=readtable('FlexAtPeakGRF.xls');
+                FlexAtICArray=readtable('FlexAtIC.xls');
+                PercentWorkArray=readtable('PercentJointWork.xls');
                 
                 %also for maximums
-%                 MaxIKArray=readtable('maxIK_mag_time.xls');
-%                 MaxIDArray=readtable('maxID_BW_mag_time.xls');
-%                 MaxGRFArray=readtable('maxGRF_BW_mag_time.xls');
-%                 MaxMFArray=readtable('maxMF_BW_mag_time.xls');
-%                 MaxMFGroupArray=readtable('maxMF_BW_groups_mag_time.xls');
-%                 MaxPowerArray=readtable('maxPower_mag_time.xls');
-%                 MaxAngVelArray=readtable('maxAngVel_mag_time.xls');
-                 MaxMuscleTorqueKneeGroupArray=readtable('maxMuscleTorqueKnee_mag_time.xls');
-                 MaxMuscleTorqueHipGroupArray=readtable('maxMuscleTorqueHip_mag_time.xls');
-                 MaxMuscleTorqueAnkleGroupArray=readtable('maxMuscleTorqueAnkle_mag_time.xls');
-%                 
-%                 
-% 
-%                 AllCombined=setfield(AllCombined,{i},'FlexAtPeakGRF', FlexAtPeakGRFArray);
-%                 AllCombined=setfield(AllCombined,{i},'FlexAtIC', FlexAtICArray);
-%                 AllCombined=setfield(AllCombined,{i},'FE', FEArray);
-%                 AllCombined=setfield(AllCombined,{i},'IK', IKArray);
-%                 AllCombined=setfield(AllCombined,{i},'ID_BW', IDArray);
-%                 AllCombined=setfield(AllCombined,{i},'GRF_BW', GRFArray);
-%                 AllCombined=setfield(AllCombined,{i},'MF_BW', MFArray);
-%                 AllCombined=setfield(AllCombined,{i},'MFGroup', MFGroupArray);
-%                 AllCombined=setfield(AllCombined,{i},'MA', MAArray);
-%                 AllCombined=setfield(AllCombined,{i},'MuscleTorque', MuscleTorqueArray);
-%                  AllCombined=setfield(AllCombined,{i},'MuscleTorqueHip', MuscleTorqueHipArray);
-%                  AllCombined=setfield(AllCombined,{i},'MuscleTorqueAnkle', MuscleTorqueAnkleArray);
-%                     T=load('AllVariables.mat','AllRMSTorques');
-%                     AllCombined=setfield(AllCombined,{i},'AllRMSTorques',T.AllRMSTorques );
+                MaxIKArray=readtable('maxIK_mag_time.xls');
+                MaxIDArray=readtable('maxID_BW_mag_time.xls');
+                MaxGRFArray=readtable('maxGRF_BW_mag_time.xls');
+                MaxMFArray=readtable('maxMF_BW_mag_time.xls');
+                MaxMFGroupArray=readtable('maxMF_BW_groups_mag_time.xls');
+                MaxPowerArray=readtable('maxPower_mag_time.xls');
+                MaxAngVelArray=readtable('maxAngVel_mag_time.xls');
+                MaxMuscleTorqueKneeGroupArray=readtable('maxMuscleTorqueKnee_mag_time.xls');
+                MaxMuscleTorqueHipGroupArray=readtable('maxMuscleTorqueHip_mag_time.xls');
+                MaxMuscleTorqueAnkleGroupArray=readtable('maxMuscleTorqueAnkle_mag_time.xls');
+             
+                
+                AllCombined=setfield(AllCombined,{i},'FlexAtPeakGRF', FlexAtPeakGRFArray);
+                AllCombined=setfield(AllCombined,{i},'FlexAtIC', FlexAtICArray);
+                AllCombined=setfield(AllCombined,{i},'FE', FEArray);
+                AllCombined=setfield(AllCombined,{i},'IK', IKArray);
+                AllCombined=setfield(AllCombined,{i},'ID_BW', IDArray);
+                AllCombined=setfield(AllCombined,{i},'GRF_BW', GRFArray);
+                AllCombined=setfield(AllCombined,{i},'MF_BW', MFArray);
+                AllCombined=setfield(AllCombined,{i},'MFGroup', MFGroupArray);
+                AllCombined=setfield(AllCombined,{i},'MA', MAArray);
+                AllCombined=setfield(AllCombined,{i},'MuscleTorque', MuscleTorqueArray);
+                AllCombined=setfield(AllCombined,{i},'MuscleTorqueHip', MuscleTorqueHipArray);
+                AllCombined=setfield(AllCombined,{i},'MuscleTorqueAnkle', MuscleTorqueAnkleArray);
+%                 T=load('AllVariables.mat','AllRMSTorques');
+                AllCombined=setfield(AllCombined,{i},'AllRMSTorques',AllRMSTorquesArray);
                 AllCombined=setfield(AllCombined,{i},'MuscleTorqueGroupKnee', MuscleTorqueKneeGroupArray);
                 AllCombined=setfield(AllCombined,{i},'MuscleTorqueGroupHip', MuscleTorqueHipGroupArray);
                 AllCombined=setfield(AllCombined,{i},'MuscleTorqueGroupAnkle', MuscleTorqueAnkleGroupArray);
-
-
-
-%                 AllCombined=setfield(AllCombined,{i},'FLEX', FlexArray);
-%                 AllCombined=setfield(AllCombined,{i},'Power', PowerArray);
-%                 AllCombined=setfield(AllCombined,{i},'Work', WorkArray);
-%                 AllCombined=setfield(AllCombined,{i},'AngVel', AngVelArray);
-%                 AllCombined=setfield(AllCombined,{i},'AngImp', AngImpArray);
-%                 AllCombined=setfield(AllCombined,{i},'MaxIK', MaxIKArray);
-%                 AllCombined=setfield(AllCombined,{i},'MaxID', MaxIDArray);
-%                 AllCombined=setfield(AllCombined,{i},'MaxGRF', MaxGRFArray);
-%                 AllCombined=setfield(AllCombined,{i},'MaxMF', MaxMFArray);
-%                 AllCombined=setfield(AllCombined,{i},'MaxMFGroup',MaxMFGroupArray);
-%                 AllCombined=setfield(AllCombined,{i},'MaxPower', MaxPowerArray);
-%                 AllCombined=setfield(AllCombined,{i},'MaxAngVel', MaxAngVelArray);
+                
+                
+                
+                AllCombined=setfield(AllCombined,{i},'FLEX', FlexArray);
+                AllCombined=setfield(AllCombined,{i},'Power', PowerArray);
+                AllCombined=setfield(AllCombined,{i},'Work', WorkArray);
+                AllCombined=setfield(AllCombined,{i},'AngVel', AngVelArray);
+                AllCombined=setfield(AllCombined,{i},'AngImp', AngImpArray);
+                AllCombined=setfield(AllCombined,{i},'MaxIK', MaxIKArray);
+                AllCombined=setfield(AllCombined,{i},'MaxID', MaxIDArray);
+                AllCombined=setfield(AllCombined,{i},'MaxGRF', MaxGRFArray);
+                AllCombined=setfield(AllCombined,{i},'MaxMF', MaxMFArray);
+                AllCombined=setfield(AllCombined,{i},'MaxMFGroup',MaxMFGroupArray);
+                AllCombined=setfield(AllCombined,{i},'MaxPower', MaxPowerArray);
+                AllCombined=setfield(AllCombined,{i},'MaxAngVel', MaxAngVelArray);
                 AllCombined=setfield(AllCombined,{i},'MaxMuscleTorqueGroupKnee', MaxMuscleTorqueKneeGroupArray);
                 AllCombined=setfield(AllCombined,{i},'MaxMuscleTorqueGroupHip', MaxMuscleTorqueHipGroupArray);
                 AllCombined=setfield(AllCombined,{i},'MaxMuscleTorqueGroupAnkle', MaxMuscleTorqueAnkleGroupArray);
-%                 AllCombined=setfield(AllCombined,{i},'PercentJointWork', PercentWorkArray);
+                AllCombined=setfield(AllCombined,{i},'PercentJointWork', PercentWorkArray);
                 
             
 
@@ -136,10 +135,7 @@ for task=[5 6]
 
 
             cd ..\..\AVERAGES
-%             fieldNames = {'FlexAtPeakGRF', 'FlexAtIC', 'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'MFGroup', 'MA', 'MuscleTorque', 'MuscleTorqueHip', 'MuscleTorqueAnkle', 'AllRMSTorques', 'FLEX', 'Power', 'Work','AngVel','AngImp', 'MaxIK', 'MaxID','MaxGRF','MaxMF', 'MaxMFGroup', 'MaxPower', 'MaxAngVel', 'PercentJointWork'};
-%             fieldNames = {'AllRMSTorques'};
-%                 fieldNames = {'MuscleTorqueHip', 'MuscleTorqueAnkle'};
-            fieldNames = {'MuscleTorqueGroupKnee', 'MuscleTorqueGroupHip', 'MuscleTorqueGroupAnkle', 'MaxMuscleTorqueGroupKnee','MaxMuscleTorqueGroupHip','MaxMuscleTorqueGroupAnkle'};
+            fieldNames = {'FlexAtPeakGRF', 'FlexAtIC', 'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'MFGroup', 'MA', 'MuscleTorque', 'MuscleTorqueHip', 'MuscleTorqueAnkle', 'AllRMSTorques', 'MuscleTorqueGroupKnee', 'MuscleTorqueGroupHip', 'MuscleTorqueGroupAnkle','FLEX', 'Power', 'Work','AngVel','AngImp', 'MaxIK', 'MaxID','MaxGRF','MaxMF', 'MaxMFGroup', 'MaxPower', 'MaxAngVel', 'MaxMuscleTorqueGroupKnee','MaxMuscleTorqueGroupHip','MaxMuscleTorqueGroupAnkle', 'PercentJointWork'};
 
             for a=1:length(fieldNames)
         %         cd(DirTask);

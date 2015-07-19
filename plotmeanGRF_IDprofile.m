@@ -18,6 +18,8 @@ for task=tasks
             n=15;
         case 6
             n=14;
+        case 7
+            n=14;
     end
 
     

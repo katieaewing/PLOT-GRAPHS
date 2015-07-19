@@ -151,7 +151,8 @@ for task=tasks
    stance=linspace(0,100,200); 
     
 
-   subplot(2,2,i);
+%    subplot(2,2,i); for DL
+    subplot(1,2,1);
    area(stance, MeanID, 'EdgeColor',[1 1 1], 'FaceColor',[.93 .93 .93]);
    hold on;
    
@@ -164,8 +165,11 @@ for task=tasks
     axis(plotAxis);
 	title('Muscle contribution to net joint torque','fontsize',12);
     
-    i=i+2;
-     subplot(2,2,i);
+%     i=i+2; for DL
+%      subplot(2,2,i);
+
+ 
+    subplot(1,2,2);
    area(stance, MeanIDBrace, 'EdgeColor',[1 1 1], 'FaceColor',[.93 .93 .93]);
    hold on;
    plot(stance,toPlotBrace);
@@ -174,7 +178,7 @@ for task=tasks
     xlabel('Percent Landing Phase');
     ylabel('Torque (N-m/kg)');
     
-    i=i-1;
+%     i=i-1;
     
 end
 

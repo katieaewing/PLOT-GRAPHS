@@ -9,13 +9,13 @@ for task=tasks
     cd([DirSubAvg '\' task_label{task}]);
      
     AvgIKTemp=table2array(readtable(['SubAvg_' task_label{task} '_IK.xls']));
-    AvgIK=abs(AvgIKTemp(:,11));
+    AvgIK=abs(AvgIKTemp(:,8));
         
     DirSubAvgBrace='C:\MyOpenSim4\SUBJECT_AVERAGES_BRACE'; 
     cd([DirSubAvgBrace '\' task_label{task}]);
     
     AvgIKBraceTemp=table2array(readtable(['SubAvg_' task_label{task} '_Brace_IK.xls']));
-    AvgIKBrace=abs(AvgIKBraceTemp(:,11));
+    AvgIKBrace=abs(AvgIKBraceTemp(:,8));
   
   
 

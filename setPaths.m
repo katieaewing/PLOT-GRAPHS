@@ -38,21 +38,22 @@ switch brace
         cd(DirTask);
         IKpath=strcat(task_label{task},'_',int2str(trial),'_IK_',int2str(freq),'Hz','.mot');
         GRFpath=strcat(task_label{task},'_',int2str(trial),'_kinetics_',int2str(freq),'Hz','.mot');
-%         EMGpath=strcat(task_label{task},'_',int2str(trial),'_myEMG.mot');
+        EMGpath=strcat(task_label{task},'_',int2str(trial),'_myEMGFiltered2.mot');
         MFpath='BraceLandingStudy_StaticOptimization_force.sto';
         IDpath='inverse_dynamics.sto';
 %         AngVelpath='MU2392_genericArms_noWrap_Mod2-scaled_Kinematics_u.sto';
-       
+        MActvpath='BraceLandingStudy_StaticOptimization_activation.sto';
     case 2
         DirTask=[DirBrace '\' task_label{task} '_Brace_' int2str(trial)];
         cd(DirTask);
         IKpath=strcat(task_label{task},'_Brace_', int2str(trial),'_IK_',int2str(freq),'Hz','.mot');
         GRFpath=strcat(task_label{task},'_Brace_', int2str(trial),'_kinetics_',int2str(freq),'Hz','.mot');      
-%         EMGpath=strcat(task_label{task},'_Brace_',int2str(trial),'_myEMG.mot');
+        EMGpath=strcat(task_label{task},'_Brace_',int2str(trial),'_myEMG.mot');
         MFpath='BraceLandingStudy_StaticOptimization_force.sto';
         IDpath='inverse_dynamics.sto';
 %         AngVelpath='MU2392_genericArms_noWrap_Mod2-scaled_Kinematics_u.sto';
-        
+        MActvpath='BraceLandingStudy_StaticOptimization_activation.sto';
+
 end
 
 switch whichLeg

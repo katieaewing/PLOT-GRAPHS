@@ -11,7 +11,7 @@ function plotmeanGRF_IDprofile(tasks)
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 
-i=1;
+% i=1;
 for task=tasks
     switch task
         case 5
@@ -53,35 +53,40 @@ for task=tasks
     
     %calls function from Adrian and GS
     figure(1);
-    subplot(4,2,i);
+%     subplot(4,2,i);  for DL
+    subplot(4,1,1);
     AGF_mnsdplot(inMeanGRF',(inStdGRF./sqrt(n))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
-    ylim([0 3]);
+%     ylim([0 3]);
+    ylim([0 2]);
     ylabel('Vertical GRF (B.W.)');
     
-    i=i+2; %NOTE: FOR HIP, WE PLOT THE NEGATIVE TO ENSURE THAT POSITIVE IS EXTENSION MOMENT
-    subplot(4,2,i); 
+%     i=i+2; %NOTE: FOR HIP, WE PLOT THE NEGATIVE TO ENSURE THAT POSITIVE IS EXTENSION MOMENT
+    subplot(4,1,2); 
     AGF_mnsdplot(-inMeanID_hip',(-inStdID_hip./sqrt(n))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
-    ylim([-2 3]);
+%     ylim([-2 3]);
+    ylim([0 4]);
     ylabel('Moment (N-m/kg)');
     title('Hip');
     
-    i=i+2;
-    subplot(4,2,i);
+%     i=i+2;
+    subplot(4,1,3);
     AGF_mnsdplot(inMeanID_knee',(inStdID_knee./sqrt(n))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
-    ylim([-1 2]);
+%     ylim([-1 2]);
+    ylim([-1 3]);
 %     xlabel('Percent landing phase');
     ylabel('Moment (N-m/kg)');
     title('Knee');
     
-    i=i+2;
-    subplot(4,2,i);   %NOTE: FOR ANKLE, WE PLOT THE NEGATIVE TO ENSURE THAT POSITIVE IS PLANTARFLEXION MOMENT
+%     i=i+2;
+    subplot(4,1,4);   %NOTE: FOR ANKLE, WE PLOT THE NEGATIVE TO ENSURE THAT POSITIVE IS PLANTARFLEXION MOMENT
     AGF_mnsdplot(-inMeanID_ankle',(-inStdID_ankle./sqrt(n))','LineColor',[0.6 0.6 0.6; 0 0 0],'PatchColor',[0.6 0.6 0.6; 0 0 0], 'X',linspace(0,100,200));
-    ylim([0 2]);
+%     ylim([0 2]);
+    ylim([0 3])
     xlabel('Percent landing phase');
     ylabel('Moment (N-m/kg)');
     title('Ankle');
     
-    i=i-5;
+%     i=i-5;
      
     clear AvgGRF StdGRF AvgID StdID AvgGRFBrace StdGRFBrace AvgIDBrace StdIDBrace
     

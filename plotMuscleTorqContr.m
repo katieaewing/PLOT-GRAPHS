@@ -134,17 +134,20 @@ for task=tasks
 %             toPlotBrace=[GlutMedTorqBrace, GlutMinTorqBrace,GlutMaxTorqBrace,HamsTorqBrace, RFTorqBrace];
             plotLegend={'Total Joint Torque', 'ILPSO','GMAX', 'HAMS', 'RF'};
 %             plotLegend={'Total Joint Torque','GLUT MED', 'GLUT MIN', 'GLUT MAX', 'HAMS', 'RF'};
-             plotAxis=[0 100 -1 2.5];
+%              plotAxis=[0 100 -1 2.5];
+            plotAxis=[0 100 -0.5 3];
         case 'knee'
             toPlot=[HamsTorq, RFTorq, VasTorq,GasTorq];
             toPlotBrace=[HamsTorqBrace,RFTorqBrace, VasTorqBrace,GasTorqBrace];
             plotLegend={'Total Joint Torque','HAMS', 'RF','VAS','GAS'};
-            plotAxis=[0 100 -0.5 2];
+%             plotAxis=[0 100 -0.5 2];
+             plotAxis=[0 100 -1 2.5];
         case 'ankle'
             toPlot=[-GasTorq, -SolTorq,-TATorq];
             toPlotBrace=[-GasTorqBrace, -SolTorqBrace,-TATorqBrace];
             plotLegend={'Total Joint Torque','GAS','SOL', 'TA'};
-            plotAxis=[0 100 -0.5 2];
+%             plotAxis=[0 100 -0.5 2];
+            plotAxis=[0 100 0 3];
     end
     
     

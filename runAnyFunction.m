@@ -8,17 +8,17 @@
 
 %%
 
-for subjectID=[1:15]
+for subjectID=[1]
     
-    brace = 2; % Set brace or no brace condition
+    brace = 1; % Set brace or no brace condition
     freq=20;
     
     % Save the trial numbers used for each task
     [myTable] = setCond(brace, subjectID);
     
-    for task=[5 6] % or for all tasks, 1:length(myTable)
+    for task=6 % or for all tasks, 1:length(myTable)
         
-        for trial=myTable(task, 2:4)
+        for trial=2  %myTable(task, 2:4)
             
             % Set paths
             if trial==0 %if a trial does not exist, go on to next task
@@ -40,11 +40,11 @@ for subjectID=[1:15]
                 % [MuscleTorqueHip, MuscleTorqueHip_BW, MuscleTorqueAnkle, MuscleTorqueAnkle_BW] = getMuscleTorques(subjectID, MAfinalHip, MAfinalAnkle, MFfinal);
                 % [AllRMSTorques] = getRMStorques(task, MuscleTorque, MuscleTorqueHip, MuscleTorqueAnkle, IDfinal, whichLeg);
                 
-                [muscleTorqueGroupsKnee, muscleTorqueGroupsKnee_mag_time, muscleTorqueGroupsHip, muscleTorqueGroupsHip_mag_time, muscleTorqueGroupsAnkle, muscleTorqueGroupsAnkle_mag_time] ...
-                    = getMaxMuscleTorques(stance, task, whichLeg, MuscleTorque_BW, MuscleTorqueHip_BW, MuscleTorqueAnkle_BW);
-
-                save AllVariables.mat;
-                
+%                 [muscleTorqueGroupsKnee, muscleTorqueGroupsKnee_mag_time, muscleTorqueGroupsHip, muscleTorqueGroupsHip_mag_time, muscleTorqueGroupsAnkle, muscleTorqueGroupsAnkle_mag_time] ...
+%                     = getMaxMuscleTorques(stance, task, whichLeg, MuscleTorque_BW, MuscleTorqueHip_BW, MuscleTorqueAnkle_BW);
+                [outEMG, EMGfinal, EMGNormfinal, MActvFinal, MActvNormFinal, EMGTKEfinal,EMGTKENormfinal] =validateEMG(brace,task, trial, subjectID, indIniIK, indMaxIK, iniIndGRF, EndIndGRF, iniIndMF, EndIndMF, tableIK); 
+                 cd ..\TABLES
+                save AllVariables.mat
             end
             
         end

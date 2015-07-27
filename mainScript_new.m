@@ -22,8 +22,8 @@ clear all
 %number(s).
 
 %For testing ONE subject:
-brace=2;
-subjectID=9;
+brace=1;
+subjectID=3;
 freq=20;
 
 %% For testing all subjects, include FOR LOOP:

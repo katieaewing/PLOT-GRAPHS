@@ -36,11 +36,6 @@ switch whichLeg
         
         else
             
-        GMAX=MFfinal_BW.glut_max1_r + MFfinal_BW.glut_max2_r + MFfinal_BW.glut_max3_r;
-        GMED=MFfinal_BW.glut_med1_r + MFfinal_BW.glut_med2_r + MFfinal_BW.glut_med3_r;  
-        GMIN=MFfinal_BW.glut_min1_r + MFfinal_BW.glut_min2_r + MFfinal_BW.glut_min3_r;
-        ILSPO=MFfinal_BW.iliacus_r + MFfinal_BW.psoas_r;
-            
         HAMS_MED=MFfinal_BW.semimem_r + MFfinal_BW.semiten_r;
         HAMS_LAT=MFfinal_BW.bifemlh_r + MFfinal_BW.bifemsh_r;
         HAMS=MFfinal_BW.semimem_r + MFfinal_BW.semiten_r + MFfinal_BW.bifemlh_r + MFfinal_BW.bifemsh_r;
@@ -64,10 +59,6 @@ switch whichLeg
     case 'left'
         
         if task == 3 || task == 4
-        GMAX=MFfinal_BW.glut_max1_r + MFfinal_BW.glut_max2_r + MFfinal_BW.glut_max3_r;     
-        GMED=MFfinal_BW.glut_med1_r + MFfinal_BW.glut_med2_r + MFfinal_BW.glut_med3_r;  
-        GMIN=MFfinal_BW.glut_min1_r + MFfinal_BW.glut_min2_r + MFfinal_BW.glut_min3_r;
-        ILSPO=MFfinal_BW.iliacus_r + MFfinal_BW.psoas_r;
         
         HAMS_MED=MFfinal_BW.semimem_r + MFfinal_BW.semiten_r;
         HAMS_LAT=MFfinal_BW.bifemlh_r + MFfinal_BW.bifemsh_r;
@@ -90,7 +81,8 @@ switch whichLeg
         GMAX=MFfinal_BW.glut_max1_l + MFfinal_BW.glut_max2_l + MFfinal_BW.glut_max3_l;     
         GMED=MFfinal_BW.glut_med1_l + MFfinal_BW.glut_med2_l + MFfinal_BW.glut_med3_l;  
         GMIN=MFfinal_BW.glut_min1_l + MFfinal_BW.glut_min2_l + MFfinal_BW.glut_min3_l;
-        ILSPO=MFfinal_BW.iliacus_l + MFfinal_BW.psoas_l;         
+        ILSPO=MFfinal_BW.iliacus_l + MFfinal_BW.psoas_l;    
+            
             
         HAMS_MED=MFfinal_BW.semimem_l + MFfinal_BW.semiten_l;
         HAMS_LAT=MFfinal_BW.bifemlh_l + MFfinal_BW.bifemsh_l;
@@ -113,8 +105,8 @@ switch whichLeg
         
 end
 
-All=[GMAX, GMED, GMIN, ILSPO, HAMS_MED, HAMS_LAT, HAMS, REC_FEM, VAS_MED, VAS_INT, VAS_LAT, VAS, QUADS, GAS_MED, GAS_LAT, GAS, SOL];
-VarNames2={'GMAX','GMED', 'GMIN','ILSPO','HAMS_MED', 'HAMS_LAT' , 'HAMS', 'REC_FEM', 'VAS_MED', 'VAS_INT', 'VAS_LAT', 'VAS', 'QUADS', 'GAS_MED', 'GAS_LAT', 'GAS', 'SOL'};
+All=[HAMS_MED, HAMS_LAT, HAMS, REC_FEM, VAS_MED, VAS_INT, VAS_LAT, VAS, QUADS, GAS_MED, GAS_LAT, GAS, SOL];
+VarNames2={'HAMS_MED', 'HAMS_LAT' , 'HAMS', 'REC_FEM', 'VAS_MED', 'VAS_INT', 'VAS_LAT', 'VAS', 'QUADS', 'GAS_MED', 'GAS_LAT', 'GAS', 'SOL'};
 MF_BW_groups=array2table(All, 'VariableNames', VarNames2);
 
 writetable(MF_BW_groups,'MF_BW_groups.xls');

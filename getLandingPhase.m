@@ -69,7 +69,9 @@ end
         
         %Find frame of off time in IKdata
         [~,OffIndIK]=min(abs(OffTime-timeIK));
-        
+   else
+       OffTime=[];
+       OffIndIK=[];
     end
     
 end

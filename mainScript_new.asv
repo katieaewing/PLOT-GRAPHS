@@ -21,9 +21,9 @@ clear all
 %Input the brace condition (1: NO BRACE; 2: BRACE) and the subject ID
 %number(s).
 
-%For testing ONE subject:
+%% For testing ONE subject:
 brace=1;
-subjectID=3;
+subjectID=1;
 freq=20;
 
 %% For testing all subjects, include FOR LOOP:
@@ -130,8 +130,8 @@ plotGRFBar2(tasks)
 
 
 %% For just averaging the trials without running everything above
-for subjectID=[6:15]
-brace = 1;
+for subjectID=[1:15]
+brace =2;
 [myTable] = setCond(brace, subjectID);
 averageTrials(subjectID, brace, myTable);
 end

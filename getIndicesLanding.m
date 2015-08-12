@@ -38,7 +38,9 @@ function [iniIndMF, EndIndMF, iniIndGRF, EndIndGRF, OffIndGRF, OffIndMF] = getIn
         
         %Find frame of off time in MF data
         [~,OffIndMF]=min(abs(OffTime-inputMF.(1)));
-    
+    else
+        OffIndGRF=[];
+        OffIndMF=[];
     end
     
         

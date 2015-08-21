@@ -6,7 +6,7 @@
 subplot(1,2,1)
 Male=[13.50 14.230];
 Female=[15.520 19.100];
-MaleStd=
+% MaleStd=
 b=bar([Male;Female],'BarWidth',1);
 % legend('NO BRACE', 'BRACE', 'Location','northwest');
 % legend('boxoff');

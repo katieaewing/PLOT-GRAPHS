@@ -28,7 +28,7 @@ freq=20;
 
 %% For testing all subjects, include FOR LOOP:
 
-for subjectID=[6:15]
+for subjectID=[13:15]
 
 brace = 1; % Set brace or no brace condition
 freq=20;
@@ -36,7 +36,7 @@ freq=20;
 % Save the trial numbers used for each task    
 [myTable] = setCond(brace, subjectID);
 
-for task=[1] % CHANGE! or for all tasks, 1:length(myTable)
+for task=[4] % CHANGE! or for all tasks, 1:length(myTable)
     
     for trial=myTable(task, 2:4)
         

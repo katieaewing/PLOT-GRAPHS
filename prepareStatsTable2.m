@@ -23,12 +23,20 @@ function [statsTempMag, statsTempTime, fieldNames, AllSubjects] = prepareStatsTa
 
 task_label = {'SL30'; 'SL60'; 'SLND30'; 'SLND60'; 'DL30'; 'DL60'; 'SJ'};
 leg = {'right'; 'right'; 'right' ; 'right'; 'right'; 'left' ; 'right'  ; 'right' ; 'left' ; 'right' ; 'right'  ; 'right' ; 'right' ; 'right' ; 'right'};
+oppositeLeg= {'left'; 'left'; 'left' ; 'left'; 'left'; 'right' ; 'left'  ; 'left' ; 'right' ; 'left' ; 'left'  ; 'left' ; 'left' ; 'left' ; 'left'};
 
 AllSubjects=[]; %create empty array
        
    i=1;
    while i <=length(whichSubjects) 
-       whichLeg = char(leg(whichSubjects(i)));
+%        whichLeg = char(leg(whichSubjects(i)));
+       if task == 3 || task == 4
+           whichLeg = char(oppositeLeg(whichSubjects(i)));  %for non dominant task, legs are opposite.
+       else
+           whichLeg = char(leg(whichSubjects(i)));
+           
+       end
+    
        Dir=['C:\MyOpenSim4','\Subject_',int2str(whichSubjects(i))]; %change to subject directory
 
         switch brace %switch case depending on brace condition
@@ -44,7 +52,8 @@ AllSubjects=[]; %create empty array
 %                     DirSubAvg='C:\MyOpenSim4\SUBJECT_AVERAGES_BRACE'; 
 
         end
-
+        
+   
     cd(DirAvg);  
 
         %create file names of averaged trials (correspond to tables created

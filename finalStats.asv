@@ -87,7 +87,7 @@ end
 fieldNames = {'MaxGRF', 'MaxID', 'MaxIK', 'MaxMF', 'MaxMFGroup', 'MaxPower','MaxAngVel', 'MaxMuscleTorqueGroupHip', 'MaxMuscleTorqueGroupKnee', 'MaxMuscleTorqueGroupAnkle'};
 
 for a=1:length(fieldNames)
-    vars=AllSubjects(4).(char(fieldNames(a))).Properties.VariableNames; 
+    vars=AllSubjects(4).(char(fieldNames(a))).Properties.VariableNames;  %NOTE: MUST CHANGE THE AllSubjects(X) DEPENDING ON WHAT TASKS THE SUBJECT COMPLETED.
     statsTableTime.(char(fieldNames(a)))=array2table(statsTableTime.(char(fieldNames(a))), 'VariableNames',vars); 
 end
 

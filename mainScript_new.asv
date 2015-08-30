@@ -130,7 +130,7 @@ plotGRFBar2(tasks)
 
 
 %% For just averaging the trials without running everything above
-for subjectID=[3]
+for subjectID=[2]
 brace =1;
 [myTable] = setCond(brace, subjectID);
 averageTrials(subjectID, brace, myTable);

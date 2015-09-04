@@ -84,7 +84,6 @@ AllSubjects=[]; %create empty array
         %need to check if this task exists for this subject
         if exist(SubAvgROMFile)==2 %file does exist. FE can be generalized to all files.
                 %read in tables created from averageTrials
-                SubAvgROM=readtable(SubAvgROMFile);
 %                 SubAvgFlexAtIC=readtable(SubAvgFlexAtICFile);
 %                 SubAvgFlexAtPeakGRF=readtable(SubAvgFlexAtPeakGRFFile);
 %                 SubAvgFlex=readtable(SubAvgFlexFile);
@@ -238,7 +237,7 @@ fieldNames = {'ROM'};
 % 
     
     %create empty structures for the outputs
-    statsTempTime=[];
+%     statsTempTime=[];
 %     statsTempTime=setfield(statsTempTime,{1}, 'MaxGRF', []);
 %     statsTempTime=setfield(statsTempTime,{1}, 'MaxID', []);
 %     statsTempTime=setfield(statsTempTime,{1}, 'MaxIK', []);
@@ -253,24 +252,23 @@ fieldNames = {'ROM'};
 
 
     statsTempMag=[]; %has additional fields
-    statsTempMag=setfield(statsTempMag,{1}, 'ROM', []);
-%     statsTempMag=setfield(statsTempMag,{1}, 'FlexAtIC', []); 
-%     statsTempMag=setfield(statsTempMag,{1}, 'FlexAtPeakGRF', []); 
-%     statsTempMag=setfield(statsTempMag,{1}, 'FLEX', []); 
-%     statsTempMag=setfield(statsTempMag,{1}, 'Work', []); 
-%     statsTempMag=setfield(statsTempMag,{1}, 'AngImp', []);
-%     statsTempMag=setfield(statsTempMag,{1}, 'PercentJointWork',[]);
-%     statsTempMag=setfield(statsTempMag,{1}, 'MaxGRF', []);
-%     statsTempMag=setfield(statsTempMag,{1}, 'MaxID', []);
-%     statsTempMag=setfield(statsTempMag,{1}, 'MaxIK', []);
-%     statsTempMag=setfield(statsTempMag,{1}, 'MaxMF', []);
-%     statsTempMag=setfield(statsTempMag,{1}, 'MaxMFGroup', []);
-%     
-%     statsTempMag=setfield(statsTempMag,{1}, 'MaxPower', []);
-%     statsTempMag=setfield(statsTempMag,{1}, 'MaxAngVel', []);
-%     statsTempMag=setfield(statsTempMag,{1}, 'MaxMuscleTorqueGroupHip', []); 
-%     statsTempMag=setfield(statsTempMag,{1}, 'MaxMuscleTorqueGroupKnee', []); 
-%     statsTempMag=setfield(statsTempMag,{1}, 'MaxMuscleTorqueGroupAnkle', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'FlexAtIC', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'FlexAtPeakGRF', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'FLEX', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'Work', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'AngImp', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'PercentJointWork',[]);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxGRF', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxID', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxIK', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxMF', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxMFGroup', []);
+    
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxPower', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxAngVel', []);
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxMuscleTorqueGroupHip', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxMuscleTorqueGroupKnee', []); 
+    statsTempMag=setfield(statsTempMag,{1}, 'MaxMuscleTorqueGroupAnkle', []); 
 
 
                 

@@ -126,8 +126,14 @@ for task=[5:6]  %CHANGE  %     1:length(myTable)
 %                 AllCombined=setfield(AllCombined,{i},'MaxMuscleTorqueGroupAnkle', MaxMuscleTorqueAnkleGroupArray);
 %                 AllCombined=setfield(AllCombined,{i},'PercentJointWork', PercentWorkArray);
 %                 
-                R=load('AllVariables.mat','ROM');
-                AllCombined=setfield(AllCombined,{i},'ROM',R.ROM); 
+                T=load('AllVariables.mat','ROM');
+                
+                AllCombined=setfield(AllCombined,{i},'ROM',T.ROM);
+                    
+                  E=load('AllVariables.mat','EndTime');
+                  
+                  T.ROM(4)=390
+                  AllCombined=setfield(AllCombined,{i},'EndTime',array2table(E.EndTime,'VariableNames','EndTime')); 
 
                     end  %if trial(i) == 0  statement
 
@@ -137,8 +143,8 @@ for task=[5:6]  %CHANGE  %     1:length(myTable)
 
             cd ..\..\AVERAGES
 %             fieldNames = {'FlexAtPeakGRF', 'FlexAtIC', 'FE', 'IK', 'ID_BW', 'GRF_BW', 'MF_BW', 'MFGroup', 'MA', 'MuscleTorque', 'MuscleTorqueHip', 'MuscleTorqueAnkle', 'AllRMSTorques', 'MuscleTorqueGroupKnee', 'MuscleTorqueGroupHip', 'MuscleTorqueGroupAnkle','FLEX', 'Power', 'Work','AngVel','AngImp', 'MaxIK', 'MaxID','MaxGRF','MaxMF', 'MaxMFGroup', 'MaxPower', 'MaxAngVel', 'MaxMuscleTorqueGroupKnee','MaxMuscleTorqueGroupHip','MaxMuscleTorqueGroupAnkle', 'PercentJointWork'};
-            fieldNames={'ROM'};
-
+%             fieldNames={'ROM'};
+            fieldNames={'EndTime'};
             
             for a=1:length(fieldNames)
         %         cd(DirTask);

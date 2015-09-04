@@ -45,9 +45,10 @@ for subjectID=[1:15]
 %                 [outEMG, EMGfinal, EMGNormfinal, MActvFinal, MActvNormFinal, EMGTKEfinal,EMGTKENormfinal] =validateEMG(brace,task, trial, subjectID, indIniIK, indMaxIK, iniIndGRF, EndIndGRF, iniIndMF, EndIndMF, tableIK); 
 %                  cd ..\TABLES
 
-                [ROM] = getROM(FlexAtIC, IKfinal_max2, KneeJoint, EndTime, IniTime);
+                [ROM] = getROM(FlexAtIC, IKfinal_max2, KneeJoint);
                 
-                save AllVariables.mat
+%                 save AllVariables.mat
+                save ROM.mat
             end
             
         end
